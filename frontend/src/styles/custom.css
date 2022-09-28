@@ -1,0 +1,83 @@
+.connect-bn-rt {
+    background-color: var(--red-color);
+    border: 1px solid var(--red-color);
+}
+
+.section1-rt {
+    margin-top: 100px;
+}
+.section2-rt {
+    margin-top: 100px;
+    background-color: var(--red-color);
+    position: relative;
+    margin-bottom: 0!important;
+}
+
+.toolbar-rt {
+    position: absolute;
+    margin-top: -100px;
+    width: 100%;
+}
+.toolbar-rt .filter-section {
+    border-radius: 0 0 30px 30px!important;
+}
+.toolbar-rt h3 {
+    text-transform: uppercase;
+}
+.bet-part-rt {
+    padding-top: 200px;
+}
+.text-black {
+    color: black;
+}
+.section3-rt {
+    padding-bottom: 200px;
+}
+.section4-rt {
+    background-color: var(--body-color);
+    position: relative;
+    overflow-x: initial!important;
+}
+.section4-rt .main-content {
+    background-color: var(--hover-alt-color);
+    padding: 50px!important;
+    top: -200px;
+}
+.counter-section {
+    top: -100px;
+}
+.counter-element-container-rt .number {
+    background-color: #05A827;
+    color: white;
+    font-weight: 800;
+    font-size: 1.5rem;
+    border-radius: 3px;
+    padding: 5px;
+}
+.counter-element-container-rt .unit {
+    color: var(--white-color);
+    text-transform: uppercase;
+    font-size: .7rem;
+    line-height: 1;
+    padding-top: 7px;
+}
+.countdown {
+    border-radius: 0!important;
+    padding: 10px 0 0!important;
+    margin: 20px 0;
+}
+
+@media screen and (max-width: 992px) {
+    .bet-part-rt {
+        padding-top: 400px;
+    }
+    .h4-rt {
+        justify-content: center!important;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .bet-part-rt {
+        padding-top: 430px;
+    }
+}

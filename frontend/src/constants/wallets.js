@@ -1,8 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
-import { injected, walletconnect, defi } from "./connectors";
-import MetaMaskLogo from "../assets/images/wallets/metamask.png";
-import WalletConnectLogo from "../assets/images/wallets/wallet_connect.png";
-import DefiWalletLogo from '../assets/images/wallets/defi_wallet.png';
+import { injected, walletconnect } from "./connectors";
+import MetaMaskLogo from "../assets/images/wallets/meta-mask.svg";
+import WalletConnectLogo from "../assets/images/wallets/wallet-connect.svg";
 
 const Wallets = [
     {
@@ -17,12 +16,6 @@ const Wallets = [
         logo: WalletConnectLogo,
         connector: walletconnect,
     },
-    {
-        title: "Crypto.com DeFi Wallet",
-        description: 'Connect with the CDC Defi Wallet',
-        logo: DefiWalletLogo,
-        connector: defi,
-    }
 ];
 
 const ConnectedWallet = () => {
