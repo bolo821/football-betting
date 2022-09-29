@@ -53,20 +53,6 @@ $(function ($) {
       }
     });
 
-    // Modal active
-    $(".login").on("click", function () {
-      $("#loginArea").addClass("show").addClass("active");
-      $("#regArea").removeClass("show").removeClass("active");
-      $("#loginArea-tab").addClass("active");
-      $("#regArea-tab").removeClass("active");
-    });
-    $(".reg").on("click", function () {
-        $("#regArea").addClass("show").addClass("active");
-        $("#loginArea").removeClass("show").removeClass("active");
-        $("#loginArea-tab").removeClass("active");
-        $("#regArea-tab").addClass("active");
-    });
-
     // increase decrease value
     $('.minus, .plus').click(function() {
       var $input = $(".InDeVal1");

@@ -81,3 +81,18 @@
         padding-top: 430px;
     }
 }
+
+.cus-mar {
+    margin: -15px;
+}
+.cus-mar > div {
+    padding: 15px!important;
+}
+.betting-card-rt {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.betting-card-rt .bottom-item {
+    margin-top: auto;
+}
