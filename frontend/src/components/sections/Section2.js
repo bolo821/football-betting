@@ -3,37 +3,37 @@ import CounterElement from '../CounterElement';
 
 import { getTimeDifference } from '../../utils/helper';
 
-import ArgentinaImg from '../../assets/images/teams/Argentina.png';
-import AustraliaImg from '../../assets/images/teams/Australia.png';
-import BelgiumImg from '../../assets/images/teams/Belgium.png';
-import Brazilimg from '../../assets/images/teams/Brazil.png';
-import CameroonImg from '../../assets/images/teams/Cameroon.png';
-import CanadaImg from '../../assets/images/teams/Canada.png';
-import Costa_RicaImg from '../../assets/images/teams/Costa_Rica.png';
-import CroatiaImg from '../../assets/images/teams/Croatia.png';
-import DenmarkImg from '../../assets/images/teams/Denmark.png';
-import EnglandImg from '../../assets/images/teams/England.png';
-import EcuadorImg from '../../assets/images/teams/Ecuador.png';
-import FranceImg from '../../assets/images/teams/France.png';
-import GermanyImg from '../../assets/images/teams/Germany.png';
-import GhanaImg from '../../assets/images/teams/Ghana.png';
-import IranImg from '../../assets/images/teams/Iran.png';
-import JapanImg from '../../assets/images/teams/Japan.png';
-import MexicoImg from '../../assets/images/teams/Mexico.png';
-import MoroccoImg from '../../assets/images/teams/Morocco.png';
-import NetherlandsImg from '../../assets/images/teams/Netherlands.png';
-import PolandImg from '../../assets/images/teams/Poland.png';
-import PortugalImg from '../../assets/images/teams/Portugal.png';
-import QatarImg from '../../assets/images/teams/Qatar.png';
-import Saudi_ArabiaImg from '../../assets/images/teams/Saudi_Arabia.png';
-import SenegalImg from '../../assets/images/teams/Senegal.png';
-import SerbiaImg from '../../assets/images/teams/Serbia.png';
-import SpainImg from '../../assets/images/teams/Spain.png';
-import SwitzerlandImg from '../../assets/images/teams/Switzerland.png';
-import TunisiaImg from '../../assets/images/teams/Tunisia.png';
-import UruguayImg from '../../assets/images/teams/Uruguay.png';
-import USAImg from '../../assets/images/teams/USA.png';
-import WalesImg from '../../assets/images/teams/Wales.png';
+import ArgentinaImg from '../../assets/images/teams/ar.png';
+import AustraliaImg from '../../assets/images/teams/au.png';
+import BelgiumImg from '../../assets/images/teams/be.png';
+import Brazilimg from '../../assets/images/teams/br.png';
+import CameroonImg from '../../assets/images/teams/cm.png';
+import CanadaImg from '../../assets/images/teams/ca.png';
+import Costa_RicaImg from '../../assets/images/teams/cr.png';
+import CroatiaImg from '../../assets/images/teams/hr.png';
+import DenmarkImg from '../../assets/images/teams/dk.png';
+import EnglandImg from '../../assets/images/teams/gb-eng.png';
+import EcuadorImg from '../../assets/images/teams/ec.png';
+import FranceImg from '../../assets/images/teams/fr.png';
+import GermanyImg from '../../assets/images/teams/de.png';
+import GhanaImg from '../../assets/images/teams/gh.png';
+import IranImg from '../../assets/images/teams/ir.png';
+import JapanImg from '../../assets/images/teams/jp.png';
+import MexicoImg from '../../assets/images/teams/mx.png';
+import MoroccoImg from '../../assets/images/teams/ma.png';
+import NetherlandsImg from '../../assets/images/teams/nl.png';
+import PolandImg from '../../assets/images/teams/pl.png';
+import PortugalImg from '../../assets/images/teams/pt.png';
+import QatarImg from '../../assets/images/teams/qa.jpeg';
+import Saudi_ArabiaImg from '../../assets/images/teams/sa.png';
+import SenegalImg from '../../assets/images/teams/sn.png';
+import SerbiaImg from '../../assets/images/teams/rs.png';
+import SpainImg from '../../assets/images/teams/es.png';
+import SwitzerlandImg from '../../assets/images/teams/ch.png';
+import TunisiaImg from '../../assets/images/teams/tn.png';
+import UruguayImg from '../../assets/images/teams/uy.png';
+import USAImg from '../../assets/images/teams/us.png';
+import WalesImg from '../../assets/images/teams/gb-wls.png';
 
 const matchData = [
     { team1: 'Qatar', team1Logo: QatarImg, team2: 'Ecuador', team2Logo: EcuadorImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 20 2022, 16:00' },
@@ -138,33 +138,13 @@ const Section2 = () => {
                             </div>
                             <form action="#">
                                 <div className="row">
-                                    <div className="col-xl-3 col-lg-6">
+                                    <div className="col-lg-6">
                                         <div className="input-area">
                                             <img src="assets/images/icon/search-icon.png" alt="icon" />
                                             <input type="text" placeholder="Search by Team" />
                                         </div>
                                     </div>
-                                    <div className="col-xl-3 col-lg-6">
-                                        <div className="single-input">
-                                            <select>
-                                                <option>Search by Player</option>
-                                                <option value="2">Team 1</option>
-                                                <option value="3">Team 2</option>
-                                                <option value="4">Team 3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="col-xl-3 col-lg-6">
-                                        <div className="single-input">
-                                            <select>
-                                                <option>Search by Games</option>
-                                                <option value="1">League 1</option>
-                                                <option value="2">League 2</option>
-                                                <option value="3">League 3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="col-xl-3 col-lg-6">
+                                    <div className="col-lg-6">
                                         <div className="input-area">
                                             <img src="assets/images/icon/date-icon.png" alt="icon" />
                                             <input type="text" id="dateSelect" placeholder="Select Date" />
@@ -188,9 +168,9 @@ const Section2 = () => {
                                         </div>
                                         <div className="main-content row">
                                             <div className="team-single col-lg-3 col-md-12">
-                                                <h4 className='d-flex justify-content-start'>{ele.team1}</h4>
-                                                <div className="img-area">
-                                                    <img src={ele.team1Logo} width="100%" alt="image" />
+                                                <h4 className='d-flex justify-content-start country-name-rt'>{ele.team1}</h4>
+                                                <div className="img-area flag-container-rt">
+                                                    <img src={ele.team1Logo} width="100%" height="100%" alt="image" />
                                                 </div>
                                             </div>
                                             <div className="mid-area text-center col-lg-6 col-md-12">
@@ -202,9 +182,9 @@ const Section2 = () => {
                                                 </div>
                                             </div>
                                             <div className="team-single col-lg-3 col-md-12">
-                                                <h4 className="d-flex justify-content-end h4-rt">{ele.team2}</h4>
-                                                <div className="img-area">
-                                                    <img src={ele.team2Logo} width="100%" alt="image" />
+                                                <h4 className="d-flex justify-content-end h4-rt country-name-rt">{ele.team2}</h4>
+                                                <div className="img-area flag-container-rt">
+                                                    <img src={ele.team2Logo} width="100%" height="100%" alt="image" />
                                                 </div>
                                             </div>
                                         </div>
