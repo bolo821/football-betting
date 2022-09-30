@@ -7,6 +7,7 @@
 
 # production
 /build
+/assets/images/teams
 
 # misc
 .DS_Store
