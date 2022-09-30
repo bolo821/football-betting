@@ -7,7 +7,9 @@
 
 # production
 /build
-/assets/images/teams
+/src/assets/images/teams
+
+/src/components/sections/matchData.js
 
 # misc
 .DS_Store
