@@ -46,7 +46,7 @@ export const matchData = [
     { team1: 'Belgium', team1Logo: BelgiumImg, team2: 'Canada', team2Logo: CanadaImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 23 2022, 19:00' },
     { team1: 'Switzerland', team1Logo: SwitzerlandImg, team2: 'Cameroon', team2Logo: CameroonImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 24 2022, 10:00' },
     { team1: 'Brazil', team1Logo: Brazilimg, team2: 'Serbia', team2Logo: SerbiaImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 24 2022, 19:00' },
-    { team1: 'Uruguay', team1Logo: UruguayImg, team2: 'South Korea', team2Logo: KrImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 24 2022, 13:00' },
+    { team1: 'Uruguay', team1Logo: UruguayImg, team2: 'China', team2Logo: KrImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 24 2022, 13:00' },
     { team1: 'Portugal', team1Logo: PortugalImg, team2: 'Ghana', team2Logo: GhanaImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 24 2022, 16:00' },
     
     { team1: 'Qatar', team1Logo: QatarImg, team2: 'Senegal', team2Logo: SenegalImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 25 2022, 13:00' },
@@ -63,7 +63,7 @@ export const matchData = [
     { team1: 'Belgium', team1Logo: BelgiumImg, team2: 'Morocco', team2Logo: MoroccoImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 27 2022, 13:00' },
     { team1: 'Cameroon', team1Logo: CameroonImg, team2: 'Serbia', team2Logo: SerbiaImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 28 2022, 10:00' },
     { team1: 'Brazil', team1Logo: Brazilimg, team2: 'Switzerland', team2Logo: SwitzerlandImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 28 2022, 16:00' },
-    { team1: 'South Korea', team1Logo: KrImg, team2: 'Ghana', team2Logo: GhanaImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 28 2022, 13:00' },
+    { team1: 'China', team1Logo: KrImg, team2: 'Ghana', team2Logo: GhanaImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 28 2022, 13:00' },
     { team1: 'Portugal', team1Logo: PortugalImg, team2: 'Uruguay', team2Logo: UruguayImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 28 2022, 19:00' },
 
     { team1: 'Ecuador', team1Logo: EcuadorImg, team2: 'Senegal', team2Logo: SenegalImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Nov 29 2022, 15:00' },
@@ -80,6 +80,6 @@ export const matchData = [
     { team1: 'Canada', team1Logo: CanadaImg, team2: 'Morocco', team2Logo: MoroccoImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Dec 1 2022, 15:00' },
     { team1: 'Serbia', team1Logo: SerbiaImg, team2: 'Switzerland', team2Logo: SwitzerlandImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Dec 2 2022, 22:00' },
     { team1: 'Cameroon', team1Logo: CameroonImg, team2: 'Brazil', team2Logo: Brazilimg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Dec 2 2022, 19:00' },
-    { team1: 'South Korea', team1Logo: KrImg, team2: 'Portugal', team2Logo: PortugalImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Dec 2 2022, 15:00' },
+    { team1: 'China', team1Logo: KrImg, team2: 'Portugal', team2Logo: PortugalImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Dec 2 2022, 15:00' },
     { team1: 'Ghana', team1Logo: GhanaImg, team2: 'Uruguay', team2Logo: UruguayImg, days: '54', hours: '20', mins: '30', secs: '40', time: 'Dec 2 2022, 15:00' },
 ];
