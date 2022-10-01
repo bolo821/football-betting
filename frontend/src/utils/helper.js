@@ -1,3 +1,5 @@
+import * as BigNumber from 'bignumber.js';
+
 export const getReducedAddressString = address => {
     let len = address.length;
     return `${address.substring(0, 5)}...${address.substring(len-3, len)}`;
@@ -26,4 +28,8 @@ export const getTimeDifference = (date1, date2) => {
         minute: getFormatedNumber(minCount),
         second: getFormatedNumber(secCount),
     }
+}
+
+export const calculateGasMargin = (value) => {
+	return BigNumber(value).multipliedBy(BigNumber(13)).dividedToIntegerBy(BigNumber(10));
 }

@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import user from './userReducer';
+import user from './user';
+import flow from './flow';
 
 export default combineReducers({
     user,
+    flow,
 });

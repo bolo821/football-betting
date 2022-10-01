@@ -1,14 +1,30 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { useWeb3React } from '@web3-react/core';
 import CounterElement from '../CounterElement';
+import BetModal from '../BetModal';
 
 import { getTimeDifference } from '../../utils/helper';
 import { matchData } from './matchData';
 
+import { bet } from '../../actions';
+import { useRouterContract } from '../../hooks/useContract';
+import { toast } from 'react-toastify';
+
 const Section2 = () => {
+    const dispatch = useDispatch();
+
     const [matches, setMatches] = useState(matchData);
     const [timer, setTimer] = useState(null);
     const [displayCount, setDisplayCount] = useState(6);
     const [displayMatches, setDisplayMatches] = useState([]);
+    const [betAmount, setBetAmount] = useState('');
+    const [modalOpen, setModalOpen] = useState(false);
+    const [currentMatch, setCurrentMatch] = useState(0);
+    const [choice, setChoice] = useState(0);
+
+    const routerContract = useRouterContract();
+    const { account } = useWeb3React();
 
     useEffect(() => {
         let timerId = setInterval(() => {
@@ -34,14 +50,28 @@ const Section2 = () => {
         }
     }, []);
 
-    const handleBrowseMore = useCallback(() => {
+    const handleBrowseMore = () => {
         if (displayCount > matches.length) return;
         setDisplayCount(displayCount + 6);
-    }, [matches, displayCount]);
+    }
 
     useEffect(() => {
         setDisplayMatches(matches.slice(0, displayCount));
     }, [matches]);
+
+    const openBetModal = (matchId, _choice) => {
+        setCurrentMatch(matchId);
+        setChoice(_choice);
+        setModalOpen(true);
+    }
+
+    const doBet = () => {
+        if (!account) {
+            toast.error('Please connect your wallet!');
+            return;
+        }
+        dispatch(bet(routerContract, account, currentMatch, betAmount, choice));
+    }
 
     return (
         <>
@@ -105,12 +135,9 @@ const Section2 = () => {
                                             </div>
                                         </div>
                                         <div className="bottom-item">
-                                            <button type="button" className="cmn-btn firstTeam" data-bs-toggle="modal"
-                                                data-bs-target="#betpop-up">{ele.team1} will win</button>
-                                            <button type="button" className="cmn-btn draw" data-bs-toggle="modal"
-                                                data-bs-target="#betpop-up">Draw</button>
-                                            <button type="button" className="cmn-btn lastTeam" data-bs-toggle="modal"
-                                                data-bs-target="#betpop-up">{ele.team2} will win</button>
+                                            <button className="cmn-btn firstTeam" onClick={() => openBetModal(ele.id, 0)}>{ele.team1} will win</button>
+                                            <button className="cmn-btn draw" onClick={() => openBetModal(ele.id, 1)}>Draw</button>
+                                            <button className="cmn-btn lastTeam" onClick={() => openBetModal(ele.id, 2)}>{ele.team2} will win</button>
                                         </div>
                                     </div>
                                 </div>
@@ -129,6 +156,7 @@ const Section2 = () => {
                         }
                     </div>
                 </div>
+                <BetModal isOpen={modalOpen} setIsOpen={setModalOpen} betAmount={betAmount} setBetAmount={setBetAmount} doBet={doBet} />
             </section>
         </>
     );

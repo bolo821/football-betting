@@ -130,3 +130,83 @@
         justify-content: center!important;
     }
 }
+
+.loading-mask-rt {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 1051;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+}
+
+.loading-mask-rt > div {
+    margin: auto;
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.loading-mask-rt > div > div {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 20px;
+}
+.loading-mask-rt > div h3 {
+    font-size: 24px;
+}
+
+.mymodal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+    border: none;
+    background: #382590;
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px;
+}
+
+.myoverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
+}
+
+.bet-modal-content-rt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.bet-modal-content-rt p {
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+.bet-modal-content-rt .bottom-item {
+    margin-top: 20px;
+}
