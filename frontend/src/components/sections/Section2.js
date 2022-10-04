@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useWeb3React } from '@web3-react/core';
+import { toast } from 'react-toastify';
 import CounterElement from '../CounterElement';
 import BetModal from '../BetModal';
 
 import { getTimeDifference } from '../../utils/helper';
 import { matchData } from './matchData';
-
-import { bet } from '../../actions';
+import { bet, getEarnings, claim } from '../../actions';
 import { useRouterContract } from '../../hooks/useContract';
-import { toast } from 'react-toastify';
 
 const Section2 = () => {
     const dispatch = useDispatch();
+
+    const earnings = useSelector(state => state.transaction.earnings);
 
     const [matches, setMatches] = useState(matchData);
     const [timer, setTimer] = useState(null);
@@ -59,6 +60,12 @@ const Section2 = () => {
         setDisplayMatches(matches.slice(0, displayCount));
     }, [matches]);
 
+    useEffect(() => {
+        if (account) {
+            dispatch(getEarnings(routerContract, account));
+        }
+    }, [account]);
+
     const openBetModal = (matchId, _choice) => {
         setCurrentMatch(matchId);
         setChoice(_choice);
@@ -70,7 +77,19 @@ const Section2 = () => {
             toast.error('Please connect your wallet!');
             return;
         }
-        dispatch(bet(routerContract, account, currentMatch, betAmount, choice));
+        dispatch(bet(routerContract, account, currentMatch, betAmount, choice, () => {
+            setBetAmount(0);
+            setModalOpen(false);
+        }));
+    }
+
+    const handleClaim = matchId => {
+        if (!account) {
+            toast.error('Please connect your wallet.');
+            return;
+        }
+
+        dispatch(claim(routerContract, account, matchId));
     }
 
     return (
@@ -134,10 +153,18 @@ const Section2 = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="bottom-item">
+                                        <div className="bottom-item" style={{paddingBottom: '0'}}>
                                             <button className="cmn-btn firstTeam" onClick={() => openBetModal(ele.id, 0)}>{ele.team1} will win</button>
                                             <button className="cmn-btn draw" onClick={() => openBetModal(ele.id, 1)}>Draw</button>
                                             <button className="cmn-btn lastTeam" onClick={() => openBetModal(ele.id, 2)}>{ele.team2} will win</button>
+                                        </div>
+                                        <div className="bottom-item" style={{border: 'none', paddingTop: '10px', paddingBottom: '0'}}>
+                                            <span onClick={() => openBetModal(ele.id, 0)}>{earnings[index] ? earnings[index].win : 0}</span>
+                                            <span onClick={() => openBetModal(ele.id, 0)}>{earnings[index] ? earnings[index].draw : 0}</span>
+                                            <span onClick={() => openBetModal(ele.id, 0)}>{earnings[index] ? earnings[index].lose : 0}</span>
+                                        </div>
+                                        <div className="d-flex justify-content-center w-100 py-4">
+                                            <button className="cmn-btn firstTeam" onClick={() => handleClaim(ele.id)}>Claim</button>
                                         </div>
                                     </div>
                                 </div>
