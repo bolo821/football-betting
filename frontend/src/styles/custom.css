@@ -94,7 +94,7 @@
     height: 100%;
 }
 .betting-card-rt .bottom-item {
-    margin-top: auto;
+    height: 100%;
 }
 
 
@@ -209,4 +209,7 @@
 }
 .bet-modal-content-rt .bottom-item {
     margin-top: 20px;
+}
+.winning-bet {
+    border: 2px solid red;
 }

@@ -7,13 +7,16 @@ import BetModal from '../BetModal';
 
 import { getTimeDifference } from '../../utils/helper';
 import { matchData } from './matchData';
-import { bet, getEarnings, claim } from '../../actions';
+import { bet, getEarnings, claim, getMultipliers, getBetStatus, getBetResult } from '../../actions';
 import { useRouterContract } from '../../hooks/useContract';
 
 const Section2 = () => {
     const dispatch = useDispatch();
 
     const earnings = useSelector(state => state.transaction.earnings);
+    const multipliers = useSelector(state => state.transaction.multipliers);
+    const betStatus = useSelector(state => state.transaction.betStatus);
+    const betResult = useSelector(state => state.transaction.betResult);
 
     const [matches, setMatches] = useState(matchData);
     const [timer, setTimer] = useState(null);
@@ -63,6 +66,9 @@ const Section2 = () => {
     useEffect(() => {
         if (account) {
             dispatch(getEarnings(routerContract, account));
+            dispatch(getMultipliers(routerContract));
+            dispatch(getBetStatus(routerContract));
+            dispatch(getBetResult(routerContract));
         }
     }, [account]);
 
@@ -153,19 +159,66 @@ const Section2 = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="bottom-item" style={{paddingBottom: '0'}}>
-                                            <button className="cmn-btn firstTeam" onClick={() => openBetModal(ele.id, 0)}>{ele.team1} will win</button>
-                                            <button className="cmn-btn draw" onClick={() => openBetModal(ele.id, 1)}>Draw</button>
-                                            <button className="cmn-btn lastTeam" onClick={() => openBetModal(ele.id, 2)}>{ele.team2} will win</button>
-                                        </div>
-                                        <div className="bottom-item" style={{border: 'none', paddingTop: '10px', paddingBottom: '0'}}>
-                                            <span onClick={() => openBetModal(ele.id, 0)}>{earnings[index] ? earnings[index].win : 0}</span>
-                                            <span onClick={() => openBetModal(ele.id, 0)}>{earnings[index] ? earnings[index].draw : 0}</span>
-                                            <span onClick={() => openBetModal(ele.id, 0)}>{earnings[index] ? earnings[index].lose : 0}</span>
-                                        </div>
-                                        <div className="d-flex justify-content-center w-100 py-4">
-                                            <button className="cmn-btn firstTeam" onClick={() => handleClaim(ele.id)}>Claim</button>
-                                        </div>
+
+                                        { account ?
+                                            <>
+                                                { betStatus[index] === 0 ?
+                                                    <>     
+                                                        <div className="bottom-item" style={account ? {paddingBottom: '0'} : {}}>
+                                                            <button className="cmn-btn firstTeam" onClick={() => openBetModal(ele.id, 0)}>{ele.team1} will win</button>
+                                                            <button className="cmn-btn draw" onClick={() => openBetModal(ele.id, 1)}>Draw</button>
+                                                            <button className="cmn-btn lastTeam" onClick={() => openBetModal(ele.id, 2)}>{ele.team2} will win</button>
+                                                        </div>                                       
+                                                        <div className="bottom-item" style={{border: 'none', paddingTop: '10px'}}>
+                                                            <span>
+                                                                {earnings[index] ? earnings[index].win : 0}
+                                                                {multipliers[index] ? `(x${multipliers[index].win})` : ''}
+                                                            </span>
+                                                            <span>
+                                                                {earnings[index] ? earnings[index].draw : 0}
+                                                                {multipliers[index] ? `(x${multipliers[index].draw})` : ''}
+                                                            </span>
+                                                            <span>
+                                                                {earnings[index] ? earnings[index].lose : 0}
+                                                                {multipliers[index] ? `(x${multipliers[index].lose})` : ''}
+                                                            </span>
+                                                        </div>
+                                                    </> :
+                                                 betStatus[index] === 2 ?
+                                                    <>  
+                                                        <div className="bottom-item d-flex justify-content-center w-100 pb-0">
+                                                            { betResult[index] === 0 ?
+                                                                <span>
+                                                                    {earnings[index] ? earnings[index].win : 0}
+                                                                    {multipliers[index] ? `(x${multipliers[index].win})` : ''}
+                                                                    ({ele.team1} Won!)
+                                                                </span> :
+                                                             betResult[index] === 1 ?
+                                                                <span>
+                                                                    {earnings[index] ? earnings[index].draw : 0}
+                                                                    {multipliers[index] ? `(x${multipliers[index].draw})` : ''}
+                                                                    (Drew!)
+                                                                </span> :
+                                                             betResult[index] === 2 ?
+                                                                <span>
+                                                                    {earnings[index] ? earnings[index].lose : 0}
+                                                                    {multipliers[index] ? `(x${multipliers[index].lose})` : ''}
+                                                                    ({ele.team2} Won!)
+                                                                </span> :
+                                                                <></>
+                                                            }
+                                                        </div>                                          
+                                                        <div className="d-flex justify-content-center w-100 py-4">
+                                                            <button className="cmn-btn firstTeam" onClick={() => handleClaim(ele.id)}>Claim</button>
+                                                        </div>
+                                                    </> :
+                                                    <div className="bottom-item d-flex justify-content-center w-100 py-4 text-white">
+                                                        The match is under review. You can't bet or claim for now.
+                                                    </div>
+                                                }
+                                            </> :
+                                            <></>
+                                        }
                                     </div>
                                 </div>
                             ))}

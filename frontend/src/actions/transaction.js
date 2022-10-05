@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import config from '../config';
 import Web3 from 'web3';
 import { calculateGasMargin } from '../utils/helper';
-import { SET_EARNINGS } from './';
+import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT } from './';
 
 export const web3 = new Web3(config.rpcUrl);
 
@@ -76,6 +76,56 @@ export const getEarnings = (contract, account) => async dispatch => {
         dispatch({
             type: SET_EARNINGS,
             payload: claimData,
+        });
+    }
+}
+
+export const getMultipliers = (contract) => async dispatch => {
+    const res = await contract.methods.getMultiplier().call().catch(async err => {
+        await dispatch(getMultipliers(contract, account));
+    });
+
+    if (res) {
+        let multiplierData = [];
+        for (let i=0; i<res.length; i+=3) {
+            multiplierData.push({
+                win: parseInt(res[i]) / 1000,
+                draw: parseInt(res[i+1]) / 1000,
+                lose: parseInt(res[i+2]) / 1000,
+            });
+        }
+
+        dispatch({
+            type: SET_MULTIPLIERS,
+            payload: multiplierData,
+        });
+    }
+}
+
+export const getBetStatus = (contract) => async dispatch => {
+    const res = await contract.methods.getBetStatus().call().catch(async err => {
+        await dispatch(getBetStatus(contract));
+    });
+
+    if (res) {
+        let statusData = res.map(ele => parseInt(ele));
+        dispatch({
+            type: SET_BET_STATUS,
+            payload: statusData,
+        });
+    }
+}
+
+export const getBetResult = (contract) => async dispatch => {
+    const res = await contract.methods.getBetResult().call().catch(async err => {
+        await dispatch(getBetResult(contract));
+    });
+
+    if (res) {
+        let resultData = res.map(ele => parseInt(ele));
+        dispatch({
+            type: SET_BET_RESULT,
+            payload: resultData,
         });
     }
 }

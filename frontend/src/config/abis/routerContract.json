@@ -302,6 +302,32 @@
 	},
 	{
 		"inputs": [],
+		"name": "getBetResult",
+		"outputs": [
+			{
+				"internalType": "enum IBettingPair.CHOICE[]",
+				"name": "",
+				"type": "uint8[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getBetStatus",
+		"outputs": [
+			{
+				"internalType": "enum IBettingPair.BETSTATUS[]",
+				"name": "",
+				"type": "uint8[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "getClaimAmount",
 		"outputs": [
 			{
@@ -334,6 +360,19 @@
 				"internalType": "uint8",
 				"name": "",
 				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getMultiplier",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
