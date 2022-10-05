@@ -5,7 +5,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 require('dotenv').config();
-require('./dbInit');
+// require('./dbInit');
 
 const app = express();
 app.use(bodyParser.json());
@@ -21,7 +21,7 @@ if (MODE === 'production') {
 	app.use(cors());
 }
 
-require('./router')(app)
+// require('./router')(app)
 
 process.on('uncaughtException', err => {});
 let PORT;
