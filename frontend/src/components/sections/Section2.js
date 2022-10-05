@@ -105,7 +105,7 @@ const Section2 = () => {
                     <div className="container">
                         <div className="filter-section">
                             <div className="section-text text-center">
-                                <h3>FIFA WorldCup 2022 Bets</h3>
+                                <h3>WCI BETS</h3>
                             </div>
                             <form action="#">
                                 <div className="row">
