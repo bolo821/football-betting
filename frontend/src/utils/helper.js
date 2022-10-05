@@ -37,3 +37,20 @@ export const calculateGasMargin = (value) => {
 export const getRoundedNumber = float_num => {
     return Math.round(float_num * 1000) / 1000;
 }
+
+const get2DigitString = digit => {
+    if (digit < 10) return `0${digit}`;
+    else return digit;
+}
+
+export const getTimeString = time => {
+    let t = new Date(time);
+    let year = t.getFullYear();
+    let month = t.getMonth() + 1;
+    let date = t.getDate();
+    let hour = t.getHours();
+    let min = t.getMinutes();
+    let sec = t.getSeconds();
+
+    return `${year}-${get2DigitString(month)}-${get2DigitString(date)} ${get2DigitString(hour)}:${get2DigitString(min)}:${get2DigitString(sec)}`;
+}

@@ -9,6 +9,7 @@ import { getTimeDifference, getRoundedNumber } from '../../utils/helper';
 import { matchData } from './matchData';
 import { bet, getEarnings, claim, getMultipliers, getBetStatus, getBetResult } from '../../actions';
 import { useRouterContract } from '../../hooks/useContract';
+import { getTimeString } from '../../utils/helper';
 
 const Section2 = () => {
     const dispatch = useDispatch();
@@ -135,7 +136,7 @@ const Section2 = () => {
                                     <div className="single-area betting-card-rt">
                                         <div className="head-area d-flex align-items-center">
                                             <span className="mdr cmn-btn">Pick Winner</span>
-                                            <p>{ele.time}</p>
+                                            <p>{getTimeString(ele.time)}</p>
                                         </div>
                                         <div className="main-content row">
                                             <div className="team-single col-lg-3 col-md-12">
