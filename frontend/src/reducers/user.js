@@ -3,7 +3,7 @@ import {
 } from '../actions';
   
 const defaultState = {
-	wallet: '',
+	wallet: null,
 }
 
 const user = (state = defaultState, action) => {

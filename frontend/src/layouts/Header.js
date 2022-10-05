@@ -16,7 +16,7 @@ const Header = () => {
                         className="cmn-btn reg connect-bn-rt"
                         onClick={() => setOpenModal(true)}
                     >
-                        {wallet === '' ? 'CONNECT' : getReducedAddressString(wallet)}
+                        {!wallet ? 'CONNECT' : getReducedAddressString(wallet)}
                     </button>
                 </div>
             </div>

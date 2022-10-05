@@ -33,3 +33,7 @@ export const getTimeDifference = (date1, date2) => {
 export const calculateGasMargin = (value) => {
 	return BigNumber(value).multipliedBy(BigNumber(13)).dividedToIntegerBy(BigNumber(10));
 }
+
+export const getRoundedNumber = float_num => {
+    return Math.round(float_num * 1000) / 1000;
+}

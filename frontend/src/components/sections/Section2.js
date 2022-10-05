@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import CounterElement from '../CounterElement';
 import BetModal from '../BetModal';
 
-import { getTimeDifference } from '../../utils/helper';
+import { getTimeDifference, getRoundedNumber } from '../../utils/helper';
 import { matchData } from './matchData';
 import { bet, getEarnings, claim, getMultipliers, getBetStatus, getBetResult } from '../../actions';
 import { useRouterContract } from '../../hooks/useContract';
@@ -171,15 +171,15 @@ const Section2 = () => {
                                                         </div>                                       
                                                         <div className="bottom-item" style={{border: 'none', paddingTop: '10px'}}>
                                                             <span>
-                                                                {earnings[index] ? earnings[index].win : 0}
+                                                                {earnings[index] ? getRoundedNumber(earnings[index].win) : 0}
                                                                 {multipliers[index] ? `(x${multipliers[index].win})` : ''}
                                                             </span>
                                                             <span>
-                                                                {earnings[index] ? earnings[index].draw : 0}
+                                                                {earnings[index] ? getRoundedNumber(earnings[index].draw) : 0}
                                                                 {multipliers[index] ? `(x${multipliers[index].draw})` : ''}
                                                             </span>
                                                             <span>
-                                                                {earnings[index] ? earnings[index].lose : 0}
+                                                                {earnings[index] ? getRoundedNumber(earnings[index].lose) : 0}
                                                                 {multipliers[index] ? `(x${multipliers[index].lose})` : ''}
                                                             </span>
                                                         </div>

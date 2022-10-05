@@ -4,6 +4,7 @@ import config from '../config';
 import Web3 from 'web3';
 import { calculateGasMargin } from '../utils/helper';
 import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT } from './';
+import { SOCKET } from '../config/api';
 
 export const web3 = new Web3(config.rpcUrl);
 
@@ -22,6 +23,7 @@ export const bet = (contract, account, matchId, amount, choice, callback) => asy
     
         if (res) {
             toast.success('Success!!!');
+            SOCKET.emit('BET');
         }
     } catch (err) {
         if (err.message.includes('You can not bet at this time.')) {
@@ -82,7 +84,7 @@ export const getEarnings = (contract, account) => async dispatch => {
 
 export const getMultipliers = (contract) => async dispatch => {
     const res = await contract.methods.getMultiplier().call().catch(async err => {
-        await dispatch(getMultipliers(contract, account));
+        await dispatch(getMultipliers(contract));
     });
 
     if (res) {
