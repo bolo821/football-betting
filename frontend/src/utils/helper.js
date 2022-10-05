@@ -14,6 +14,15 @@ export const getTimeDifference = (date1, date2) => {
     let diff = new Date(date2).getTime() - new Date(date1).getTime();
     diff = parseInt(diff / 1000);
 
+    if (diff <= 0) {
+        return {
+            day: '00',
+            hour: '00',
+            minute: '00',
+            second: '00',
+        }
+    }
+
     let dayCount = parseInt(diff / (24 * 60 * 60));
     diff -= 24 * 60 * 60 * dayCount;
     let hourCount = parseInt(diff / (60 * 60));
@@ -38,11 +47,6 @@ export const getRoundedNumber = float_num => {
     return Math.round(float_num * 1000) / 1000;
 }
 
-const get2DigitString = digit => {
-    if (digit < 10) return `0${digit}`;
-    else return digit;
-}
-
 export const getTimeString = time => {
     let t = new Date(time);
     let year = t.getFullYear();
@@ -52,5 +56,5 @@ export const getTimeString = time => {
     let min = t.getMinutes();
     let sec = t.getSeconds();
 
-    return `${year}-${get2DigitString(month)}-${get2DigitString(date)} ${get2DigitString(hour)}:${get2DigitString(min)}:${get2DigitString(sec)}`;
+    return `${year}-${getFormatedNumber(month)}-${getFormatedNumber(date)} ${getFormatedNumber(hour)}:${getFormatedNumber(min)}:${getFormatedNumber(sec)}`;
 }
