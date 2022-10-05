@@ -162,7 +162,7 @@ const Section2 = () => {
 
                                         { account ?
                                             <>
-                                                { betStatus[index] === 0 ?
+                                                { betStatus[ele.id] === 0 ?
                                                     <>     
                                                         <div className="bottom-item" style={account ? {paddingBottom: '0'} : {}}>
                                                             <button className="cmn-btn firstTeam" onClick={() => openBetModal(ele.id, 0)}>{ele.team1} will win</button>
@@ -171,46 +171,51 @@ const Section2 = () => {
                                                         </div>                                       
                                                         <div className="bottom-item" style={{border: 'none', paddingTop: '10px'}}>
                                                             <span>
-                                                                {earnings[index] ? getRoundedNumber(earnings[index].win) : 0}
-                                                                {multipliers[index] ? `(x${multipliers[index].win})` : ''}
+                                                                {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].win) : 0}
+                                                                {multipliers[ele.id] ? `(x${multipliers[ele.id].win})` : ''}
                                                             </span>
                                                             <span>
-                                                                {earnings[index] ? getRoundedNumber(earnings[index].draw) : 0}
-                                                                {multipliers[index] ? `(x${multipliers[index].draw})` : ''}
+                                                                {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].draw) : 0}
+                                                                {multipliers[ele.id] ? `(x${multipliers[ele.id].draw})` : ''}
                                                             </span>
                                                             <span>
-                                                                {earnings[index] ? getRoundedNumber(earnings[index].lose) : 0}
-                                                                {multipliers[index] ? `(x${multipliers[index].lose})` : ''}
+                                                                {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].lose) : 0}
+                                                                {multipliers[ele.id] ? `(x${multipliers[ele.id].lose})` : ''}
                                                             </span>
                                                         </div>
                                                     </> :
-                                                 betStatus[index] === 2 ?
+                                                 betStatus[ele.id] === 2 ?
                                                     <>  
                                                         <div className="bottom-item d-flex justify-content-center w-100 pb-0">
-                                                            { betResult[index] === 0 ?
+                                                            { betResult[ele.id] === 0 ?
                                                                 <span>
-                                                                    {earnings[index] ? earnings[index].win : 0}
-                                                                    {multipliers[index] ? `(x${multipliers[index].win})` : ''}
+                                                                    {earnings[ele.id] ? earnings[ele.id].win : 0}
+                                                                    {earnings[ele.id] && earnings[ele.id].win > 0 ? `(x${multipliers[ele.id].win})` : ''}
                                                                     ({ele.team1} Won!)
                                                                 </span> :
-                                                             betResult[index] === 1 ?
+                                                             betResult[ele.id] === 1 ?
                                                                 <span>
-                                                                    {earnings[index] ? earnings[index].draw : 0}
-                                                                    {multipliers[index] ? `(x${multipliers[index].draw})` : ''}
+                                                                    {earnings[ele.id] ? earnings[ele.id].draw : 0}
+                                                                    {earnings[ele.id] && earnings[ele.id].draw > 0 ? `(x${multipliers[ele.id].draw})` : ''}
                                                                     (Drew!)
                                                                 </span> :
-                                                             betResult[index] === 2 ?
+                                                             betResult[ele.id] === 2 ?
                                                                 <span>
-                                                                    {earnings[index] ? earnings[index].lose : 0}
-                                                                    {multipliers[index] ? `(x${multipliers[index].lose})` : ''}
+                                                                    {earnings[ele.id] ? earnings[ele.id].lose : 0}
+                                                                    {earnings[ele.id] && earnings[ele.id].lose > 0 ? `(x${multipliers[ele.id].lose})` : ''}
                                                                     ({ele.team2} Won!)
                                                                 </span> :
                                                                 <></>
                                                             }
-                                                        </div>                                          
-                                                        <div className="d-flex justify-content-center w-100 py-4">
-                                                            <button className="cmn-btn firstTeam" onClick={() => handleClaim(ele.id)}>Claim</button>
                                                         </div>
+                                                        {
+                                                            (betResult[ele.id] === 0 && earnings[ele.id] && parseFloat(earnings[ele.id].win) > 0 ||
+                                                            betResult[ele.id] === 1 && earnings[ele.id] && parseFloat(earnings[ele.id].draw) > 0 ||
+                                                            betResult[ele.id] === 2 && earnings[ele.id] && parseFloat(earnings[ele.id].lose) > 0) &&
+                                                            <div className="d-flex justify-content-center w-100 py-4">
+                                                                <button className="cmn-btn firstTeam" onClick={() => handleClaim(ele.id)}>Claim</button>
+                                                            </div>
+                                                        }                                       
                                                     </> :
                                                     <div className="bottom-item d-flex justify-content-center w-100 py-4 text-white">
                                                         The match is under review. You can't bet or claim for now.
