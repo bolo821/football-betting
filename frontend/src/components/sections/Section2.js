@@ -165,9 +165,9 @@ const Section2 = () => {
                                                 { betStatus[ele.id] === 0 ?
                                                     <>     
                                                         <div className="bottom-item" style={account ? {paddingBottom: '0'} : {}}>
-                                                            <button className="cmn-btn firstTeam" onClick={() => openBetModal(ele.id, 0)}>{ele.team1} will win</button>
-                                                            <button className="cmn-btn draw" onClick={() => openBetModal(ele.id, 1)}>Draw</button>
-                                                            <button className="cmn-btn lastTeam" onClick={() => openBetModal(ele.id, 2)}>{ele.team2} will win</button>
+                                                            <button className="cmn-btn firstTeam mx-1" onClick={() => openBetModal(ele.id, 0)}>{ele.team1} will win</button>
+                                                            <button className="cmn-btn draw mx-1" onClick={() => openBetModal(ele.id, 1)}>Draw</button>
+                                                            <button className="cmn-btn lastTeam mx-1" onClick={() => openBetModal(ele.id, 2)}>{ele.team2} will win</button>
                                                         </div>                                       
                                                         <div className="bottom-item" style={{border: 'none', paddingTop: '10px'}}>
                                                             <span>
