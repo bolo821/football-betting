@@ -20,7 +20,7 @@ const config = {
         symbol: "ETH",
         decimal: 18,
     },
-    routerContractAddress: '0xFDb9EeF1B3A320165A5D9A3ebc204c255299f982',
+    routerContractAddress: '0x647e01989EC8f3c590799CA07b80DdE26176F6CE',
     routerContractAbi,
 };
 
