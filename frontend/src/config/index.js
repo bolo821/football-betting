@@ -12,15 +12,15 @@ import routerContractAbi from './abis/routerContract.json';
 // };
 
 const config = {
-    netId: 3,
-    rpcUrl: "https://ropsten.infura.io/v3/",
-    blockExplorer: "https://ropsten.etherscan.io/",
+    netId: 5,
+    rpcUrl: "https://goerli.infura.io/v3/",
+    blockExplorer: "https://goerli.etherscan.io",
     nativeCoin: {
         name: "ETH",
         symbol: "ETH",
         decimal: 18,
     },
-    routerContractAddress: '0x647e01989EC8f3c590799CA07b80DdE26176F6CE',
+    routerContractAddress: '0x5008Ec34f236E03280A98b860BcEcDB9abb57a51',
     routerContractAbi,
 };
 
