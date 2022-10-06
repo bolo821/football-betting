@@ -6,14 +6,16 @@ import { calculateGasMargin } from '../utils/helper';
 import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT } from './';
 import { SOCKET } from '../config/api';
 
-export const web3 = new Web3(config.rpcUrl);
+export const web3 = new Web3(window.ethereum);
+const routerContract = new web3.eth.Contract(config.routerContractAbi, config.routerContractAddress);
+
 
 export const bet = (contract, account, matchId, amount, choice, callback) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Betting...' }));
 
     try {
-        const gasLimit = await contract.methods.bet(matchId, choice).estimateGas({ from: account, value: web3.utils.toWei(amount.toString(), 'ether') });
-        const res = await contract.methods.bet(matchId, choice)
+        const gasLimit = await routerContract.methods.bet(matchId, choice).estimateGas({ from: account, value: web3.utils.toWei(amount.toString(), 'ether') });
+        const res = await routerContract.methods.bet(matchId, choice)
         .send({ from: account, value: web3.utils.toWei(amount.toString(), 'ether'), gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in bet block: ', err);
@@ -61,8 +63,8 @@ export const claim = (contract, account, matchId) => async dispatch => {
 }
 
 export const getEarnings = (contract, account) => async dispatch => {
-    const res = await contract.methods.getClaimAmount().call({ from: account }).catch(async err => {
-        await dispatch(getEarnings(contract, account));
+    const res = await routerContract.methods.getClaimAmount().call({ from: account }).catch(async err => {
+        await dispatch(getEarnings(routerContract, account));
     });
 
     if (res) {
@@ -83,8 +85,8 @@ export const getEarnings = (contract, account) => async dispatch => {
 }
 
 export const getMultipliers = (contract) => async dispatch => {
-    const res = await contract.methods.getMultiplier().call().catch(async err => {
-        await dispatch(getMultipliers(contract));
+    const res = await routerContract.methods.getMultiplier().call().catch(async err => {
+        await dispatch(getMultipliers(routerContract));
     });
 
     if (res) {
@@ -105,8 +107,8 @@ export const getMultipliers = (contract) => async dispatch => {
 }
 
 export const getBetStatus = (contract) => async dispatch => {
-    const res = await contract.methods.getBetStatus().call().catch(async err => {
-        await dispatch(getBetStatus(contract));
+    const res = await routerContract.methods.getBetStatus().call().catch(async err => {
+        await dispatch(getBetStatus(routerContract));
     });
 
     if (res) {
@@ -119,8 +121,8 @@ export const getBetStatus = (contract) => async dispatch => {
 }
 
 export const getBetResult = (contract) => async dispatch => {
-    const res = await contract.methods.getBetResult().call().catch(async err => {
-        await dispatch(getBetResult(contract));
+    const res = await routerContract.methods.getBetResult().call().catch(async err => {
+        await dispatch(getBetResult(routerContract));
     });
 
     if (res) {
