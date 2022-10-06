@@ -36,7 +36,7 @@ const Leagues = () => {
         if (account) {
             dispatch(getEarnings(routerContract, account));
             // routerContract.methods.setBetResult(51, 1).send({ from: account });
-            // routerContract.methods.setBetStatus(51, 2).send({ from: account });
+            // routerContract.methods.setBetStatus(53, 1).send({ from: account });
             // routerContract.methods.createMany(4).send({ from: account });
             // routerContract.methods.getMatchId().call().then(res => {
             //     console.log('result: ', res);
@@ -82,11 +82,7 @@ const Leagues = () => {
 
     useEffect(() => {
         setWLive(wMatchData.filter(ele => {
-            if (betStatus[ele.id] === 0) return true;
-            return false;
-        }));
-        setWUpcoming(wMatchData.filter(ele => {
-            if (betStatus[ele.id] === 1) return true;
+            if (betStatus[ele.id] === 0 || betStatus[ele.id] === 1) return true;
             return false;
         }));
         setWCompleted(wMatchData.filter(ele => {
@@ -97,11 +93,7 @@ const Leagues = () => {
 
     useEffect(() => {
         setELive(eMatchData.filter(ele => {
-            if (betStatus[ele.id] === 0) return true;
-            return false;
-        }));
-        setEUpcoming(eMatchData.filter(ele => {
-            if (betStatus[ele.id] === 1) return true;
+            if (betStatus[ele.id] === 0 || betStatus[ele.id] === 1) return true;
             return false;
         }));
         setECompleted(eMatchData.filter(ele => {
