@@ -10,8 +10,6 @@ import { bet, claim } from '../../actions';
 import { useRouterContract } from '../../hooks/useContract';
 import { getTimeString } from '../../utils/helper';
 
-const matches = [];
-
 const Match = props => {
     const dispatch = useDispatch();
     const { data } = props;
@@ -32,7 +30,7 @@ const Match = props => {
     const { account } = useWeb3React();
 
     const handleBrowseMore = () => {
-        if (displayCount > matches.length) return;
+        if (displayCount > data.length) return;
         setDisplayCount(displayCount + 6);
     }
 
@@ -170,7 +168,7 @@ const Match = props => {
                                 </div>
                             ))}
                         </div>
-                        { displayCount < matches.length &&
+                        { displayCount < data.length &&
                             <div className="row">
                                 <div className="col-lg-12 d-flex justify-content-center">
                                     <div className="bottom-area mt-60">

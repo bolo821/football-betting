@@ -35,8 +35,8 @@ const Leagues = () => {
     useEffect(() => {
         if (account) {
             dispatch(getEarnings(routerContract, account));
-            // routerContract.methods.setBetResult(51, 1).send({ from: account });
-            // routerContract.methods.setBetStatus(53, 1).send({ from: account });
+            // routerContract.methods.setBetResult(54, 2).send({ from: account });
+            // routerContract.methods.setBetStatus(55, 2).send({ from: account });
             // routerContract.methods.createMany(4).send({ from: account });
             // routerContract.methods.getMatchId().call().then(res => {
             //     console.log('result: ', res);
