@@ -70,7 +70,7 @@
 
 @media screen and (max-width: 992px) {
     .bet-part-rt {
-        padding-top: 400px;
+        padding-top: 300px;
     }
     .h4-rt {
         justify-content: center!important;
@@ -79,7 +79,7 @@
 
 @media screen and (max-width: 410px) {
     .bet-part-rt {
-        padding-top: 430px;
+        padding-top: 300px;
     }
 }
 
