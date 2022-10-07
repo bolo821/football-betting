@@ -48,7 +48,7 @@ const LeaguesTabContent = props => {
                         </div>
                     </div>
                     
-                    <div className="bet-this-game">
+                    <div className="bet-this-game bet-this-game-rt">
                         <div className="tab-content">
                             <div className="tab-pane fade show active" id={`${id}-live-tab-content`} role="tabpanel" aria-labelledby={`${id}-live-tab`}>
                                 <Match data={matchData[0]} />

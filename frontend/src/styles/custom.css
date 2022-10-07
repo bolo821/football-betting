@@ -17,13 +17,17 @@
     width: 100%;
     position: absolute;
     margin-top: -100px;
-    z-index: 10;
+    z-index: 1000;
 }
 .toolbar-rt .filter-section {
     border-radius: 0 0 30px 30px!important;
 }
 .toolbar-rt h3 {
     text-transform: uppercase;
+}
+.bet-this-game-rt {
+    z-index: 1;
+    position: relative;
 }
 .bet-part-rt {
     padding-top: 200px;
@@ -111,6 +115,10 @@
     top: 50%;
     left: 0;
     transform: translateY(-50%);
+}
+.country-name-rt {
+    white-space: nowrap;
+    font-size: 24px;
 }
 
 @media screen and (max-width: 991px) {    
