@@ -130,7 +130,7 @@ const Leagues = () => {
                         hiddenBy="id-uefa-bets-nav-ietm"
                         show={true}
                         active={true}
-                        title="UEFA Bets"
+                        title="EPL BETS"
                         matchData={[eLive, eUpcoming, eCompleted]}
                     />
                     <LeaguesTabContent
