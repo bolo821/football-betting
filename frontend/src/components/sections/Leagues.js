@@ -9,6 +9,8 @@ import { getEarnings, getMultipliers, getBetResult, getBetStatus } from '../../a
 import { useRouterContract } from '../../hooks/useContract';
 import { getTimeDifference } from '../../utils/helper';
 
+var timer = null;
+
 const Leagues = () => {
     const dispatch = useDispatch();
     const betStatus = useSelector(state => state.transaction.betStatus);
@@ -24,7 +26,6 @@ const Leagues = () => {
     const [eLive, setELive] = useState([]);
     const [eUpcoming, setEUpcoming] = useState([]);
     const [eCompleted, setECompleted] = useState([]);
-    const [timer, setTimer] = useState(null);
 
     useEffect(() => {
         dispatch(getBetStatus(routerContract));
@@ -46,7 +47,7 @@ const Leagues = () => {
 
     useEffect(() => {
         let timerId = setInterval(() => {
-            let tmp = wMatchData.map(ele => {
+            let tmpW = wMatchData.map(ele => {
                 let diff = getTimeDifference(new Date(), ele.time);
                 return {
                     ...ele,
@@ -56,9 +57,8 @@ const Leagues = () => {
                     secs: diff.second,
                 }
             });
-            setWMatchData(tmp);
 
-            tmp = eMatchData.map(ele => {
+            let tmpE = eMatchData.map(ele => {
                 let diff = getTimeDifference(new Date(), ele.time);
                 return {
                     ...ele,
@@ -68,10 +68,13 @@ const Leagues = () => {
                     secs: diff.second,
                 }
             });
-            setEMatchData(tmp);
+            if (timer) {
+                setWMatchData(tmpW);
+                setEMatchData(tmpE);
+            }
         });
 
-        setTimer(timerId);
+        timer = timerId;
 
         return () => {
             if (timer) {
