@@ -49,11 +49,11 @@ const Match = props => {
             toast.error('Please connect your wallet!');
             return;
         }
-        if (betAmount < 0.1) {
-            toast.error('Minimum bet amount is 0.1 ether.');
+        if (betAmount < 0.01) {
+            toast.error('Minimum bet amount is 0.01 ether.');
             return;
         }
-        
+
         dispatch(bet(routerContract, account, currentMatch, betAmount, choice, () => {
             setBetAmount(0);
             setModalOpen(false);
