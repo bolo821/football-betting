@@ -9,17 +9,17 @@ export const setLoading = data => {
     }
 }
 
-export const onBet = (contract) => (dispatch, getState) => {
+export const onBet = () => (dispatch, getState) => {
     SOCKET.removeAllListeners("BET");
 
     SOCKET.on('BET', () => {
         let account = getState().user.wallet;
 
         if (account) {
-            dispatch(getEarnings(contract, account));
-            dispatch(getMultipliers(contract));
-            dispatch(getBetStatus(contract));
-            dispatch(getBetResult(contract));
+            dispatch(getEarnings(account));
+            dispatch(getMultipliers());
+            dispatch(getBetStatus());
+            dispatch(getBetResult());
         }
     });
 }

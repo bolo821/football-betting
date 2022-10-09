@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useWeb3React } from '@web3-react/core';
 
-import LeaguesTabContent from '../home/LeaguesTabContent';
+import LeaguesTabContentAdmin from '../admin/LeaguesTabContentAdmin';
 import TabItem from '../TabItem';
 import { worldcupMatchData, uefaMatchData } from './matchData';
 import { getEarnings, getMultipliers, getBetResult, getBetStatus } from '../../actions';
@@ -40,44 +40,6 @@ const Leagues = () => {
     }, [account]);
 
     useEffect(() => {
-        let timerId = setInterval(() => {
-            let tmpW = wMatchData.map(ele => {
-                let diff = getTimeDifference(new Date(), ele.time);
-                return {
-                    ...ele,
-                    days: diff.day,
-                    hours: diff.hour,
-                    mins: diff.minute,
-                    secs: diff.second,
-                }
-            });
-
-            let tmpE = eMatchData.map(ele => {
-                let diff = getTimeDifference(new Date(), ele.time);
-                return {
-                    ...ele,
-                    days: diff.day,
-                    hours: diff.hour,
-                    mins: diff.minute,
-                    secs: diff.second,
-                }
-            });
-            if (timer) {
-                setWMatchData(tmpW);
-                setEMatchData(tmpE);
-            }
-        });
-
-        timer = timerId;
-
-        return () => {
-            if (timer) {
-                clearInterval(timer);
-            }
-        }
-    }, []);
-
-    useEffect(() => {
         setWLive(wMatchData.filter(ele => {
             if (betStatus[ele.id] === 0 || betStatus[ele.id] === 1) return true;
             return false;
@@ -107,10 +69,10 @@ const Leagues = () => {
                         <div className="row">
                             <div className="col-xl-9 col-lg-12">
                                 <ul className="nav league-nav-rt" role="tablist">
-                                    <TabItem className="nav-link active" id="id-uefa-bets-nav-ietm" dataTarget="id-uefa-bets">
+                                    <TabItem className="nav-link active" id="id-uefa-bets-nav-item-admin" dataTarget="id-uefa-bets-admin">
                                         EPL BETS
                                     </TabItem>
-                                    <TabItem className="nav-link" id="id-worldcup-bets-nav-item" dataTarget="id-worldcup-bets">
+                                    <TabItem className="nav-link" id="id-worldcup-bets-nav-item-admin" dataTarget="id-worldcup-bets-admin">
                                         Worldcup Bets
                                     </TabItem>
                                 </ul>
@@ -119,17 +81,17 @@ const Leagues = () => {
                     </div>
                 </div>
                 <div className="tab-content">
-                    <LeaguesTabContent
-                        id="id-uefa-bets"
-                        hiddenBy="id-uefa-bets-nav-ietm"
+                    <LeaguesTabContentAdmin
+                        id="id-uefa-bets-admin"
+                        hiddenBy="id-uefa-bets-nav-item-admin"
                         show={true}
                         active={true}
                         title="EPL BETS"
                         matchData={[eLive, eUpcoming, eCompleted]}
                     />
-                    <LeaguesTabContent
-                        id="id-worldcup-bets"
-                        hiddenBy="id-worldcup-bets-nav-item"
+                    <LeaguesTabContentAdmin
+                        id="id-worldcup-bets-admin"
+                        hiddenBy="id-worldcup-bets-nav-item-admin"
                         show={false}
                         active={false}
                         title="Worldcup Bets"

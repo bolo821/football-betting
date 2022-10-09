@@ -2,6 +2,9 @@
     background-color: var(--red-color);
     border: 1px solid var(--red-color);
 }
+.set-bn-rt {
+    padding: 5px 10px;
+}
 
 .section1-rt {
     margin-top: 100px;
@@ -232,4 +235,33 @@
 .ReactModalPortal {
     z-index: 1000;
     position: relative;
+}
+.logo-rt {
+    cursor: pointer;
+}
+.nice-select {
+    border-radius: 5px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    height: 35px;
+}
+.nice-select .list {
+    width: 100%;
+    background: var(--body-color);
+    border: 1px solid #483f90;
+}
+.nice-select .list .focus {
+    background-color: transparent;
+    color: var(--head-color);
+}
+.nice-select .list .option {
+    background: transparent;
+    font-size: 16px;
+}
+.nice-select .option.selected.focus {
+    background: transparent;   
+}
+.table-responsive .table {
+    width: 100%!important;
 }

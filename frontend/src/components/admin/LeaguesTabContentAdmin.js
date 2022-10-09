@@ -1,8 +1,8 @@
 import React from 'react';
-import Match from './Match';
 import TabItem from '../TabItem';
+import MatchTable from './MatchTable';
 
-const LeaguesTabContent = props => {
+const LeaguesTabContentAdmin = props => {
     const { id, hiddenBy, show, active, title, matchData } = props;
 
     return (
@@ -35,13 +35,13 @@ const LeaguesTabContent = props => {
                     <div className="bet-this-game bet-this-game-rt">
                         <div className="tab-content">
                             <div className="tab-pane fade show active" id={`${id}-live-tab-content`} role="tabpanel" aria-labelledby={`${id}-live-tab`}>
-                                <Match data={matchData[0]} />
+                                <MatchTable data={matchData[0]} />
                             </div>
                             <div className="tab-pane fade" id={`${id}-upcoming-tab-content`} role="tabpanel" aria-labelledby={`${id}-live-tab`}>
-                                <Match data={matchData[1]} />
+                                <MatchTable data={matchData[1]} />
                             </div>
                             <div className="tab-pane fade" id={`${id}-completed-tab-content`} role="tabpanel" aria-labelledby={`${id}-upcoming-tab`}>
-                                <Match data={matchData[2]} />
+                                <MatchTable data={matchData[2]} type="completed" />
                             </div>
                         </div>
                     </div>
@@ -51,4 +51,4 @@ const LeaguesTabContent = props => {
     )
 }
 
-export default LeaguesTabContent;
+export default LeaguesTabContentAdmin;

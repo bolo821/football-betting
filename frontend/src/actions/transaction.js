@@ -10,7 +10,7 @@ export const web3 = new Web3(window.ethereum);
 const routerContract = new web3.eth.Contract(config.routerContractAbi, config.routerContractAddress);
 
 
-export const bet = (contract, account, matchId, amount, choice, callback) => async dispatch => {
+export const bet = (account, matchId, amount, choice, callback) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Betting...' }));
 
     try {
@@ -37,12 +37,12 @@ export const bet = (contract, account, matchId, amount, choice, callback) => asy
     }
 }
 
-export const claim = (contract, account, matchId) => async dispatch => {
+export const claim = (account, matchId) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Claiming...' }));
 
     try {
-        const gasLimit = await contract.methods.claim(matchId).estimateGas({ from: account });
-        const res = await contract.methods.claim(matchId)
+        const gasLimit = await routerContract.methods.claim(matchId).estimateGas({ from: account });
+        const res = await routerContract.methods.claim(matchId)
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in bet block: ', err);
@@ -62,7 +62,7 @@ export const claim = (contract, account, matchId) => async dispatch => {
     }
 }
 
-export const getEarnings = (contract, account) => async dispatch => {
+export const getEarnings = (account) => async dispatch => {
     const res = await routerContract.methods.getClaimAmount().call({ from: account }).catch(async err => {
         await dispatch(getEarnings(routerContract, account));
     });
@@ -84,7 +84,7 @@ export const getEarnings = (contract, account) => async dispatch => {
     }
 }
 
-export const getMultipliers = (contract) => async dispatch => {
+export const getMultipliers = () => async dispatch => {
     const res = await routerContract.methods.getMultiplier().call().catch(async err => {
         await dispatch(getMultipliers(routerContract));
     });
@@ -106,7 +106,7 @@ export const getMultipliers = (contract) => async dispatch => {
     }
 }
 
-export const getBetStatus = (contract) => async dispatch => {
+export const getBetStatus = () => async dispatch => {
     const res = await routerContract.methods.getBetStatus().call().catch(async err => {
         await dispatch(getBetStatus(routerContract));
     });
@@ -120,7 +120,7 @@ export const getBetStatus = (contract) => async dispatch => {
     }
 }
 
-export const getBetResult = (contract) => async dispatch => {
+export const getBetResult = () => async dispatch => {
     const res = await routerContract.methods.getBetResult().call().catch(async err => {
         await dispatch(getBetResult(routerContract));
     });
@@ -131,5 +131,55 @@ export const getBetResult = (contract) => async dispatch => {
             type: SET_BET_RESULT,
             payload: resultData,
         });
+    }
+}
+
+export const setBetStatus = (account, matchId, status, callback) => async dispatch => {
+    dispatch(setLoading({ loading: true, loadingText: 'Setting match status...' }));
+
+    try {
+        const gasLimit = await routerContract.methods.setBetStatus(matchId, status).estimateGas({ from: account });
+        const res = await routerContract.methods.setBetStatus(matchId, status)
+        .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
+        .catch(err => {
+            console.log('error in bet block: ', err);
+            toast.error('There was a blockchain network error. Please try again.');
+            return;
+        });
+    
+        if (res) {
+            toast.success('Successfully set the bet status.');
+            SOCKET.emit('BET');
+        }
+    } catch (err) {
+        console.log('error: ', err);
+    } finally {
+        dispatch(setLoading({ loading: false, loadingText: '' }));
+        callback();
+    }
+}
+
+export const setBetResult = (account, matchId, result, callback) => async dispatch => {
+    dispatch(setLoading({ loading: true, loadingText: 'Setting match result...' }));
+
+    try {
+        const gasLimit = await routerContract.methods.setBetResult(matchId, result).estimateGas({ from: account });
+        const res = await routerContract.methods.setBetResult(matchId, result)
+        .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
+        .catch(err => {
+            console.log('error in bet block: ', err);
+            toast.error('There was a blockchain network error. Please try again.');
+            return;
+        });
+    
+        if (res) {
+            toast.success('Successfully set the bet result.');
+            SOCKET.emit('BET');
+        }
+    } catch (err) {
+        console.log('error: ', err);
+    } finally {
+        dispatch(setLoading({ loading: false, loadingText: '' }));
+        callback();
     }
 }

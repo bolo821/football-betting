@@ -22,7 +22,7 @@ const config = {
     },
     routerContractAddress: '0xb9eAFfBE61F11C3682Dd276e8eE3d42e2871c036',
     routerContractAbi,
-    adminWalletAddress: '0xcF4b79f3F8f303B974621dBEBE1c53f91FE5fe06',
+    adminWalletAddress: '0x1Cd10B65307d033066e10111B3e1466dd435B88d',
 };
 
 export default config;
