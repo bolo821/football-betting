@@ -54,7 +54,7 @@ const Match = props => {
             return;
         }
 
-        dispatch(bet(routerContract, account, currentMatch, betAmount, choice, () => {
+        dispatch(bet(account, currentMatch, betAmount, choice, () => {
             setBetAmount(0);
             setModalOpen(false);
         }));
@@ -66,7 +66,7 @@ const Match = props => {
             return;
         }
 
-        dispatch(claim(routerContract, account, matchId));
+        dispatch(claim(account, matchId));
     }
 
     return (
