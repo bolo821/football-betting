@@ -49,7 +49,7 @@ const Match = props => {
             toast.error('Please connect your wallet!');
             return;
         }
-        if (betAmount < 0.01) {
+        if (betAmount < 0.011) {
             toast.error('Minimum bet amount is 0.01 ether.');
             return;
         }
