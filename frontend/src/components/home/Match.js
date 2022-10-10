@@ -122,7 +122,7 @@ const Match = props => {
                                                             <button className="cmn-btn draw mx-1" onClick={() => openBetModal(ele.id, 1)}>Draw</button>
                                                             <button className="cmn-btn lastTeam mx-1" onClick={() => openBetModal(ele.id, 2)}>{ele.team2} will win</button>
                                                         </div>                                       
-                                                        <div className="bottom-item" style={{border: 'none', paddingTop: '10px', paddingBottom: '0'}}>
+                                                        <div className='d-flex justify-content-between' style={{padding: '10px 20px 0'}}>
                                                             <span className="bet-label-rt">
                                                                 {betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].win) : 0}
                                                                 &nbsp;&nbsp;

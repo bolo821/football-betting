@@ -282,3 +282,14 @@ h5.country-name-rt {
     font-size: 14px;
     text-align: center;
 }
+@media screen and (max-width: 576px) {
+    .bet-label-rt {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .bet-label-rt {
+        font-size: 8px;
+    }
+}
