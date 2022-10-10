@@ -5,7 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 import LeaguesTabContentAdmin from '../admin/LeaguesTabContentAdmin';
 import TabItem from '../TabItem';
 import { worldcupMatchData, uefaMatchData } from './matchData';
-import { getEarnings, getMultipliers, getBetResult, getBetStatus, getBetAmount } from '../../actions';
+import { getEarnings, getMultipliers, getBetResult, getBetStatus, getBetAmount, getTotalBet } from '../../actions';
 
 const Leagues = () => {
     const dispatch = useDispatch();
@@ -24,6 +24,7 @@ const Leagues = () => {
         dispatch(getBetStatus());
         dispatch(getMultipliers());
         dispatch(getBetResult());
+        dispatch(getTotalBet());
     }, [dispatch]);
     
     useEffect(() => {

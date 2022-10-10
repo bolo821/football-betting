@@ -18,6 +18,7 @@ const Match = props => {
     const multipliers = useSelector(state => state.transaction.multipliers);
     const betStatus = useSelector(state => state.transaction.betStatus);
     const betResult = useSelector(state => state.transaction.betResult);
+    const totalBets = useSelector(state => state.transaction.totalBets);
 
     const [displayCount, setDisplayCount] = useState(6);
     const [displayMatches, setDisplayMatches] = useState([]);
@@ -89,6 +90,10 @@ const Match = props => {
                                                 </div>
                                             </div>
                                             <div className="mid-area text-center col-lg-6 col-md-12">
+                                                { totalBets[ele.id] ?
+                                                    <h5 className='d-flex justify-content-center country-name-rt bet-label-rt'>{getRoundedNumber(totalBets[ele.id])}ETH</h5> :
+                                                    <></>
+                                                }
                                                 <div className="countdown d-flex align-items-center justify-content-around">
                                                     <CounterElement count={ele.days} unit="days" />
                                                     <CounterElement count={ele.hours} unit="hrs" />

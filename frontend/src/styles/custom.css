@@ -121,7 +121,7 @@
 }
 .country-name-rt {
     white-space: nowrap;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 @media screen and (max-width: 991px) {    
@@ -140,6 +140,9 @@
     }
     .country-name-rt {
         justify-content: center!important;
+    }
+    h5.country-name-rt {
+        margin-top: 20px;
     }
 }
 

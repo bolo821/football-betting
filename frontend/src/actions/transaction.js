@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import config from '../config';
 import Web3 from 'web3';
 import { calculateGasMargin } from '../utils/helper';
-import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT, SET_BET_AMOUNT } from './';
+import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT, SET_BET_AMOUNT, SET_TOTAL_BET } from './';
 import { SOCKET } from '../config/api';
 
 export const web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrl));
@@ -90,14 +90,14 @@ export const getEarnings = (account) => async dispatch => {
 
 export const getBetAmount = (account) => async dispatch => {
     try {
-        const matchCount = await routerContract.methods.getMatchId().call().catch(err => {
-            console.log('get match id error: ', err);
+        const matchCount = await routerContract.methods.getMatchId().call().catch(async err => {
+            return await dispatch(getBetAmount(account));
         });
 
         let betAmounts = [];
         for (let i=0; i<parseInt(matchCount); i++) {
-            let amount = await routerContract.methods.getPlayerBetAmount(i, account).call().catch(err => {
-                console.log('get player bet amount error ', account, err);
+            let amount = await routerContract.methods.getPlayerBetAmount(i, account).call().catch(async err => {
+                return await dispatch(getBetAmount(account));
             });
             betAmounts.push({
                 win: web3.utils.fromWei(amount[0], 'ether'),
@@ -111,7 +111,7 @@ export const getBetAmount = (account) => async dispatch => {
             payload: betAmounts,
         });
     } catch (err) {
-        console.log('get bet amount error: ', err);
+        return await dispatch(getBetAmount(account));
     }
 }
 
@@ -162,6 +162,29 @@ export const getBetResult = () => async dispatch => {
             type: SET_BET_RESULT,
             payload: resultData,
         });
+    }
+}
+
+export const getTotalBet = () => async dispatch => {
+    try {
+        const matchCount = await routerContract.methods.getMatchId().call().catch(async err => {
+            return await dispatch(getTotalBet());
+        });
+
+        let totalBets = [];
+        for (let i=0; i<parseInt(matchCount); i++) {
+            let amount = await routerContract.methods.getPairInformation(i).call().catch(async err => {
+                return await dispatch(getTotalBet());
+            });
+            totalBets.push(web3.utils.fromWei(amount[2], 'ether'));
+        }
+
+        dispatch({
+            type: SET_TOTAL_BET,
+            payload: totalBets,
+        });
+    } catch (err) {
+        return await dispatch(getTotalBet());
     }
 }
 

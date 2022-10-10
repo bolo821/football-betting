@@ -1,4 +1,4 @@
-import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT, SET_BET_AMOUNT } from "../actions";
+import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT, SET_BET_AMOUNT, SET_TOTAL_BET } from "../actions";
 
 const defaultState = {
     earnings: [],
@@ -6,6 +6,7 @@ const defaultState = {
     betStatus: [],
     betResult: [],
     betAmounts: [],
+    totalBets: [],
 }
 
 const transaction = (state = defaultState, action) => {
@@ -42,6 +43,13 @@ const transaction = (state = defaultState, action) => {
             return {
                 ...state,
                 betAmounts: action.payload,
+            }
+        }
+
+        case SET_TOTAL_BET: {
+            return {
+                ...state,
+                totalBets: action.payload,
             }
         }
 
