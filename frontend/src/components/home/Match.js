@@ -145,14 +145,8 @@ const Match = props => {
                                                                 {multipliers[ele.id] ? `${multipliers[ele.id].lose}x` : ''}
                                                             </span>
                                                         </div>
-                                                        <div className="bottom-item" style={{border: 'none', paddingTop: '0'}}>
-                                                            <span className="bet-label-rt" style={{fontSize: '10px'}}>
-                                                                bet winning multilpier
-                                                            </span>
-                                                            <span className="bet-label-rt" style={{fontSize: '10px'}}>
-                                                                bet winning multilpier
-                                                            </span>
-                                                            <span className="bet-label-rt" style={{fontSize: '10px'}}>
+                                                        <div className="bottom-item d-flex justify-content-center" style={{border: 'none', paddingTop: '0'}}>
+                                                            <span className="bet-label-rt">
                                                                 bet winning multilpier
                                                             </span>
                                                         </div>
