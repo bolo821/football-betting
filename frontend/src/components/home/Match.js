@@ -122,7 +122,7 @@ const Match = props => {
                                                             <button className="cmn-btn draw mx-1" onClick={() => openBetModal(ele.id, 1)}>Draw</button>
                                                             <button className="cmn-btn lastTeam mx-1" onClick={() => openBetModal(ele.id, 2)}>{ele.team2} will win</button>
                                                         </div>                                       
-                                                        <div className="bottom-item" style={{border: 'none', paddingTop: '10px'}}>
+                                                        <div className="bottom-item" style={{border: 'none', paddingTop: '10px', paddingBottom: '0'}}>
                                                             <span className="bet-label-rt">
                                                                 {betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].win) : 0}
                                                                 &nbsp;&nbsp;
@@ -143,6 +143,17 @@ const Match = props => {
                                                                 {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].lose) : 0}
                                                                 &nbsp;&nbsp;
                                                                 {multipliers[ele.id] ? `${multipliers[ele.id].lose}x` : ''}
+                                                            </span>
+                                                        </div>
+                                                        <div className="bottom-item" style={{border: 'none', paddingTop: '0'}}>
+                                                            <span className="bet-label-rt" style={{fontSize: '10px'}}>
+                                                                bet winning multilpier
+                                                            </span>
+                                                            <span className="bet-label-rt" style={{fontSize: '10px'}}>
+                                                                bet winning multilpier
+                                                            </span>
+                                                            <span className="bet-label-rt" style={{fontSize: '10px'}}>
+                                                                bet winning multilpier
                                                             </span>
                                                         </div>
                                                     </> :
