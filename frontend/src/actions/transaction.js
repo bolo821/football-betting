@@ -9,13 +9,16 @@ import { SOCKET } from '../config/api';
 export const web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrl));
 const routerContract = new web3.eth.Contract(config.routerContractAbi, config.routerContractAddress);
 
+const web3Signed = new Web3(window.ethereum);
+const routerContractSigned = new web3Signed.eth.Contract(config.routerContractAbi, config.routerContractAddress);
+
 
 export const bet = (account, matchId, amount, choice, callback) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Betting...' }));
 
     try {
-        const gasLimit = await routerContract.methods.bet(matchId, choice).estimateGas({ from: account, value: web3.utils.toWei(amount.toString(), 'ether') });
-        const res = await routerContract.methods.bet(matchId, choice)
+        const gasLimit = await routerContractSigned.methods.bet(matchId, choice).estimateGas({ from: account, value: web3.utils.toWei(amount.toString(), 'ether') });
+        const res = await routerContractSigned.methods.bet(matchId, choice)
         .send({ from: account, value: web3.utils.toWei(amount.toString(), 'ether'), gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in bet block: ', err);
@@ -41,8 +44,8 @@ export const claim = (account, matchId) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Claiming...' }));
 
     try {
-        const gasLimit = await routerContract.methods.claim(matchId).estimateGas({ from: account });
-        const res = await routerContract.methods.claim(matchId)
+        const gasLimit = await routerContractSigned.methods.claim(matchId).estimateGas({ from: account });
+        const res = await routerContractSigned.methods.claim(matchId)
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in bet block: ', err);
@@ -136,10 +139,8 @@ export const getMultipliers = () => async dispatch => {
 
 export const getBetStatus = () => async dispatch => {
     const res = await routerContract.methods.getBetStatus().call().catch(async err => {
-        console.log('error: ', err);
         await dispatch(getBetStatus());
     });
-    console.log('bet status: ', res);
 
     if (res) {
         let statusData = res.map(ele => parseInt(ele));
@@ -168,8 +169,8 @@ export const setBetStatus = (account, matchId, status, callback) => async dispat
     dispatch(setLoading({ loading: true, loadingText: 'Setting match status...' }));
 
     try {
-        const gasLimit = await routerContract.methods.setBetStatus(matchId, status).estimateGas({ from: account });
-        const res = await routerContract.methods.setBetStatus(matchId, status)
+        const gasLimit = await routerContractSigned.methods.setBetStatus(matchId, status).estimateGas({ from: account });
+        const res = await routerContractSigned.methods.setBetStatus(matchId, status)
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in bet block: ', err);
@@ -193,8 +194,8 @@ export const setBetResult = (account, matchId, result, callback) => async dispat
     dispatch(setLoading({ loading: true, loadingText: 'Setting match result...' }));
 
     try {
-        const gasLimit = await routerContract.methods.setBetResult(matchId, result).estimateGas({ from: account });
-        const res = await routerContract.methods.setBetResult(matchId, result)
+        const gasLimit = await routerContractSigned.methods.setBetResult(matchId, result).estimateGas({ from: account });
+        const res = await routerContractSigned.methods.setBetResult(matchId, result)
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in bet block: ', err);
@@ -218,8 +219,8 @@ export const withdrawMatchProfit = (account, matchId) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Withdrawing a match profit...' }));
 
     try {
-        const gasLimit = await routerContract.methods.withdrawProfitFromPair(matchId).estimateGas({ from: account });
-        const res = await routerContract.methods.withdrawProfitFromPair(matchId)
+        const gasLimit = await routerContractSigned.methods.withdrawProfitFromPair(matchId).estimateGas({ from: account });
+        const res = await routerContractSigned.methods.withdrawProfitFromPair(matchId)
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in bet block: ', err);
