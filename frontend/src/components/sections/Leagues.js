@@ -5,8 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 import LeaguesTabContent from '../home/LeaguesTabContent';
 import TabItem from '../TabItem';
 import { worldcupMatchData, uefaMatchData } from './matchData';
-import { getEarnings, getMultipliers, getBetResult, getBetStatus } from '../../actions';
-import { useRouterContract } from '../../hooks/useContract';
+import { getEarnings, getMultipliers, getBetResult, getBetStatus, getBetAmount } from '../../actions';
 import { getTimeDifference } from '../../utils/helper';
 
 var timer = null;
@@ -16,7 +15,6 @@ const Leagues = () => {
     const betStatus = useSelector(state => state.transaction.betStatus);
 
     const { account } = useWeb3React();
-    const routerContract = useRouterContract();
 
     const [wMatchData, setWMatchData] = useState(worldcupMatchData);
     const [eMatchData, setEMatchData] = useState(uefaMatchData);
@@ -35,6 +33,7 @@ const Leagues = () => {
     
     useEffect(() => {
         if (account) {
+            dispatch(getBetAmount(account));
             dispatch(getEarnings(account));
         }
     }, [account]);
@@ -86,7 +85,7 @@ const Leagues = () => {
             if (betStatus[ele.id] === 2) return true;
             return false;
         }));
-    }, [wMatchData]);
+    }, [wMatchData, betStatus]);
 
     useEffect(() => {
         setELive(eMatchData.filter(ele => {
@@ -97,7 +96,7 @@ const Leagues = () => {
             if (betStatus[ele.id] === 2) return true;
             return false;
         }));
-    }, [eMatchData]);
+    }, [eMatchData, betStatus]);
 
     return (
         <section className="dashboard-content pt-120">

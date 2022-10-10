@@ -5,21 +5,14 @@ import { useWeb3React } from '@web3-react/core';
 import LeaguesTabContentAdmin from '../admin/LeaguesTabContentAdmin';
 import TabItem from '../TabItem';
 import { worldcupMatchData, uefaMatchData } from './matchData';
-import { getEarnings, getMultipliers, getBetResult, getBetStatus } from '../../actions';
-import { useRouterContract } from '../../hooks/useContract';
-import { getTimeDifference } from '../../utils/helper';
-
-var timer = null;
+import { getEarnings, getMultipliers, getBetResult, getBetStatus, getBetAmount } from '../../actions';
 
 const Leagues = () => {
     const dispatch = useDispatch();
     const betStatus = useSelector(state => state.transaction.betStatus);
 
     const { account } = useWeb3React();
-    const routerContract = useRouterContract();
 
-    const [wMatchData, setWMatchData] = useState(worldcupMatchData);
-    const [eMatchData, setEMatchData] = useState(uefaMatchData);
     const [wLive, setWLive] = useState([]);
     const [wUpcoming, setWUpcoming] = useState([]);
     const [wCompleted, setWCompleted] = useState([]);
@@ -35,31 +28,32 @@ const Leagues = () => {
     
     useEffect(() => {
         if (account) {
+            dispatch(getBetAmount(account));
             dispatch(getEarnings(account));
         }
     }, [account]);
 
     useEffect(() => {
-        setWLive(wMatchData.filter(ele => {
+        setWLive(worldcupMatchData.filter(ele => {
             if (betStatus[ele.id] === 0 || betStatus[ele.id] === 1) return true;
             return false;
         }));
-        setWCompleted(wMatchData.filter(ele => {
+        setWCompleted(worldcupMatchData.filter(ele => {
             if (betStatus[ele.id] === 2) return true;
             return false;
         }));
-    }, [wMatchData]);
+    }, [betStatus]);
 
     useEffect(() => {
-        setELive(eMatchData.filter(ele => {
+        setELive(uefaMatchData.filter(ele => {
             if (betStatus[ele.id] === 0 || betStatus[ele.id] === 1) return true;
             return false;
         }));
-        setECompleted(eMatchData.filter(ele => {
+        setECompleted(uefaMatchData.filter(ele => {
             if (betStatus[ele.id] === 2) return true;
             return false;
         }));
-    }, [eMatchData]);
+    }, [betStatus]);
 
     return (
         <section className="dashboard-content pt-120">

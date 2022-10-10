@@ -7,7 +7,6 @@ import BetModal from '../BetModal';
 
 import { getRoundedNumber } from '../../utils/helper';
 import { bet, claim } from '../../actions';
-import { useRouterContract } from '../../hooks/useContract';
 import { getTimeString } from '../../utils/helper';
 
 const Match = props => {
@@ -15,6 +14,7 @@ const Match = props => {
     const { data } = props;
 
     const earnings = useSelector(state => state.transaction.earnings);
+    const betAmounts = useSelector(state => state.transaction.betAmounts);
     const multipliers = useSelector(state => state.transaction.multipliers);
     const betStatus = useSelector(state => state.transaction.betStatus);
     const betResult = useSelector(state => state.transaction.betResult);
@@ -26,7 +26,6 @@ const Match = props => {
     const [currentMatch, setCurrentMatch] = useState(0);
     const [choice, setChoice] = useState(0);
 
-    const routerContract = useRouterContract();
     const { account } = useWeb3React();
 
     const handleBrowseMore = () => {
@@ -116,14 +115,20 @@ const Match = props => {
                                                         </div>                                       
                                                         <div className="bottom-item" style={{border: 'none', paddingTop: '10px'}}>
                                                             <span>
+                                                                {betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].win) : 0}
+                                                                {'->'}
                                                                 {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].win) : 0}
                                                                 {multipliers[ele.id] ? `(x${multipliers[ele.id].win})` : ''}
                                                             </span>
                                                             <span>
+                                                                {betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].draw) : 0}
+                                                                {'->'}
                                                                 {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].draw) : 0}
                                                                 {multipliers[ele.id] ? `(x${multipliers[ele.id].draw})` : ''}
                                                             </span>
                                                             <span>
+                                                                {betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].lose) : 0}
+                                                                {'->'}
                                                                 {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].lose) : 0}
                                                                 {multipliers[ele.id] ? `(x${multipliers[ele.id].lose})` : ''}
                                                             </span>

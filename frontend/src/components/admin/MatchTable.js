@@ -4,10 +4,11 @@ import { useWeb3React } from '@web3-react/core';
 import { getTimeString } from '../../utils/helper';
 import StatusModal from './StatusModal';
 import ResultModal from './ResultModal';
-import { setBetStatus, setBetResult } from '../../actions';
+import { setBetStatus, setBetResult, withdrawMatchProfit } from '../../actions';
 
 var team1 = '';
 var team2 = '';
+var matchId = -1;
 
 const MatchTable = props => {
     const { data, type } = props;
@@ -18,7 +19,6 @@ const MatchTable = props => {
 
     const [showStatusModal, setShowStatusModal] = useState(false);
     const [showResultModal, setShowResultModal] = useState(false);
-    const [matchId, setMatchId] = useState(-1);
 
     const setMatchStatus = status => {
         dispatch(setBetStatus(account, matchId, status, () => {
@@ -30,6 +30,10 @@ const MatchTable = props => {
         dispatch(setBetResult(account, matchId, status, () => {
             setShowResultModal(false);
         }));
+    }
+
+    const withdrawProfit = mId => {
+        dispatch(withdrawMatchProfit(account, mId));
     }
 
     return (
@@ -50,6 +54,9 @@ const MatchTable = props => {
                                         
                                         <th scope="col">Set Status</th>
                                         <th scope="col">Set Result</th>
+                                        { type === 'completed' &&
+                                            <th scope="col">Withdraw profit</th>
+                                        }
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,7 +72,7 @@ const MatchTable = props => {
                                                 <button
                                                     type="button"
                                                     className="cmn-btn reg set-bn-rt"
-                                                    onClick={() => {setMatchId(ele.id); setShowStatusModal(true);}}
+                                                    onClick={() => {matchId = ele.id; setShowStatusModal(true);}}
                                                 >
                                                     Set Status
                                                 </button>
@@ -74,11 +81,22 @@ const MatchTable = props => {
                                                 <button
                                                     type="button"
                                                     className="cmn-btn reg set-bn-rt"
-                                                    onClick={() => {setMatchId(ele.id); setShowResultModal(true); team1=ele.team1; team2=ele.team2}}
+                                                    onClick={() => {matchId = ele.id; setShowResultModal(true); team1=ele.team1; team2=ele.team2}}
                                                 >
                                                     Set Result
                                                 </button>
-                                            </td>    
+                                            </td>
+                                            { type === 'completed' &&
+                                                <td>
+                                                    <button
+                                                        type="button"
+                                                        className="cmn-btn reg set-bn-rt"
+                                                        onClick={() => withdrawProfit(ele.id)}
+                                                    >
+                                                        Withdraw Profit
+                                                    </button>
+                                                </td>
+                                            } 
                                         </tr>
                                     ))}
                                 </tbody>

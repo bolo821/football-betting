@@ -104,7 +104,7 @@ const Section4 = () => {
                                     <img src="assets/images/icon/counter-icon-1.png" alt="image" />
                                 </div>
                                 <div className="text-area">
-                                    <h3 className="m-none"><span>€</span><span>1304,941</span></h3>
+                                    <h3 className="m-none"><span>***</span></h3>
                                     <p>Paid Out Prize in Total</p>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@ const Section4 = () => {
                                     <img src="assets/images/icon/counter-icon-2.png" alt="image" />
                                 </div>
                                 <div className="text-area">
-                                    <h3 className="m-none"><span>76,752</span></h3>
+                                    <h3 className="m-none"><span>***</span></h3>
                                     <p>Winners</p>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@ const Section4 = () => {
                                     <img src="assets/images/icon/counter-icon-3.png" alt="image" />
                                 </div>
                                 <div className="text-area">
-                                    <h3 className="m-none"><span>4,392</span></h3>
+                                    <h3 className="m-none"><span>***</span></h3>
                                     <p>Players online</p>
                                 </div>
                             </div>

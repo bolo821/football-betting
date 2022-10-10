@@ -12,8 +12,6 @@ const Admin = () => {
             <Header />
             <Section1 />
             <AdminLeagues />
-            <Section3 />
-            <Section4 />
         </>
     )
 }

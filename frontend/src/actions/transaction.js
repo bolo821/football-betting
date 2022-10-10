@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import config from '../config';
 import Web3 from 'web3';
 import { calculateGasMargin } from '../utils/helper';
-import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT } from './';
+import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT, SET_BET_AMOUNT } from './';
 import { SOCKET } from '../config/api';
 
 export const web3 = new Web3(window.ethereum);
@@ -52,6 +52,7 @@ export const claim = (account, matchId) => async dispatch => {
     
         if (res) {
             toast.success('Successfully claimed!!');
+            dispatch(getEarnings(account));
         }
     } catch (err) {
         if (err.message.includes('You can not claim at this time.')) {
@@ -64,7 +65,7 @@ export const claim = (account, matchId) => async dispatch => {
 
 export const getEarnings = (account) => async dispatch => {
     const res = await routerContract.methods.getClaimAmount().call({ from: account }).catch(async err => {
-        await dispatch(getEarnings(routerContract, account));
+        await dispatch(getEarnings(account));
     });
 
     if (res) {
@@ -84,9 +85,36 @@ export const getEarnings = (account) => async dispatch => {
     }
 }
 
+export const getBetAmount = (account) => async dispatch => {
+    try {
+        const matchCount = await routerContract.methods.getMatchId().call().catch(err => {
+            console.log('get match id error: ', err);
+        });
+
+        let betAmounts = [];
+        for (let i=0; i<parseInt(matchCount); i++) {
+            let amount = await routerContract.methods.getPlayerBetAmount(i, account).call().catch(err => {
+                console.log('get player bet amount error ', account, err);
+            });
+            betAmounts.push({
+                win: web3.utils.fromWei(amount[0], 'ether'),
+                draw: web3.utils.fromWei(amount[1], 'ether'),
+                lose: web3.utils.fromWei(amount[2], 'ether'),
+            });
+        }
+
+        dispatch({
+            type: SET_BET_AMOUNT,
+            payload: betAmounts,
+        });
+    } catch (err) {
+        console.log('get bet amount error: ', err);
+    }
+}
+
 export const getMultipliers = () => async dispatch => {
     const res = await routerContract.methods.getMultiplier().call().catch(async err => {
-        await dispatch(getMultipliers(routerContract));
+        await dispatch(getMultipliers());
     });
 
     if (res) {
@@ -108,7 +136,7 @@ export const getMultipliers = () => async dispatch => {
 
 export const getBetStatus = () => async dispatch => {
     const res = await routerContract.methods.getBetStatus().call().catch(async err => {
-        await dispatch(getBetStatus(routerContract));
+        await dispatch(getBetStatus());
     });
 
     if (res) {
@@ -122,7 +150,7 @@ export const getBetStatus = () => async dispatch => {
 
 export const getBetResult = () => async dispatch => {
     const res = await routerContract.methods.getBetResult().call().catch(async err => {
-        await dispatch(getBetResult(routerContract));
+        await dispatch(getBetResult());
     });
 
     if (res) {
@@ -181,5 +209,31 @@ export const setBetResult = (account, matchId, result, callback) => async dispat
     } finally {
         dispatch(setLoading({ loading: false, loadingText: '' }));
         callback();
+    }
+}
+
+export const withdrawMatchProfit = (account, matchId) => async dispatch => {
+    dispatch(setLoading({ loading: true, loadingText: 'Withdrawing a match profit...' }));
+
+    try {
+        const gasLimit = await routerContract.methods.withdrawProfitFromPair(matchId).estimateGas({ from: account });
+        const res = await routerContract.methods.withdrawProfitFromPair(matchId)
+        .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
+        .catch(err => {
+            console.log('error in bet block: ', err);
+            toast.error('There was a blockchain network error. Please try again.');
+            return;
+        });
+    
+        if (res) {
+            toast.success('Successfully withdrew the match profit.');
+            SOCKET.emit('BET');
+        }
+    } catch (err) {
+        if (err.message.includes("No profit to withdraw")) {
+            toast.error("No profit to withdraw.");
+        }
+    } finally {
+        dispatch(setLoading({ loading: false, loadingText: '' }));
     }
 }
