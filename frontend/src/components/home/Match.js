@@ -157,7 +157,7 @@ const Match = props => {
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <div className="bet-bn-container-rt d-flex justify-content-end" style={{paddingTop: '20px'}}>
+                                                        <div className="bet-bn-container-rt d-flex justify-content-end" style={{paddingTop: '20px', margin: '0'}}>
                                                             <span style={{color: 'white'}}>
                                                                 *
                                                             </span>
@@ -171,19 +171,19 @@ const Match = props => {
                                                         <div className="bottom-item d-flex justify-content-center w-100 pb-0">
                                                             { betResult[ele.id] === 0 ?
                                                                 <span className='bet-label-rt'>
-                                                                    {earnings[ele.id] && earnings[ele.id].win > 0 ? `${betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].win) : 0}  ${earnings[ele.id].win}  ${multipliers[ele.id].win}x` : ''}
+                                                                    {earnings[ele.id] && earnings[ele.id].win > 0 ? `${betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].win) : 0}  ${getRoundedNumber(earnings[ele.id].win)}  ${multipliers[ele.id].win}x` : ''}
                                                                     {earnings[ele.id] && earnings[ele.id].win > 0 ? <br /> : <></>}
                                                                     {ele.team1} Won!
                                                                 </span> :
                                                              betResult[ele.id] === 1 ?
                                                                 <span className='bet-label-rt'>
-                                                                    {earnings[ele.id] && earnings[ele.id].draw > 0 ? `${betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].draw) : 0}  ${earnings[ele.id].draw}  ${multipliers[ele.id].draw}x` : ''}
+                                                                    {earnings[ele.id] && earnings[ele.id].draw > 0 ? `${betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].draw) : 0}  ${getRoundedNumber(earnings[ele.id].draw)}  ${multipliers[ele.id].draw}x` : ''}
                                                                     {earnings[ele.id] && earnings[ele.id].draw > 0 ? <br /> : <></>}
                                                                     Drew!
                                                                 </span> :
                                                              betResult[ele.id] === 2 ?
                                                                 <span className='bet-label-rt'>
-                                                                    {earnings[ele.id] && earnings[ele.id].lose > 0 ? `${betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].lose) : 0}  ${earnings[ele.id].lose}  ${multipliers[ele.id].lose}x` : ''}
+                                                                    {earnings[ele.id] && earnings[ele.id].lose > 0 ? `${betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].lose) : 0}  ${getRoundedNumber(earnings[ele.id].lose)}  ${multipliers[ele.id].lose}x` : ''}
                                                                     {earnings[ele.id] && earnings[ele.id].lose > 0 ? <br /> : <></>}
                                                                     {ele.team2} Won!
                                                                 </span> :

@@ -82,6 +82,11 @@
     padding: 10px 0 0!important;
     margin: 20px 0;
 }
+@media screen and (max-width: 576px) {
+    .countdown {
+        margin: 10px 0 5px;
+    }
+}
 
 @media screen and (max-width: 992px) {
     .bet-part-rt {
