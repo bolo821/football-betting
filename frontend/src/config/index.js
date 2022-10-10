@@ -2,7 +2,7 @@ import routerContractAbi from './abis/routerContract.json';
 
 const config = {
     netId: 1,
-    rpcUrl: "https://mainnet.infura.io/v3/",
+    rpcUrl: "https://mainnet.infura.io/v3/4da8a7d74b014664838d33fb259b6a14",
     blockExplorer: "https://etherscan.io",
     nativeCoin: {
         name: "ETH",

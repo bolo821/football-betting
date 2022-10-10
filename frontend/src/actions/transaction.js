@@ -6,7 +6,7 @@ import { calculateGasMargin } from '../utils/helper';
 import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT, SET_BET_AMOUNT } from './';
 import { SOCKET } from '../config/api';
 
-export const web3 = new Web3(window.ethereum);
+export const web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrl));
 const routerContract = new web3.eth.Contract(config.routerContractAbi, config.routerContractAddress);
 
 
@@ -136,6 +136,7 @@ export const getMultipliers = () => async dispatch => {
 
 export const getBetStatus = () => async dispatch => {
     const res = await routerContract.methods.getBetStatus().call().catch(async err => {
+        console.log('error: ', err);
         await dispatch(getBetStatus());
     });
 
