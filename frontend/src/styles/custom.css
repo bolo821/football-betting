@@ -123,6 +123,9 @@
     white-space: nowrap;
     font-size: 20px;
 }
+h5.country-name-rt {
+    font-size: 16px;
+}
 
 @media screen and (max-width: 991px) {    
     .flag-container-rt {

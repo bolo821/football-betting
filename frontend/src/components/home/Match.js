@@ -91,7 +91,7 @@ const Match = props => {
                                             </div>
                                             <div className="mid-area text-center col-lg-6 col-md-12">
                                                 { totalBets[ele.id] ?
-                                                    <h5 className='d-flex justify-content-center country-name-rt bet-label-rt'>{getRoundedNumber(totalBets[ele.id])}ETH</h5> :
+                                                    <h5 className='d-flex justify-content-center country-name-rt'>{getRoundedNumber(totalBets[ele.id])}ETH</h5> :
                                                     <></>
                                                 }
                                                 <div className="countdown d-flex align-items-center justify-content-around">
