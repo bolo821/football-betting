@@ -265,3 +265,14 @@
 .table-responsive .table {
     width: 100%!important;
 }
+.bet-label-rt {
+    background: rgb(92, 225, 230);
+    padding: 5px;
+    border-radius: 5px;
+    color: black;
+    font-weight: 700;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 14px;
+    text-align: center;
+}
