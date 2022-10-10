@@ -78,7 +78,7 @@ const Match = props => {
                             { displayMatches.map((ele, index) => (
                                 <div className="col-lg-6" key={index}>
                                     <div className="single-area betting-card-rt">
-                                        <div className="head-area d-flex align-items-center">
+                                        <div className="head-area d-flex align-items-center bet-card-header-rt">
                                             <span className="mdr cmn-btn">Pick Winner</span>
                                             <p>{getTimeString(ele.time)}</p>
                                         </div>
@@ -118,32 +118,44 @@ const Match = props => {
                                                 { betStatus[ele.id] === 0 ?
                                                     <>     
                                                         <div className='d-flex justify-content-between bet-bn-container-rt'>
-                                                            <button className="cmn-btn firstTeam mx-1 bet-bn-rt" onClick={() => openBetModal(ele.id, 0)}>{ele.team1} will win</button>
-                                                            <button className="cmn-btn draw mx-1 bet-bn-rt" onClick={() => openBetModal(ele.id, 1)}>Draw</button>
-                                                            <button className="cmn-btn lastTeam mx-1 bet-bn-rt" onClick={() => openBetModal(ele.id, 2)}>{ele.team2} will win</button>
+                                                            <div>
+                                                                <button className="cmn-btn firstTeam bet-bn-rt" onClick={() => openBetModal(ele.id, 0)}>{ele.team1} will win</button>
+                                                            </div>
+                                                            <div>
+                                                                <button className="cmn-btn draw bet-bn-rt" onClick={() => openBetModal(ele.id, 1)}>Draw</button>
+                                                            </div>
+                                                            <div>
+                                                                <button className="cmn-btn lastTeam bet-bn-rt" onClick={() => openBetModal(ele.id, 2)}>{ele.team2} will win</button>
+                                                            </div>
                                                         </div>                                       
                                                         <div className='d-flex justify-content-between bet-bn-container-rt'>
-                                                            <span className="bet-label-rt">
-                                                                {betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].win) : 0}
-                                                                &nbsp;&nbsp;
-                                                                {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].win) : 0}
-                                                                &nbsp;&nbsp;
-                                                                {multipliers[ele.id] ? `${multipliers[ele.id].win}x` : ''}
-                                                            </span>
-                                                            <span className="bet-label-rt">
-                                                                {betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].draw) : 0}
-                                                                &nbsp;&nbsp;
-                                                                {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].draw) : 0}
-                                                                &nbsp;&nbsp;
-                                                                {multipliers[ele.id] ? `${multipliers[ele.id].draw}x` : ''}
-                                                            </span>
-                                                            <span className="bet-label-rt">
-                                                                {betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].lose) : 0}
-                                                                &nbsp;&nbsp;
-                                                                {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].lose) : 0}
-                                                                &nbsp;&nbsp;
-                                                                {multipliers[ele.id] ? `${multipliers[ele.id].lose}x` : ''}
-                                                            </span>
+                                                            <div>
+                                                                <span className="bet-label-rt">
+                                                                    {betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].win) : 0}
+                                                                    &nbsp;
+                                                                    {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].win) : 0}
+                                                                    &nbsp;
+                                                                    {multipliers[ele.id] ? `${multipliers[ele.id].win}x` : ''}
+                                                                </span>
+                                                            </div>
+                                                            <div>
+                                                                <span className="bet-label-rt">
+                                                                    {betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].draw) : 0}
+                                                                    &nbsp;
+                                                                    {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].draw) : 0}
+                                                                    &nbsp;
+                                                                    {multipliers[ele.id] ? `${multipliers[ele.id].draw}x` : ''}
+                                                                </span>
+                                                            </div>
+                                                            <div>
+                                                                <span className="bet-label-rt">
+                                                                    {betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].lose) : 0}
+                                                                    &nbsp;
+                                                                    {earnings[ele.id] ? getRoundedNumber(earnings[ele.id].lose) : 0}
+                                                                    &nbsp;
+                                                                    {multipliers[ele.id] ? `${multipliers[ele.id].lose}x` : ''}
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                         <div className="bet-bn-container-rt d-flex justify-content-end" style={{paddingTop: '20px'}}>
                                                             <span style={{color: 'white'}}>

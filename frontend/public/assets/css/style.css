@@ -5175,15 +5175,6 @@ p {
   .bet-this-game .single-area .bottom-item .cmn-btn:last-child {
     margin-bottom: 0;
   }
-  .bet-this-game .single-area .head-area {
-    display: grid !important;
-  }
-  .bet-this-game .single-area .head-area .cmn-btn {
-    width: 50%;
-  }
-  .bet-this-game .single-area .head-area p {
-    margin: 20px 0 0;
-  }
   .footer-section .newsletter {
     padding: 60px 15px;
   }
@@ -5373,9 +5364,6 @@ p {
   }
   .bet-this-game .single-area .main-content .mid-area {
     padding: 30px 0;
-  }
-  .bet-this-game .single-area .head-area .cmn-btn {
-    width: 60%;
   }
   .footer-section .newsletter form .form-group input {
     padding-left: 0;

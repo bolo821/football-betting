@@ -286,49 +286,62 @@ h5.country-name-rt {
 .table-responsive .table {
     width: 100%!important;
 }
+
+
+
+
+.bet-bn-container-rt {
+    padding: 10px 10px 0;
+    margin: 0 -5px;
+}
+.bet-bn-container-rt > div {
+    padding: 0 5px;
+}
+.bet-bn-rt {
+    padding: 10px;
+    font-size: 12px;
+    line-height: 1;
+}
 .bet-label-rt {
     background: #b7a7ff;
-    padding: 5px 10px;
+    padding: 10px;
     border-radius: 5px;
     color: black;
     font-weight: 700;
-    margin-left: 5px;
-    margin-right: 5px;
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
+    line-height: 1;
 }
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 485px) {
     .bet-label-rt {
+        padding: 10px 5px;
         font-size: 10px;
+        font-weight: 500;
     }
 }
-
-@media screen and (max-width: 365px) {
+@media screen and (max-width: 400px) {
+    .bet-bn-rt {
+        font-size: 10px;
+    }
     .bet-label-rt {
         font-size: 8px;
     }
 }
 
-.bet-bn-rt {
-    padding: 10px 20px;
-    font-size: 12px;
+.bet-card-header-rt {
+    display: flex!important;
 }
-.bet-bn-container-rt {
-    padding: 10px 20px 0;
-}
-
-@media screen and (max-width: 576px) {
-    .bet-bn-container-rt {
-        padding: 10px 10px 0;
-    }
-    .bet-bn-rt {
+@media screen and (max-width: 500px) {
+    .bet-card-header-rt span {
         padding: 10px;
+    }
+}
+@media screen and (max-width: 360px) {
+    .bet-card-header-rt span {
         font-size: 12px;
     }
-}
-
-@media screen and (max-width: 400px) {
-    .bet-bn-rt {
-        font-size: 10px;
+    .bet-card-header-rt p {
+        font-size: 12px;
+        margin-left: 10px!important;
     }
 }
