@@ -139,6 +139,7 @@ export const getBetStatus = () => async dispatch => {
         console.log('error: ', err);
         await dispatch(getBetStatus());
     });
+    console.log('bet status: ', res);
 
     if (res) {
         let statusData = res.map(ele => parseInt(ele));
