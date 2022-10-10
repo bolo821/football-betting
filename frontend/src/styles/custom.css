@@ -69,6 +69,14 @@
     line-height: 1;
     padding-top: 7px;
 }
+@media screen and (max-width: 576px) {
+    .counter-element-container-rt .number {
+        font-size: 12px;
+    }
+    .counter-element-container-rt .unit {
+        font-size: 8px;
+    }   
+}
 .countdown {
     border-radius: 0!important;
     padding: 10px 0 0!important;
@@ -129,10 +137,11 @@ h5.country-name-rt {
 
 @media screen and (max-width: 991px) {    
     .flag-container-rt {
-        width: 80%;
+        width: 100%!important;
         height: auto;
         padding-bottom: 0;
         position: relative;
+        margin-top: 10px!important;
     }
     
     .flag-container-rt img {
@@ -144,8 +153,14 @@ h5.country-name-rt {
     .country-name-rt {
         justify-content: center!important;
     }
+}
+@media screen and (max-width: 576px) {
+    .country-name-rt {
+        white-space: nowrap;
+        font-size: 12px;
+    }
     h5.country-name-rt {
-        margin-top: 20px;
+        font-size: 10px;
     }
 }
 
@@ -288,8 +303,32 @@ h5.country-name-rt {
     }
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 365px) {
     .bet-label-rt {
         font-size: 8px;
+    }
+}
+
+.bet-bn-rt {
+    padding: 10px 20px;
+    font-size: 12px;
+}
+.bet-bn-container-rt {
+    padding: 10px 20px 0;
+}
+
+@media screen and (max-width: 576px) {
+    .bet-bn-container-rt {
+        padding: 10px 10px 0;
+    }
+    .bet-bn-rt {
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .bet-bn-rt {
+        font-size: 10px;
     }
 }

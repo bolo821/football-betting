@@ -83,13 +83,13 @@ const Match = props => {
                                             <p>{getTimeString(ele.time)}</p>
                                         </div>
                                         <div className="main-content row">
-                                            <div className="team-single col-lg-3 col-md-12">
+                                            <div className="team-single col-3">
                                                 <h4 className='d-flex justify-content-start country-name-rt'>{ele.team1}</h4>
                                                 <div className="img-area flag-container-rt">
                                                     <img src={ele.team1Logo} width="100%" height="100%" alt="image" />
                                                 </div>
                                             </div>
-                                            <div className="mid-area text-center col-lg-6 col-md-12">
+                                            <div className="text-center col-6">
                                                 { totalBets[ele.id] ?
                                                     <h5 className='d-flex justify-content-center country-name-rt'>
                                                         <span className="bet-label-rt">
@@ -98,14 +98,14 @@ const Match = props => {
                                                     </h5> :
                                                     <></>
                                                 }
-                                                <div className="countdown d-flex align-items-center justify-content-around">
+                                                <div className="countdown d-flex align-items-center justify-content-around" style={{background: '#1d613a'}}>
                                                     <CounterElement count={ele.days} unit="days" />
                                                     <CounterElement count={ele.hours} unit="hrs" />
                                                     <CounterElement count={ele.mins} unit="mins" />
                                                     <CounterElement count={ele.secs} unit="secs" />
                                                 </div>
                                             </div>
-                                            <div className="team-single col-lg-3 col-md-12">
+                                            <div className="team-single col-3">
                                                 <h4 className="d-flex justify-content-end h4-rt country-name-rt">{ele.team2}</h4>
                                                 <div className="img-area flag-container-rt">
                                                     <img src={ele.team2Logo} width="100%" height="100%" alt="image" />
@@ -117,12 +117,12 @@ const Match = props => {
                                             <>
                                                 { betStatus[ele.id] === 0 ?
                                                     <>     
-                                                        <div className="bottom-item" style={account ? {paddingBottom: '0'} : {}}>
-                                                            <button className="cmn-btn firstTeam mx-1" onClick={() => openBetModal(ele.id, 0)}>{ele.team1} will win</button>
-                                                            <button className="cmn-btn draw mx-1" onClick={() => openBetModal(ele.id, 1)}>Draw</button>
-                                                            <button className="cmn-btn lastTeam mx-1" onClick={() => openBetModal(ele.id, 2)}>{ele.team2} will win</button>
+                                                        <div className='d-flex justify-content-between bet-bn-container-rt'>
+                                                            <button className="cmn-btn firstTeam mx-1 bet-bn-rt" onClick={() => openBetModal(ele.id, 0)}>{ele.team1} will win</button>
+                                                            <button className="cmn-btn draw mx-1 bet-bn-rt" onClick={() => openBetModal(ele.id, 1)}>Draw</button>
+                                                            <button className="cmn-btn lastTeam mx-1 bet-bn-rt" onClick={() => openBetModal(ele.id, 2)}>{ele.team2} will win</button>
                                                         </div>                                       
-                                                        <div className='d-flex justify-content-between' style={{padding: '10px 20px 0'}}>
+                                                        <div className='d-flex justify-content-between bet-bn-container-rt'>
                                                             <span className="bet-label-rt">
                                                                 {betAmounts[ele.id] ? getRoundedNumber(betAmounts[ele.id].win) : 0}
                                                                 &nbsp;&nbsp;
@@ -145,9 +145,12 @@ const Match = props => {
                                                                 {multipliers[ele.id] ? `${multipliers[ele.id].lose}x` : ''}
                                                             </span>
                                                         </div>
-                                                        <div className="bottom-item d-flex justify-content-center" style={{border: 'none', paddingTop: '0'}}>
-                                                            <span className="bet-label-rt">
-                                                                bet winning multilpier
+                                                        <div className="bet-bn-container-rt d-flex justify-content-end" style={{paddingTop: '20px'}}>
+                                                            <span style={{color: 'white'}}>
+                                                                *
+                                                            </span>
+                                                            <span className="bet-label-rt" style={{background: '#4512AB', color: 'white', borderRadius: '20px'}}>
+                                                                bet&nbsp;&nbsp;winning&nbsp;&nbsp;multilpier
                                                             </span>
                                                         </div>
                                                     </> :
