@@ -3,8 +3,6 @@ import React from 'react';
 const HistoryTable = props => {
     const { data } = props;
 
-    console.log('data: ', data);
-
     return (
         <section className="mt-3 pt-5 history-section-rt">
             <div className="container">
