@@ -147,7 +147,7 @@ export const BetCard = styled.div`
     height: 100%;
     button {
         width: 100%;
-        padding: 10px;
+        padding: 5px 10px;
         background-color: var(--hover-color);
         border: 1px solid var(--hover-color);
         display: flex;
@@ -166,7 +166,7 @@ export const BetCard = styled.div`
         }
     }
     div {
-        padding: 10px;
+        padding: 5px 10px;
         display: flex;
         justify-content: space-between;
         span {
