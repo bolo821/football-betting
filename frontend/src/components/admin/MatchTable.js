@@ -32,10 +32,6 @@ const MatchTable = props => {
         }));
     }
 
-    const withdrawProfit = mId => {
-        dispatch(withdrawMatchProfit(account, mId));
-    }
-
     return (
         <section className="bet-this-game all-soccer-bets bets-2 section2-rt">
             <div className="pb-120 bet-part-rt">
@@ -86,17 +82,6 @@ const MatchTable = props => {
                                                     Set Result
                                                 </button>
                                             </td>
-                                            { type === 'completed' &&
-                                                <td>
-                                                    <button
-                                                        type="button"
-                                                        className="cmn-btn reg set-bn-rt"
-                                                        onClick={() => withdrawProfit(ele.id)}
-                                                    >
-                                                        Withdraw Profit
-                                                    </button>
-                                                </td>
-                                            } 
                                         </tr>
                                     ))}
                                 </tbody>

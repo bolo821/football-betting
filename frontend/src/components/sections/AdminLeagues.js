@@ -1,17 +1,12 @@
 import React, { useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useWeb3React } from '@web3-react/core';
+import { useSelector } from 'react-redux';
 
 import LeaguesTabContentAdmin from '../admin/LeaguesTabContentAdmin';
 import TabItem from '../TabItem';
 import { worldcupMatchData, uefaMatchData } from './matchData';
-import { getEarnings, getMultipliers, getBetResult, getBetStatus, getBetAmount, getTotalBet } from '../../actions';
 
 const Leagues = () => {
-    const dispatch = useDispatch();
     const betStatus = useSelector(state => state.transaction.betStatus);
-
-    const { account } = useWeb3React();
 
     const [wLive, setWLive] = useState([]);
     const [wUpcoming, setWUpcoming] = useState([]);
@@ -19,20 +14,6 @@ const Leagues = () => {
     const [eLive, setELive] = useState([]);
     const [eUpcoming, setEUpcoming] = useState([]);
     const [eCompleted, setECompleted] = useState([]);
-
-    useEffect(() => {
-        dispatch(getBetStatus());
-        dispatch(getMultipliers());
-        dispatch(getBetResult());
-        dispatch(getTotalBet());
-    }, [dispatch]);
-    
-    useEffect(() => {
-        if (account) {
-            dispatch(getBetAmount(account));
-            dispatch(getEarnings(account));
-        }
-    }, [account]);
 
     useEffect(() => {
         setWLive(worldcupMatchData.filter(ele => {

@@ -93,7 +93,7 @@ const Match = props => {
                                                 { totalBets[ele.id] ?
                                                     <h5 className='d-flex justify-content-center country-name-rt'>
                                                         <span className="bet-label-rt">
-                                                            {getRoundedNumber(totalBets[ele.id])}ETH
+                                                            {getRoundedNumber(totalBets[ele.id])} ETH
                                                         </span>
                                                     </h5> :
                                                     <></>

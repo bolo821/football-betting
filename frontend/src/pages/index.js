@@ -8,8 +8,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../components/Loading';
 import { onBet } from '../actions';
 import AdminRoute from '../AdminRoute';
+import WalletRoute from '../WalletRoute';
 import Home from './Home';
 import Admin from './Admin';
+import History from './History';
 
 const Index = () => {
 	const dispatch = useDispatch();
@@ -27,6 +29,7 @@ const Index = () => {
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<AdminRoute path="/admin" component={Admin} />
+						<WalletRoute path="/history" component={History} />
 					</Switch>
 				</Router>
 			</Loading>

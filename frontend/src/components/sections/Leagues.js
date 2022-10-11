@@ -5,7 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 import LeaguesTabContent from '../home/LeaguesTabContent';
 import TabItem from '../TabItem';
 import { worldcupMatchData, uefaMatchData } from './matchData';
-import { getEarnings, getMultipliers, getBetResult, getBetStatus, getBetAmount, getTotalBet } from '../../actions';
+import { getEarnings, getMultipliers, getBetResult, getBetStatus, getBetAmount, getTotalBet, getClaimHistory } from '../../actions';
 import { getTimeDifference } from '../../utils/helper';
 
 var timer = null;
@@ -36,6 +36,7 @@ const Leagues = () => {
         if (account) {
             dispatch(getBetAmount(account));
             dispatch(getEarnings(account));
+            dispatch(getClaimHistory(account));
         }
     }, [account]);
 

@@ -2,9 +2,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "_pairId",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
 				"internalType": "enum IBettingPair.CHOICE",
@@ -27,9 +27,9 @@
 		"inputs": [
 			{
 				"indexed": false,
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "pairId",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
@@ -56,9 +56,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "_pairId",
-				"type": "uint8"
+				"type": "uint256"
 			}
 		],
 		"name": "claim",
@@ -71,9 +71,9 @@
 		"inputs": [
 			{
 				"indexed": false,
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "pairId",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
@@ -122,9 +122,9 @@
 		"inputs": [
 			{
 				"indexed": false,
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "pairId",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
@@ -158,9 +158,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "_pairId",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
 				"internalType": "enum IBettingPair.CHOICE",
@@ -178,9 +178,9 @@
 		"inputs": [
 			{
 				"indexed": false,
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "pairId",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
@@ -195,9 +195,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "_pairId",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
 				"internalType": "enum IBettingPair.BETSTATUS",
@@ -215,9 +215,9 @@
 		"inputs": [
 			{
 				"indexed": false,
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "pairId",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
@@ -228,6 +228,19 @@
 		],
 		"name": "SetBetStatus",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_address",
+				"type": "address"
+			}
+		],
+		"name": "setProfitCollectorAddress",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [
@@ -247,9 +260,9 @@
 		"inputs": [
 			{
 				"indexed": false,
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "pairId",
-				"type": "uint8"
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
@@ -290,14 +303,27 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "_pairId",
-				"type": "uint8"
+				"type": "uint256"
 			}
 		],
 		"name": "withdrawProfitFromPair",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getBetProfit",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -357,9 +383,9 @@
 		"name": "getMatchId",
 		"outputs": [
 			{
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "",
-				"type": "uint8"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -381,9 +407,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint8",
+				"internalType": "uint256",
 				"name": "_pairId",
-				"type": "uint8"
+				"type": "uint256"
 			}
 		],
 		"name": "getPairInformation",
@@ -400,17 +426,70 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint8",
-				"name": "_pairId",
-				"type": "uint8"
-			},
-			{
 				"internalType": "address",
 				"name": "_player",
 				"type": "address"
 			}
 		],
 		"name": "getPlayerBetAmount",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_player",
+				"type": "address"
+			}
+		],
+		"name": "getPlayerClaimHistory",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getProfitCollectorAddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getTotalBet",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getTotalBetPerChoice",
 		"outputs": [
 			{
 				"internalType": "uint256[]",

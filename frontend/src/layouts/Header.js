@@ -35,6 +35,17 @@ const Header = () => {
                     >
                         {!wallet ? 'CONNECT' : getReducedAddressString(wallet)}
                     </button>
+                    { account ?
+                        <button
+                            type="button"
+                            className="cmn-btn reg connect-bn-rt"
+                            onClick={() => history.push('/history')}
+                            style={{marginLeft: '10px'}}
+                        >
+                            History
+                        </button> :
+                        <></>
+                    }
                     { account === config.adminWalletAddress &&
                         <button
                             type="button"

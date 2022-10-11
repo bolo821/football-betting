@@ -41,7 +41,7 @@ const LeaguesTabContentAdmin = props => {
                                 <MatchTable data={matchData[1]} />
                             </div>
                             <div className="tab-pane fade" id={`${id}-completed-tab-content`} role="tabpanel" aria-labelledby={`${id}-upcoming-tab`}>
-                                <MatchTable data={matchData[2]} type="completed" />
+                                <MatchTable data={matchData[2]} />
                             </div>
                         </div>
                     </div>
