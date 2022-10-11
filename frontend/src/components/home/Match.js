@@ -4,6 +4,7 @@ import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
 import CounterElement from '../CounterElement';
 import BetModal from '../BetModal';
+import MatchCard from './MatchCard';
 
 import { getRoundedNumber } from '../../utils/helper';
 import { bet, claim } from '../../actions';
@@ -77,7 +78,34 @@ const Match = props => {
                         <div className="row cus-mar">
                             { displayMatches.map((ele, index) => (
                                 <div className="col-lg-6" key={index}>
-                                    <div className="single-area betting-card-rt">
+                                    <MatchCard
+                                        type={betStatus[ele.id] === 0 ? 'betting' : betStatus[ele.id] === 1 ? 'reviewing' : 'claiming'}
+                                        days={ele.days}
+                                        hours={ele.hours}
+                                        minutes={ele.mins}
+                                        seconds={ele.secs}
+                                        totalBet={getRoundedNumber(totalBets[ele.id])}
+                                        team1Logo={ele.team1Logo}
+                                        team2Logo={ele.team2Logo}
+                                        team1Abbr={ele.team1Abbr}
+                                        team2Abbr={ele.team2Abbr}
+                                        team1Score={ele.team1Score}
+                                        team2Score={ele.team2Score}
+                                        team1Bet={betAmounts[ele.id]?.win}
+                                        team1Win={earnings[ele.id]?.win}
+                                        team1Multi={multipliers[ele.id]?.win}
+                                        drawBet={betAmounts[ele.id]?.draw}
+                                        drawWin={earnings[ele.id]?.draw}
+                                        drawMulti={multipliers[ele.id]?.draw}
+                                        team2Bet={betAmounts[ele.id]?.lose}
+                                        team2Win={earnings[ele.id]?.lose}
+                                        team2Multi={multipliers[ele.id]?.lose}
+                                        betResult={betResult[ele.id]}
+                                        onTeam1Bet={() => openBetModal(ele.id, 0)}
+                                        onDrawBet={() => openBetModal(ele.id, 1)}
+                                        onTeam2Bet={() => openBetModal(ele.id, 2)}
+                                    />
+                                    {/* <div className="single-area betting-card-rt">
                                         <div className="head-area d-flex align-items-center bet-card-header-rt">
                                             <span className="mdr cmn-btn">Pick Winner</span>
                                             <p>{getTimeString(ele.time)}</p>
@@ -206,7 +234,7 @@ const Match = props => {
                                             </> :
                                             <></>
                                         }
-                                    </div>
+                                    </div> */}
                                 </div>
                             ))}
                         </div>

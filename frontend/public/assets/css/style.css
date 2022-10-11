@@ -31,6 +31,8 @@
 
   --red-color: #9a1131;
   --white-color: #f8f8f8;
+  --success-color: rgb(124, 216, 92);
+  --fail-color: rgb(239, 0, 3);
 }
 
 .collapsing {

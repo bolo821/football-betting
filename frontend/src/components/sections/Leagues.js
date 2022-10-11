@@ -109,7 +109,7 @@ const Leagues = () => {
                             <div className="col-xl-9 col-lg-12">
                                 <ul className="nav league-nav-rt" role="tablist">
                                     <TabItem className="nav-link active" id="id-uefa-bets-nav-ietm" dataTarget="id-uefa-bets">
-                                        EPL BETS
+                                        UEFA BETS
                                     </TabItem>
                                     <TabItem className="nav-link" id="id-worldcup-bets-nav-item" dataTarget="id-worldcup-bets">
                                         Worldcup Bets
@@ -125,7 +125,7 @@ const Leagues = () => {
                         hiddenBy="id-uefa-bets-nav-ietm"
                         show={true}
                         active={true}
-                        title="EPL BETS"
+                        title="UEFA Champions League"
                         matchData={[eLive, eUpcoming, eCompleted]}
                     />
                     <LeaguesTabContent

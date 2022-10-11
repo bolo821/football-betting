@@ -357,10 +357,6 @@ h5.country-name-rt {
     }
 }
 
-.history-table-rt {
-    
-}
-
 .history-table-rt tr {
     background-color: #291b6b;
     border-bottom: 1px solid var(--body-color);
