@@ -146,7 +146,7 @@ const MatchCard = props => {
                     <BetCardContainer>
                         <div>
                             <BetCard className={type === 'claiming' && betResult === 0 ? 'success-rt' : type === 'claiming' && betResult !== 0 ? 'fail-rt' : ''}>
-                                <div>
+                                <div className="multi-div-rt">
                                     <span>{team1Abbr}</span>
                                     <span className="score">x{team1Multi}</span>
                                 </div>
@@ -162,7 +162,7 @@ const MatchCard = props => {
                         </div>
                         <div>
                             <BetCard className={type === 'claiming' && betResult === 1 ? 'success-rt' : type === 'claiming' && betResult !== 1 ? 'fail-rt' : ''}>
-                                <div>
+                                <div className="multi-div-rt">
                                     <span>Draw</span>
                                     <span className="score">x{drawMulti}</span>
                                 </div>
@@ -178,7 +178,7 @@ const MatchCard = props => {
                         </div>
                         <div>
                             <BetCard className={type === 'claiming' && betResult === 2 ? 'success-rt' : type === 'claiming' && betResult !== 2 ? 'fail-rt' : ''}>
-                                <div>
+                                <div className="multi-div-rt">
                                     <span>{team2Abbr}</span>
                                     <span className="score">x{team2Multi}</span>
                                 </div>

@@ -177,6 +177,10 @@ export const BetCard = styled.div`
             font-size: 14px;
         }
     }
+    div.multi-div-rt {
+        background-color: var(--hover-color);
+        border-radius: 10px;
+    }
     &.success-rt {
         div {
             span {
