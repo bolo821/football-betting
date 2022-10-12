@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Header from '../layouts/Header';
 import Section1 from '../components/sections/Section1';
 import HistoryTable from '../components/history/HistoryTable';
+import { getRoundedNumber } from '../utils/helper';
 
 import { worldcupMatchData, uefaMatchData } from '../components/sections/matchData';
 
@@ -56,7 +57,7 @@ const History = () => {
                         ...ele,
                         choice: team1,
                         betAmount: bet.win,
-                        profit: profit,
+                        profit: getRoundedNumber(profit),
                         status: status_,
                     });
                 }
@@ -82,7 +83,7 @@ const History = () => {
                         ...ele,
                         choice: 'Draw',
                         betAmount: bet.draw,
-                        profit: profit,
+                        profit: getRoundedNumber(profit),
                         status: status_,
                     });
                 }
@@ -108,7 +109,7 @@ const History = () => {
                         ...ele,
                         choice: team2,
                         betAmount: bet.lose,
-                        profit: profit,
+                        profit: getRoundedNumber(profit),
                         status: status_,
                     });
                 }
@@ -150,7 +151,7 @@ const History = () => {
                         ...ele,
                         choice: team1,
                         betAmount: bet.win,
-                        profit: profit,
+                        profit: getRoundedNumber(profit),
                         status: status_,
                     });
                 }
@@ -176,7 +177,7 @@ const History = () => {
                         ...ele,
                         choice: 'Draw',
                         betAmount: bet.draw,
-                        profit: profit,
+                        profit: getRoundedNumber(profit),
                         status: status_,
                     });
                 }
@@ -202,7 +203,7 @@ const History = () => {
                         ...ele,
                         choice: team2,
                         betAmount: bet.lose,
-                        profit: profit,
+                        profit: getRoundedNumber(profit),
                         status: status_,
                     });
                 }

@@ -89,14 +89,14 @@ const Match = props => {
                                         team2Abbr={ele.team2Abbr}
                                         team1Score={ele.team1Score}
                                         team2Score={ele.team2Score}
-                                        team1Bet={betAmounts[ele.id]?.win}
-                                        team1Win={earnings[ele.id]?.win}
+                                        team1Bet={getRoundedNumber(betAmounts[ele.id]?.win)}
+                                        team1Win={getRoundedNumber(earnings[ele.id]?.win)}
                                         team1Multi={betAmounts[ele.id]?.win === '0' || earnings[ele.id]?.win === '0' ? multipliers[ele.id]?.win : getRoundedNumber(earnings[ele.id]?.win/betAmounts[ele.id]?.win)}
-                                        drawBet={betAmounts[ele.id]?.draw}
-                                        drawWin={earnings[ele.id]?.draw}
+                                        drawBet={getRoundedNumber(betAmounts[ele.id]?.draw)}
+                                        drawWin={(earnings[ele.id]?.draw)}
                                         drawMulti={betAmounts[ele.id]?.draw === '0' || earnings[ele.id]?.draw === '0' ? multipliers[ele.id]?.draw : getRoundedNumber(earnings[ele.id]?.draw/betAmounts[ele.id]?.draw)}
-                                        team2Bet={betAmounts[ele.id]?.lose}
-                                        team2Win={earnings[ele.id]?.lose}
+                                        team2Bet={getRoundedNumber(betAmounts[ele.id]?.lose)}
+                                        team2Win={(earnings[ele.id]?.lose)}
                                         team2Multi={betAmounts[ele.id]?.lose === '0' || earnings[ele.id]?.lose === '0' ? multipliers[ele.id]?.lose : getRoundedNumber(earnings[ele.id]?.lose/betAmounts[ele.id]?.lose)}
                                         betResult={betResult[ele.id]}
                                         onTeam1Bet={() => openBetModal(ele.id, 0)}
