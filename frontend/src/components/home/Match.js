@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
-import CounterElement from '../CounterElement';
 import BetModal from '../BetModal';
 import MatchCard from './MatchCard';
 
 import { getRoundedNumber } from '../../utils/helper';
 import { bet, claim } from '../../actions';
-import { getTimeString } from '../../utils/helper';
 
 const Match = props => {
     const dispatch = useDispatch();
@@ -93,17 +91,18 @@ const Match = props => {
                                         team2Score={ele.team2Score}
                                         team1Bet={betAmounts[ele.id]?.win}
                                         team1Win={earnings[ele.id]?.win}
-                                        team1Multi={multipliers[ele.id]?.win}
+                                        team1Multi={betAmounts[ele.id]?.win === '0' || earnings[ele.id]?.win === '0' ? multipliers[ele.id]?.win : earnings[ele.id]?.win/betAmounts[ele.id]?.win}
                                         drawBet={betAmounts[ele.id]?.draw}
                                         drawWin={earnings[ele.id]?.draw}
-                                        drawMulti={multipliers[ele.id]?.draw}
+                                        drawMulti={betAmounts[ele.id]?.draw === '0' || earnings[ele.id]?.draw === '0' ? multipliers[ele.id]?.draw : earnings[ele.id]?.draw/betAmounts[ele.id]?.draw}
                                         team2Bet={betAmounts[ele.id]?.lose}
                                         team2Win={earnings[ele.id]?.lose}
-                                        team2Multi={multipliers[ele.id]?.lose}
+                                        team2Multi={betAmounts[ele.id]?.lose === '0' || earnings[ele.id]?.lose === '0' ? multipliers[ele.id]?.lose : earnings[ele.id]?.lose/betAmounts[ele.id]?.lose}
                                         betResult={betResult[ele.id]}
                                         onTeam1Bet={() => openBetModal(ele.id, 0)}
                                         onDrawBet={() => openBetModal(ele.id, 1)}
                                         onTeam2Bet={() => openBetModal(ele.id, 2)}
+                                        onClaim={() => handleClaim(ele.id)}
                                     />
                                     {/* <div className="single-area betting-card-rt">
                                         <div className="head-area d-flex align-items-center bet-card-header-rt">

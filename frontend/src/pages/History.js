@@ -21,6 +21,7 @@ const History = () => {
 
         if (betStatus.length) {
             for (let i=0; i<worldcupMatchData.length; i++) {
+                if (worldcupMatchData[i].id >= betStatus.length) continue;
                 let betId = worldcupMatchData[i].id;
                 let bet = betAmounts[betId];
                 let team1 = worldcupMatchData[i].team1;
@@ -114,6 +115,7 @@ const History = () => {
             }
 
             for (let i=0; i<uefaMatchData.length; i++) {
+                if (uefaMatchData[i].id >= betStatus.length) continue;
                 let betId = uefaMatchData[i].id;
                 let bet = betAmounts[betId];
                 let team1 = uefaMatchData[i].team1;

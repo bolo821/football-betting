@@ -25,7 +25,7 @@ const MatchCard = props => {
         team1Bet, team1Win, team1Multi,
         team2Bet, team2Win, team2Multi,
         drawBet, drawWin, drawMulti,
-        onTeam1Bet, onTeam2Bet, onDrawBet,
+        onTeam1Bet, onTeam2Bet, onDrawBet, onClaim,
         betResult,
     } = props;
     const { account } = useWeb3React();
@@ -70,7 +70,7 @@ const MatchCard = props => {
                     <MatchCardBodyHeader>
                         <span>{totalBet} ETH POOL</span>
                     </MatchCardBodyHeader> :
-                    <MatchCardClaimButton>
+                    <MatchCardClaimButton onClick={onClaim}>
                         <span>CLAIM</span>
                     </MatchCardClaimButton>
                 }
