@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { getRoundedNumber } from "../../utils/helper";
 
 const Section4 = () => {
     const { totalPrize, winnerCount } = useSelector(state => state.transaction);
@@ -107,7 +108,7 @@ const Section4 = () => {
                                     <img src="assets/images/icon/counter-icon-1.png" alt="image" />
                                 </div>
                                 <div className="text-area">
-                                    <h3 className="m-none"><span>{totalPrize} ETH</span></h3>
+                                    <h3 className="m-none"><span>{getRoundedNumber(totalPrize)} ETH</span></h3>
                                     <p>Paid Out Prize in Total</p>
                                 </div>
                             </div>

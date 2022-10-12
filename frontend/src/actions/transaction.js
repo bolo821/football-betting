@@ -277,7 +277,6 @@ export const getBetStatsData = () => async dispatch => {
         const res = await routerContract.methods.getBetStatsData().call().catch(async () => {
             await dispatch(getBetStatsData());
         });
-        console.log('result: ', res);
     
         if (res) {
             dispatch({
