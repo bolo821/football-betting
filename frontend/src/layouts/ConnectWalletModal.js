@@ -44,6 +44,7 @@ import { useEagerConnect, useInactiveListener } from "../hooks";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { setUserWallet } from "../actions";
+import config from "../config";
 
 const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
     const dispatch = useDispatch();
@@ -142,7 +143,7 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
                             })
                             .then(() => {
                                 toast.success(
-                                    "You have successfully changed to Binance Smart Chain Network."
+                                    "You have successfully changed to Ethereum Main Network."
                                 );
                             })
                             .catch((error) => {
@@ -236,7 +237,7 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
                             />
                             <ListItemSecondaryAction className="action">
                                 <Link
-                                    href={`https://bscscan.com/address/${account}`}
+                                    href={`${config.blockExplorer}/address/${account}`}
                                     target="_blank"
                                     underline="none"
                                 >
