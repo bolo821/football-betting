@@ -44,6 +44,8 @@ export const calculateGasMargin = (value) => {
 }
 
 export const getRoundedNumber = float_num => {
+    if (isNaN(float_num)) return 0;
+    if (!float_num) return 0;
     return Math.round(float_num * 1000) / 1000;
 }
 
