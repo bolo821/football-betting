@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Section4 = () => {
+    const { totalPrize, winnerCount } = useSelector(state => state.transaction);
+
     return (
         <section className="how-it-works banner-section section4-rt">
             <div className="container">
@@ -104,7 +107,7 @@ const Section4 = () => {
                                     <img src="assets/images/icon/counter-icon-1.png" alt="image" />
                                 </div>
                                 <div className="text-area">
-                                    <h3 className="m-none"><span>***</span></h3>
+                                    <h3 className="m-none"><span>{totalPrize} ETH</span></h3>
                                     <p>Paid Out Prize in Total</p>
                                 </div>
                             </div>
@@ -115,12 +118,12 @@ const Section4 = () => {
                                     <img src="assets/images/icon/counter-icon-2.png" alt="image" />
                                 </div>
                                 <div className="text-area">
-                                    <h3 className="m-none"><span>***</span></h3>
+                                    <h3 className="m-none"><span>{winnerCount}</span></h3>
                                     <p>Winners</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-xl-4 col-md-6">
+                        {/* <div className="col-xl-4 col-md-6">
                             <div className="single-area d-flex align-items-center">
                                 <div className="img-area">
                                     <img src="assets/images/icon/counter-icon-3.png" alt="image" />
@@ -130,7 +133,7 @@ const Section4 = () => {
                                     <p>Players online</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

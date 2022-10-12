@@ -1,5 +1,5 @@
 import { SET_LOADING } from "./type";
-import { getEarnings, getMultipliers, getBetStatus, getBetResult, getBetAmount, getTotalBet } from "./transaction";
+import { getEarnings, getMultipliers, getBetStatus, getBetResult, getBetAmount, getTotalBet, getBetStatsData } from "./transaction";
 import { SOCKET } from "../config/api";
 
 export const setLoading = data => {
@@ -17,6 +17,7 @@ export const onBet = () => (dispatch, getState) => {
         dispatch(getBetStatus());
         dispatch(getBetResult());
         dispatch(getTotalBet());
+        dispatch(getBetStatsData());
 
         let account = getState().user.wallet;
         if (account) {

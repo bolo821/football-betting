@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import config from '../config';
 import Web3 from 'web3';
 import { calculateGasMargin } from '../utils/helper';
-import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT, SET_BET_AMOUNT, SET_TOTAL_BET, SET_CLAIM_HISTORY } from './';
+import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT, SET_BET_AMOUNT, SET_TOTAL_BET, SET_CLAIM_HISTORY, SET_BET_STATS_DATA } from './';
 import { SOCKET } from '../config/api';
 
 export const web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrl));
@@ -269,5 +269,26 @@ export const withdrawMatchProfit = (account, matchId) => async dispatch => {
         }
     } finally {
         dispatch(setLoading({ loading: false, loadingText: '' }));
+    }
+}
+
+export const getBetStatsData = () => async dispatch => {
+    try {
+        const res = await routerContract.methods.getBetStatsData().call().catch(async () => {
+            await dispatch(getBetStatsData());
+        });
+        console.log('result: ', res);
+    
+        if (res) {
+            dispatch({
+                type: SET_BET_STATS_DATA,
+                payload: {
+                    totalPrize: web3.utils.fromWei(res[0], 'ether'),
+                    winnerCount: res[1],
+                }
+            });
+        }
+    } catch (err) {
+        await dispatch(getBetStatsData());
     }
 }
