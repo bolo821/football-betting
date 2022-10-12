@@ -147,7 +147,7 @@ export const BetCard = styled.div`
     height: 100%;
     button {
         width: 100%;
-        padding: 5px 10px;
+        padding: 10px;
         background-color: var(--hover-color);
         border: 1px solid var(--hover-color);
         display: flex;
@@ -155,8 +155,16 @@ export const BetCard = styled.div`
         color: white;
         cursor: pointer;
         border-radius: 10px;
+        @media screen and (max-width: 576px) {
+            padding: 10px 5px;
+        }
         span {
             font-size: 14px;
+            line-height: 1.2;
+            text-align: left;
+            @media screen and (max-width: 576px) {
+                font-size: 10px;
+            }
         }
         :hover {
             background-color: var(--hover-alt-color);
@@ -166,11 +174,19 @@ export const BetCard = styled.div`
         }
     }
     div {
-        padding: 5px 10px;
+        padding: 10px;
         display: flex;
         justify-content: space-between;
+        @media screen and (max-width: 576px) {
+            padding: 10px 5px;
+        }
         span {
             font-size: 12px;
+            line-height: 1.2;
+            text-align: left;
+            @media screen and (max-width: 576px) {
+                font-size: 10px;
+            }
         }
         .score {
             font-weight: 700;

@@ -85,8 +85,8 @@ const Match = props => {
                                         totalBet={getRoundedNumber(totalBets[ele.id])}
                                         team1Logo={ele.team1Logo}
                                         team2Logo={ele.team2Logo}
-                                        team1Abbr={ele.team1Abbr}
-                                        team2Abbr={ele.team2Abbr}
+                                        team1Abbr={ele.team1}
+                                        team2Abbr={ele.team2}
                                         team1Score={ele.team1Score}
                                         team2Score={ele.team2Score}
                                         team1Bet={getRoundedNumber(betAmounts[ele.id]?.win)}
