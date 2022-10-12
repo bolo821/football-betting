@@ -102,7 +102,7 @@ const Section4 = () => {
             <div className="counter-section">
                 <div className="container">
                     <div className="row cus-mar">
-                        <div className="col-xl-4 col-md-6">
+                        <div className="col-md-6">
                             <div className="single-area d-flex align-items-center">
                                 <div className="img-area">
                                     <img src="assets/images/icon/counter-icon-1.png" alt="image" />
@@ -113,7 +113,7 @@ const Section4 = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-xl-4 col-md-6">
+                        <div className="col-md-6">
                             <div className="single-area d-flex align-items-center">
                                 <div className="img-area">
                                     <img src="assets/images/icon/counter-icon-2.png" alt="image" />
