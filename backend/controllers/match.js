@@ -1,12 +1,10 @@
 const Match = require('mongoose').model('Match');
 const { getMatchId } = require('../utils/blockchain');
 
-var matchId = 0;
-
 const addMatch = async (req, res) => {
     try {
         const { team1Logo, team2Logo } = req.files;
-        // const matchId = await getMatchId();
+        const matchId = await getMatchId();
 
         const createRes = await new Match({
             ...req.body,
