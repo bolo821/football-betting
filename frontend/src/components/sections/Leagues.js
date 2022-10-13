@@ -7,16 +7,12 @@ import TabItem from '../TabItem';
 import { getEarnings, getMultipliers, getBetResult, getBetStatus, getBetAmount, getTotalBet, getClaimHistory, getBetStatsData, getMatch } from '../../actions';
 import { getTimeDifference } from '../../utils/helper';
 
-import { useRouterContract } from '../../hooks/useContract';
-
 var timer = null;
 
 const Leagues = () => {
     const dispatch = useDispatch();
     const betStatus = useSelector(state => state.transaction.betStatus);
     const matches = useSelector(state => state.match.matches);
-
-    const routerContract = useRouterContract();
 
     const { account } = useWeb3React();
 
@@ -43,18 +39,15 @@ const Leagues = () => {
             dispatch(getBetAmount(account));
             dispatch(getEarnings(account));
             dispatch(getClaimHistory(account));
-
-            // routerContract.methods.createOne().estimateGas({ from: account }).then(limit => {
-            //     routerContract.methods.createOne().send({ from: account, gasLimit: limit }).then(res => {
-            //         console.log('result: ', res);
-            //     }).catch(err => {
-            //         console.log('error: ', err);
-            //     });
-            // })
         }
     }, [account]);
 
     useEffect(() => {
+        if (timer){
+            clearInterval(timer);
+            timer = null;
+        }
+
         let timerId = setInterval(() => {
             let tmpW = wMatchData.map(ele => {
                 let diff = getTimeDifference(new Date(), ele.time);
@@ -88,20 +81,35 @@ const Leagues = () => {
         return () => {
             if (timer) {
                 clearInterval(timer);
+                timer = null;
             }
         }
-    }, []);
+    }, [matches]);
 
     useEffect(() => {
         let tmpWLive = [];
+        let tmpWUpcoming = [];
         let tmpWCompleted = [];
         let tmpELive = [];
         let tmpECompleted = [];
+        let tmpEUpcoming = [];
 
         for (let i=0; i<matches.length; i++) {
             if (matches[i].matchType === 'uefa') {
                 if (betStatus[matches[i].matchId] === 2) {
                     tmpECompleted.push({
+                        ...matches[i],
+                        id: matches[i].matchId,
+                        team1: matches[i].team1Name,
+                        team2: matches[i].team2Name,
+                        time: matches[i].matchTime,
+                        days: '00',
+                        hours: '00',
+                        mins: '00',
+                        secs: '00',
+                    });
+                } else if (betStatus[matches[i].matchId] === 1) {
+                    tmpEUpcoming.push({
                         ...matches[i],
                         id: matches[i].matchId,
                         team1: matches[i].team1Name,
@@ -138,6 +146,18 @@ const Leagues = () => {
                         mins: '00',
                         secs: '00',
                     });
+                } else if (betStatus[matches[i].matchId] === 1) {
+                    tmpWUpcoming.push({
+                        ...matches[i],
+                        id: matches[i].matchId,
+                        team1: matches[i].team1Name,
+                        team2: matches[i].team2Name,
+                        time: matches[i].matchTime,
+                        days: '00',
+                        hours: '00',
+                        mins: '00',
+                        secs: '00',
+                    });
                 } else {
                     tmpWLive.push({
                         ...matches[i],
@@ -158,6 +178,8 @@ const Leagues = () => {
         setECompleted(tmpECompleted);
         setWLive(tmpWLive);
         setWCompleted(tmpWCompleted);
+        setEUpcoming(tmpEUpcoming);
+        setWUpcoming(tmpWUpcoming);
     }, [matches, betStatus]);
 
     return (
