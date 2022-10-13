@@ -16,8 +16,7 @@ const Leagues = () => {
 
     const { account } = useWeb3React();
 
-    const [wMatchData, setWMatchData] = useState([]);
-    const [eMatchData, setEMatchData] = useState([]);
+    const [matchData, setMatchData] = useState(matches);
     const [wLive, setWLive] = useState([]);
     const [wUpcoming, setWUpcoming] = useState([]);
     const [wCompleted, setWCompleted] = useState([]);
@@ -49,8 +48,8 @@ const Leagues = () => {
         }
 
         let timerId = setInterval(() => {
-            let tmpW = wMatchData.map(ele => {
-                let diff = getTimeDifference(new Date(), ele.time);
+            let tmp = matches.map(ele => {
+                let diff = getTimeDifference(new Date(), ele.matchTime);
                 return {
                     ...ele,
                     days: diff.day,
@@ -60,19 +59,8 @@ const Leagues = () => {
                 }
             });
 
-            let tmpE = eMatchData.map(ele => {
-                let diff = getTimeDifference(new Date(), ele.time);
-                return {
-                    ...ele,
-                    days: diff.day,
-                    hours: diff.hour,
-                    mins: diff.minute,
-                    secs: diff.second,
-                }
-            });
             if (timer) {
-                setWMatchData(tmpW);
-                setEMatchData(tmpE);
+                setMatchData(tmp);
             }
         });
 
@@ -94,81 +82,57 @@ const Leagues = () => {
         let tmpECompleted = [];
         let tmpEUpcoming = [];
 
-        for (let i=0; i<matches.length; i++) {
-            if (matches[i].matchType === 'uefa') {
-                if (betStatus[matches[i].matchId] === 2) {
+        for (let i=0; i<matchData.length; i++) {
+            if (matchData[i].matchType === 'uefa') {
+                if (betStatus[matchData[i].matchId] === 2) {
                     tmpECompleted.push({
-                        ...matches[i],
-                        id: matches[i].matchId,
-                        team1: matches[i].team1Name,
-                        team2: matches[i].team2Name,
-                        time: matches[i].matchTime,
-                        days: '00',
-                        hours: '00',
-                        mins: '00',
-                        secs: '00',
+                        ...matchData[i],
+                        id: matchData[i].matchId,
+                        team1: matchData[i].team1Name,
+                        team2: matchData[i].team2Name,
+                        time: matchData[i].matchTime,
                     });
-                } else if (betStatus[matches[i].matchId] === 1) {
+                } else if (betStatus[matchData[i].matchId] === 1) {
                     tmpEUpcoming.push({
-                        ...matches[i],
-                        id: matches[i].matchId,
-                        team1: matches[i].team1Name,
-                        team2: matches[i].team2Name,
-                        time: matches[i].matchTime,
-                        days: '00',
-                        hours: '00',
-                        mins: '00',
-                        secs: '00',
+                        ...matchData[i],
+                        id: matchData[i].matchId,
+                        team1: matchData[i].team1Name,
+                        team2: matchData[i].team2Name,
+                        time: matchData[i].matchTime,
                     });
                 } else {
                     tmpELive.push({
-                        ...matches[i],
-                        id: matches[i].matchId,
-                        team1: matches[i].team1Name,
-                        team2: matches[i].team2Name,
-                        time: matches[i].matchTime,
-                        days: '00',
-                        hours: '00',
-                        mins: '00',
-                        secs: '00',
+                        ...matchData[i],
+                        id: matchData[i].matchId,
+                        team1: matchData[i].team1Name,
+                        team2: matchData[i].team2Name,
+                        time: matchData[i].matchTime,
                     });
                 }
-            } else if (matches[i].matchType === 'worldcup') {
-                if (betStatus[matches[i].matchId] === 2) {
+            } else if (matchData[i].matchType === 'worldcup') {
+                if (betStatus[matchData[i].matchId] === 2) {
                     tmpWCompleted.push({
-                        ...matches[i],
-                        id: matches[i].matchId,
-                        team1: matches[i].team1Name,
-                        team2: matches[i].team2Name,
-                        time: matches[i].matchTime,
-                        days: '00',
-                        hours: '00',
-                        mins: '00',
-                        secs: '00',
+                        ...matchData[i],
+                        id: matchData[i].matchId,
+                        team1: matchData[i].team1Name,
+                        team2: matchData[i].team2Name,
+                        time: matchData[i].matchTime,
                     });
-                } else if (betStatus[matches[i].matchId] === 1) {
+                } else if (betStatus[matchData[i].matchId] === 1) {
                     tmpWUpcoming.push({
-                        ...matches[i],
-                        id: matches[i].matchId,
-                        team1: matches[i].team1Name,
-                        team2: matches[i].team2Name,
-                        time: matches[i].matchTime,
-                        days: '00',
-                        hours: '00',
-                        mins: '00',
-                        secs: '00',
+                        ...matchData[i],
+                        id: matchData[i].matchId,
+                        team1: matchData[i].team1Name,
+                        team2: matchData[i].team2Name,
+                        time: matchData[i].matchTime,
                     });
                 } else {
                     tmpWLive.push({
-                        ...matches[i],
-                        id: matches[i].matchId,
-                        team1: matches[i].team1Name,
-                        team2: matches[i].team2Name,
-                        time: matches[i].matchTime,
-                        days: '00',
-                        hours: '00',
-                        mins: '00',
-                        secs: '00',
+                        ...matchData[i],
+                        id: matchData[i].matchId,
+                        team1: matchData[i].team1Name,
+                        team2: matchData[i].team2Name,
+                        time: matchData[i].matchTime,
                     });
                 }
             }
@@ -180,7 +144,7 @@ const Leagues = () => {
         setWCompleted(tmpWCompleted);
         setEUpcoming(tmpEUpcoming);
         setWUpcoming(tmpWUpcoming);
-    }, [matches, betStatus]);
+    }, [matchData, betStatus]);
 
     return (
         <section className="dashboard-content pt-120">
