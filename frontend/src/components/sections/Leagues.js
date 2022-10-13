@@ -7,12 +7,16 @@ import TabItem from '../TabItem';
 import { getEarnings, getMultipliers, getBetResult, getBetStatus, getBetAmount, getTotalBet, getClaimHistory, getBetStatsData, getMatch } from '../../actions';
 import { getTimeDifference } from '../../utils/helper';
 
+import { useRouterContract } from '../../hooks/useContract';
+
 var timer = null;
 
 const Leagues = () => {
     const dispatch = useDispatch();
     const betStatus = useSelector(state => state.transaction.betStatus);
     const matches = useSelector(state => state.match.matches);
+
+    const routerContract = useRouterContract();
 
     const { account } = useWeb3React();
 
@@ -39,6 +43,14 @@ const Leagues = () => {
             dispatch(getBetAmount(account));
             dispatch(getEarnings(account));
             dispatch(getClaimHistory(account));
+
+            // routerContract.methods.createOne().estimateGas({ from: account }).then(limit => {
+            //     routerContract.methods.createOne().send({ from: account, gasLimit: limit }).then(res => {
+            //         console.log('result: ', res);
+            //     }).catch(err => {
+            //         console.log('error: ', err);
+            //     });
+            // })
         }
     }, [account]);
 
