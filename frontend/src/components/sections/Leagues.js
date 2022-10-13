@@ -4,8 +4,7 @@ import { useWeb3React } from '@web3-react/core';
 
 import LeaguesTabContent from '../home/LeaguesTabContent';
 import TabItem from '../TabItem';
-import { worldcupMatchData, uefaMatchData } from './matchData';
-import { getEarnings, getMultipliers, getBetResult, getBetStatus, getBetAmount, getTotalBet, getClaimHistory, getBetStatsData } from '../../actions';
+import { getEarnings, getMultipliers, getBetResult, getBetStatus, getBetAmount, getTotalBet, getClaimHistory, getBetStatsData, getMatch } from '../../actions';
 import { getTimeDifference } from '../../utils/helper';
 
 var timer = null;
@@ -13,11 +12,12 @@ var timer = null;
 const Leagues = () => {
     const dispatch = useDispatch();
     const betStatus = useSelector(state => state.transaction.betStatus);
+    const matches = useSelector(state => state.match.matches);
 
     const { account } = useWeb3React();
 
-    const [wMatchData, setWMatchData] = useState(worldcupMatchData);
-    const [eMatchData, setEMatchData] = useState(uefaMatchData);
+    const [wMatchData, setWMatchData] = useState([]);
+    const [eMatchData, setEMatchData] = useState([]);
     const [wLive, setWLive] = useState([]);
     const [wUpcoming, setWUpcoming] = useState([]);
     const [wCompleted, setWCompleted] = useState([]);
@@ -31,6 +31,7 @@ const Leagues = () => {
         dispatch(getBetResult());
         dispatch(getTotalBet());
         dispatch(getBetStatsData());
+        dispatch(getMatch());
     }, [dispatch]);
     
     useEffect(() => {
@@ -80,26 +81,72 @@ const Leagues = () => {
     }, []);
 
     useEffect(() => {
-        setWLive(wMatchData.filter(ele => {
-            if (betStatus[ele.id] === 0 || betStatus[ele.id] === 1) return true;
-            return false;
-        }));
-        setWCompleted(wMatchData.filter(ele => {
-            if (betStatus[ele.id] === 2) return true;
-            return false;
-        }));
-    }, [wMatchData, betStatus]);
+        let tmpWLive = [];
+        let tmpWCompleted = [];
+        let tmpELive = [];
+        let tmpECompleted = [];
 
-    useEffect(() => {
-        setELive(eMatchData.filter(ele => {
-            if (betStatus[ele.id] === 0 || betStatus[ele.id] === 1) return true;
-            return false;
-        }));
-        setECompleted(eMatchData.filter(ele => {
-            if (betStatus[ele.id] === 2) return true;
-            return false;
-        }));
-    }, [eMatchData, betStatus]);
+        for (let i=0; i<matches.length; i++) {
+            if (matches[i].matchType === 'uefa') {
+                if (betStatus[matches[i].matchId] === 2) {
+                    tmpECompleted.push({
+                        ...matches[i],
+                        id: matches[i].matchId,
+                        team1: matches[i].team1Name,
+                        team2: matches[i].team2Name,
+                        time: matches[i].matchTime,
+                        days: '00',
+                        hours: '00',
+                        mins: '00',
+                        secs: '00',
+                    });
+                } else {
+                    tmpELive.push({
+                        ...matches[i],
+                        id: matches[i].matchId,
+                        team1: matches[i].team1Name,
+                        team2: matches[i].team2Name,
+                        time: matches[i].matchTime,
+                        days: '00',
+                        hours: '00',
+                        mins: '00',
+                        secs: '00',
+                    });
+                }
+            } else if (matches[i].matchType === 'worldcup') {
+                if (betStatus[matches[i].matchId] === 2) {
+                    tmpWCompleted.push({
+                        ...matches[i],
+                        id: matches[i].matchId,
+                        team1: matches[i].team1Name,
+                        team2: matches[i].team2Name,
+                        time: matches[i].matchTime,
+                        days: '00',
+                        hours: '00',
+                        mins: '00',
+                        secs: '00',
+                    });
+                } else {
+                    tmpWLive.push({
+                        ...matches[i],
+                        id: matches[i].matchId,
+                        team1: matches[i].team1Name,
+                        team2: matches[i].team2Name,
+                        time: matches[i].matchTime,
+                        days: '00',
+                        hours: '00',
+                        mins: '00',
+                        secs: '00',
+                    });
+                }
+            }
+        }
+
+        setELive(tmpELive);
+        setECompleted(tmpECompleted);
+        setWLive(tmpWLive);
+        setWCompleted(tmpWCompleted);
+    }, [matches, betStatus]);
 
     return (
         <section className="dashboard-content pt-120">

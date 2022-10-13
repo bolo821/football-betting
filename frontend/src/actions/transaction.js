@@ -4,9 +4,9 @@ import config from '../config';
 import Web3 from 'web3';
 import { calculateGasMargin } from '../utils/helper';
 import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT, SET_BET_AMOUNT, SET_TOTAL_BET, SET_CLAIM_HISTORY, SET_BET_STATS_DATA } from './';
-import { SOCKET } from '../config/api';
+import { SOCKET, api } from '../config/apis';
 
-export const web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrl));
+const web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrl));
 const routerContract = new web3.eth.Contract(config.routerContractAbi, config.routerContractAddress);
 
 const web3Signed = new Web3(window.ethereum);
@@ -66,26 +66,60 @@ export const claim = (account, matchId) => async dispatch => {
     }
 }
 
-export const getEarnings = (account) => async dispatch => {
-    const res = await routerContract.methods.getClaimAmount().call({ from: account }).catch(async err => {
-        await dispatch(getEarnings(account));
-    });
+export const createMatch = () => async (dispatch, useState) => {
+    dispatch(setLoading({ loading: true, loadingText: 'Creating a new match...' }));
 
-    if (res) {
-        let claimData = [];
-        for (let i=0; i<res.length; i+=3) {
-            claimData.push({
-                win: web3.utils.fromWei(res[i], 'ether'),
-                draw: web3.utils.fromWei(res[i+1], 'ether'),
-                lose: web3.utils.fromWei(res[i+2], 'ether'),
+    try {
+        const account = useState().user.wallet;
+        if (!account) return false;
+
+        const gasLimit = await routerContractSigned.methods.createOne().estimateGas({ from: account });
+        const res = await routerContractSigned.methods.createOne()
+        .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
+        .catch(err => {
+            console.log('error in create match block: ', err);
+            toast.error('There was a blockchain network error. Please try again.');
+            return false;
+        });
+    
+        if (res) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        if (err.message.includes('caller is not the owner')) {
+            toast.error('Only contract owner can create a new match.');
+        }
+        return false;
+    }
+}
+
+export const getEarnings = (account) => async dispatch => {
+    try {
+        const res = await routerContract.methods.getClaimAmount().call({ from: account }).catch(async err => {
+            await dispatch(getEarnings(account));
+        });
+    
+        if (res) {
+            let claimData = [];
+            for (let i=0; i<res.length; i+=3) {
+                claimData.push({
+                    win: web3.utils.fromWei(res[i], 'ether'),
+                    draw: web3.utils.fromWei(res[i+1], 'ether'),
+                    lose: web3.utils.fromWei(res[i+2], 'ether'),
+                });
+            }
+    
+            dispatch({
+                type: SET_EARNINGS,
+                payload: claimData,
             });
         }
-
-        dispatch({
-            type: SET_EARNINGS,
-            payload: claimData,
-        });
+    } catch (err) {
+        await dispatch(getEarnings(account));
     }
+    
 }
 
 export const getBetAmount = (account) => async dispatch => {
@@ -112,52 +146,64 @@ export const getBetAmount = (account) => async dispatch => {
 }
 
 export const getMultipliers = () => async dispatch => {
-    const res = await routerContract.methods.getMultiplier().call().catch(async err => {
-        await dispatch(getMultipliers());
-    });
-
-    if (res) {
-        let multiplierData = [];
-        for (let i=0; i<res.length; i+=3) {
-            multiplierData.push({
-                win: parseInt(res[i]) / 1000,
-                draw: parseInt(res[i+1]) / 1000,
-                lose: parseInt(res[i+2]) / 1000,
+    try {
+        const res = await routerContract.methods.getMultiplier().call().catch(async err => {
+            await dispatch(getMultipliers());
+        });
+    
+        if (res) {
+            let multiplierData = [];
+            for (let i=0; i<res.length; i+=3) {
+                multiplierData.push({
+                    win: parseInt(res[i]) / 1000,
+                    draw: parseInt(res[i+1]) / 1000,
+                    lose: parseInt(res[i+2]) / 1000,
+                });
+            }
+    
+            dispatch({
+                type: SET_MULTIPLIERS,
+                payload: multiplierData,
             });
         }
-
-        dispatch({
-            type: SET_MULTIPLIERS,
-            payload: multiplierData,
-        });
+    } catch (err) {
+        await dispatch(getMultipliers());
     }
 }
 
 export const getBetStatus = () => async dispatch => {
-    const res = await routerContract.methods.getBetStatus().call().catch(async err => {
-        await dispatch(getBetStatus());
-    });
-
-    if (res) {
-        let statusData = res.map(ele => parseInt(ele));
-        dispatch({
-            type: SET_BET_STATUS,
-            payload: statusData,
+    try {
+        const res = await routerContract.methods.getBetStatus().call().catch(async err => {
+            await dispatch(getBetStatus());
         });
+    
+        if (res) {
+            let statusData = res.map(ele => parseInt(ele));
+            dispatch({
+                type: SET_BET_STATUS,
+                payload: statusData,
+            });
+        }
+    } catch (err) {
+        await dispatch(getBetStatus());
     }
 }
 
 export const getBetResult = () => async dispatch => {
-    const res = await routerContract.methods.getBetResult().call().catch(async err => {
-        await dispatch(getBetResult());
-    });
-
-    if (res) {
-        let resultData = res.map(ele => parseInt(ele));
-        dispatch({
-            type: SET_BET_RESULT,
-            payload: resultData,
+    try {
+        const res = await routerContract.methods.getBetResult().call().catch(async err => {
+            await dispatch(getBetResult());
         });
+    
+        if (res) {
+            let resultData = res.map(ele => parseInt(ele));
+            dispatch({
+                type: SET_BET_RESULT,
+                payload: resultData,
+            });
+        }
+    } catch (err) {
+        await dispatch(getBetResult());
     }
 }
 
@@ -221,10 +267,12 @@ export const setBetStatus = (account, matchId, status, callback) => async dispat
     }
 }
 
-export const setBetResult = (account, matchId, result, callback) => async dispatch => {
+export const setBetResult = (account, data, callback) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Setting match result...' }));
 
     try {
+        const { matchId, result, team1Score, team2Score } = data;
+
         const gasLimit = await routerContractSigned.methods.setBetResult(matchId, result).estimateGas({ from: account });
         const res = await routerContractSigned.methods.setBetResult(matchId, result)
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
@@ -235,7 +283,7 @@ export const setBetResult = (account, matchId, result, callback) => async dispat
         });
     
         if (res) {
-            toast.success('Successfully set the bet result.');
+            await api.put(`/match/${matchId}`, { team1Score, team2Score });
             SOCKET.emit('BET');
         }
     } catch (err) {

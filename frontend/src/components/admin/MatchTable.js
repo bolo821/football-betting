@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useWeb3React } from '@web3-react/core';
-import { getTimeString } from '../../utils/helper';
+import { getDateTimeString } from '../../utils/helper';
 import StatusModal from './StatusModal';
 import ResultModal from './ResultModal';
-import { setBetStatus, setBetResult, withdrawMatchProfit } from '../../actions';
+import { setBetStatus, setBetResult } from '../../actions';
 
 var team1 = '';
 var team2 = '';
@@ -19,6 +19,8 @@ const MatchTable = props => {
 
     const [showStatusModal, setShowStatusModal] = useState(false);
     const [showResultModal, setShowResultModal] = useState(false);
+    const [team1Score, setTeam1Score] = useState(0);
+    const [team2Score, setTeam2Score] = useState(0);
 
     const setMatchStatus = status => {
         dispatch(setBetStatus(account, matchId, status, () => {
@@ -27,8 +29,15 @@ const MatchTable = props => {
     }
 
     const setMatchResult = status => {
-        dispatch(setBetResult(account, matchId, status, () => {
+        dispatch(setBetResult(account, {
+            matchId,
+            result: status,
+            team1Score,
+            team2Score,
+        }, () => {
             setShowResultModal(false);
+            setTeam1Score(0);
+            setTeam2Score(0);
         }));
     }
 
@@ -59,7 +68,7 @@ const MatchTable = props => {
                                     { data.map((ele, index) => (
                                         <tr key={index}>
                                             <th>{ele.team1} / {ele.team2}</th>
-                                            <td>{getTimeString(ele.time)}</td>
+                                            <td>{getDateTimeString(ele.time)}</td>
                                             <td>{betStatus[ele.id] === 0 ? 'Betting' : betStatus[ele.id] === 1 ? 'Reviewing' : 'Claiming'}</td>
                                             { type === 'completed' &&
                                                 <td>{betResult[ele.id] === 0 ? `${ele.team1} won` : betResult[ele.id] === 1 ? 'Drew' : `${ele.team2} won`}</td>
@@ -94,7 +103,14 @@ const MatchTable = props => {
                 </div>
             </div>
             <StatusModal isOpen={showStatusModal} setIsOpen={setShowStatusModal} setMatchStatus={setMatchStatus} />
-            <ResultModal isOpen={showResultModal} setIsOpen={setShowResultModal} setMatchResult={setMatchResult} team1={team1} team2={team2} />
+            <ResultModal
+                isOpen={showResultModal}
+                setIsOpen={setShowResultModal}
+                setMatchResult={setMatchResult}
+                team1={team1} team2={team2}
+                team1Score={team1Score} setTeam1Score={setTeam1Score}
+                team2Score={team2Score} setTeam2Score={setTeam2Score}
+            />
         </section>
     )
 }

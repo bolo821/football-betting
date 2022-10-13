@@ -35,7 +35,7 @@ const Match = props => {
 
     useEffect(() => {
         setDisplayMatches(data.slice(0, displayCount));
-    }, [data]);
+    }, [data, displayCount]);
 
     const openBetModal = (matchId, _choice) => {
         setCurrentMatch(matchId);

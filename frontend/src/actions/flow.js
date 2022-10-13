@@ -1,6 +1,6 @@
 import { SET_LOADING } from "./type";
 import { getEarnings, getMultipliers, getBetStatus, getBetResult, getBetAmount, getTotalBet, getBetStatsData } from "./transaction";
-import { SOCKET } from "../config/api";
+import { SOCKET } from "../config/apis";
 
 export const setLoading = data => {
     return {

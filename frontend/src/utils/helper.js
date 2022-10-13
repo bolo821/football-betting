@@ -49,14 +49,24 @@ export const getRoundedNumber = float_num => {
     return Math.round(float_num * 1000) / 1000;
 }
 
-export const getTimeString = time => {
+export const getDateString = time => {
     let t = new Date(time);
     let year = t.getFullYear();
     let month = t.getMonth() + 1;
     let date = t.getDate();
+
+    return `${year}-${getFormatedNumber(month)}-${getFormatedNumber(date)}`;
+}
+
+export const getTimeString = time => {
+    let t = new Date(time);
     let hour = t.getHours();
     let min = t.getMinutes();
     let sec = t.getSeconds();
 
-    return `${year}-${getFormatedNumber(month)}-${getFormatedNumber(date)} ${getFormatedNumber(hour)}:${getFormatedNumber(min)}:${getFormatedNumber(sec)}`;
+    return `${getFormatedNumber(hour)}:${getFormatedNumber(min)}:${getFormatedNumber(sec)}`;
+}
+
+export const getDateTimeString = time => {
+    return `${getDateString(time)} ${getTimeString(time)}`;
 }

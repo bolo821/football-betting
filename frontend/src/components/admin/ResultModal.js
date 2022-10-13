@@ -3,27 +3,9 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-var timer = null;
-
-const ResultModal = ({ isOpen, setIsOpen, setMatchResult, team1, team2 }) => {
+const ResultModal = ({ isOpen, setIsOpen, setMatchResult, team1, team2, team1Score, setTeam1Score, team2Score, setTeam2Score }) => {
     const selectRef = useRef(null);
     const [result, setResult] = useState('0');
-
-    useEffect(() => {
-        timer = setInterval(() => {
-            if (selectRef.current) {
-                // window.$("select").niceSelect();
-                clearInterval(timer);
-                timer = null;
-            }
-        }, 100);
-
-        return () => {
-            if (timer) {
-                clearInterval(timer);
-            }
-        }
-    }, []);
 
     useEffect(() => {
         if (!isOpen) {
@@ -51,12 +33,24 @@ const ResultModal = ({ isOpen, setIsOpen, setMatchResult, team1, team2 }) => {
                 <h5 className="mb-3">
                     Please select the bet result.
                 </h5>
-                <select ref={selectRef} onChange={handleSelect}>
+                <select ref={selectRef} onChange={handleSelect} className="mb-3">
                     <option value="0">{`${team1} won`}</option>
                     <option value="1">Drew</option>
                     <option value="2">{`${team2} won`}</option>
                 </select>
-                <div className="bottom-item mt-5">
+                <div className="input-single w-100 mb-3">
+                    <label>{team1} Score</label>
+                    <div className="input-area">
+                        <input type="text" name="team1Score" placeholder="team1 score" value={team1Score} onChange={e => setTeam1Score(e.target.value)} />
+                    </div>
+                </div>
+                <div className="input-single w-100 mb-3">
+                    <label>{team2} Score</label>
+                    <div className="input-area">
+                        <input type="text" name="team2Score" placeholder="team2 score" value={team2Score} onChange={e => setTeam2Score(e.target.value)} />
+                    </div>
+                </div>
+                <div className="bottom-item">
                     <button className="cmn-btn lastTeam" onClick={() => setMatchResult(result)}>Set Result</button>
                 </div>
             </div>

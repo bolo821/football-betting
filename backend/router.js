@@ -1,5 +1,5 @@
-const wallet = require('./routes/walletRoutes');
+const matchRoutes = require('./routes/matchRoutes');
 
 module.exports = app => {
-    app.use('/api/wallet', wallet);
+    app.use('/api/match', matchRoutes);
 }
