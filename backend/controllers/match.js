@@ -8,7 +8,7 @@ const addMatch = async (req, res) => {
 
         const createRes = await new Match({
             ...req.body,
-            matchId: matchId++,
+            matchId: matchId - 1,
             team1Logo: process.env.SERVER_URL + team1Logo[0].filename,
             team2Logo: process.env.SERVER_URL + team2Logo[0].filename,
         }).save().catch(err => {
