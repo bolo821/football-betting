@@ -26,3 +26,11 @@ export const onBet = () => (dispatch, getState) => {
         }
     });
 }
+
+export const onStatusUpdate = () => dispatch => {
+    SOCKET.removeAllListeners("UPDATE_STATUS");
+
+    SOCKET.on('UPDATE_STATUS', () => {
+        dispatch(getBetStatus());       
+    });
+}

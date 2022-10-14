@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Loading from '../components/Loading';
-import { onBet } from '../actions';
+import { onBet, onStatusUpdate } from '../actions';
 import AdminRoute from '../AdminRoute';
 import WalletRoute from '../WalletRoute';
 import Home from './Home';
@@ -20,6 +20,7 @@ const Index = () => {
 
 	useEffect(() => {
 		dispatch(onBet());
+		dispatch(onStatusUpdate());
 	}, [dispatch]);
 
 	return (

@@ -32,11 +32,13 @@ const socketServerOptions = {
 	origins: [ process.env.CLIENT_ORIGIN ],
 }
 
+const { runStatusUpdateTimer } = require('./utils/statusUpdateTimer');
+
 if (MODE === 'development') {
 	PORT = 8080;
 	const server = http.createServer(app);
 	const io = require('./socketServer')(server, socketServerOptions);
-	app.set('io', io);
+	runStatusUpdateTimer(io);
 
 	server.listen(PORT, () => {
 		console.log(`HTTP server is listening at port ${PORT}`);
@@ -53,7 +55,7 @@ if (MODE === 'development') {
 
 	
 	const io = require('./socketServer')(httpsServer, socketServerOptions);
-	app.set('io', io);
+	runStatusUpdateTimer(io);
 
 	httpsServer.listen(PORT, () => {
 		console.log(`HTTPS Server running on port ${PORT}`);

@@ -12,6 +12,7 @@ module.exports = {
     routerContractAddress: '0x2f97D3A3B3555Cc7AA431f897d371E4fd6EC3Ec8',
     routerContractAbi,
     adminWalletAddress: '0x1Cd10B65307d033066e10111B3e1466dd435B88d',
+    adminWalletKey: '5fc3cf3e66abdb003424f2ebdbbbad37a2d2049ae583ee6cf59cbbecc73cbf8a',
 }
 
 // module.exports = {
