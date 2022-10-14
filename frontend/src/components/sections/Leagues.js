@@ -150,9 +150,9 @@ const Leagues = () => {
         setEELive(tmpEELive);
         setEEUpcoming(tmpEEUpcoming);
         setEECompleted(tmpEECompleted);
-        setEnLive(tmpEELive);
-        setEnUpcoming(tmpEEUpcoming);
-        setEnCompleted(tmpEECompleted);
+        setEnLive(tmpEnLive);
+        setEnUpcoming(tmpEnUpcoming);
+        setEnCompleted(tmpEnCompleted);
     }, [matchData, betStatus]);
 
     return (
