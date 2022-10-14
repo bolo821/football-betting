@@ -13,17 +13,15 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/public')));
 
 const MODE = process.env.DEPLOY_MODE;
-// if (MODE === 'production') {
-// 	app.use(cors({
-// 		origin: [
-// 			process.env.CLIENT_ORIGIN,
-// 		]
-// 	}));
-// } else {
-// 	app.use(cors());
-// }
-
-app.use(cors());
+if (MODE === 'production') {
+	app.use(cors({
+		origin: [
+			process.env.CLIENT_ORIGIN,
+		]
+	}));
+} else {
+	app.use(cors());
+}
 
 require('./router')(app)
 
