@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const db_string = process.env.MONGO_URL;
 
+console.log('db string: ', db_string);
+
 require('./models/Match');
 require("./models/Token");
 
