@@ -19,6 +19,9 @@ const Leagues = () => {
     const [eeLive, setEELive] = useState([]);
     const [eeUpcoming, setEEUpcoming] = useState([]);
     const [eeCompleted, setEECompleted] = useState([]);
+    const [enLive, setEnLive] = useState([]);
+    const [enUpcoming, setEnUpcoming] = useState([]);
+    const [enCompleted, setEnCompleted] = useState([]);
 
     useEffect(() => {
         let tmpWLive = [];
@@ -30,6 +33,9 @@ const Leagues = () => {
         let tmpEELive = [];
         let tmpEECompleted = [];
         let tmpEEUpcoming = [];
+        let tmpEnLive = [];
+        let tmpEnCompleted = [];
+        let tmpEnUpcoming = [];
 
 
         for (let i=0; i<matches.length; i++) {
@@ -60,6 +66,14 @@ const Leagues = () => {
                 } else {
                     tmpEELive.push(item);
                 }
+            } else if (type === "english_p") {
+                if (status === 2) {
+                    tmpEnCompleted.push(item);
+                } else if (status === 1) {
+                    tmpEnUpcoming.push(item);
+                } else {
+                    tmpEnLive.push(item);
+                }
             } else if (type === 'worldcup') {
                 if (status === 2) {
                     tmpWCompleted.push(item);
@@ -80,6 +94,9 @@ const Leagues = () => {
         setEELive(tmpEELive);
         setEEUpcoming(tmpEEUpcoming);
         setEECompleted(tmpEECompleted);
+        setEnLive(tmpEELive);
+        setEnUpcoming(tmpEEUpcoming);
+        setEnCompleted(tmpEECompleted);
     }, [matches, betStatus]);
 
     return (
@@ -108,6 +125,9 @@ const Leagues = () => {
                                     <TabItem className="nav-link" id="id-uefa-bets-nav-item-admin" dataTarget="id-uefa-bets-admin">
                                         UEFA Europa
                                     </TabItem>
+                                    <TabItem className="nav-link" id="id-english-bets-nav-item-admin" dataTarget="id-english-bets-admin">
+                                        English Premier League
+                                    </TabItem>
                                     <TabItem className="nav-link" id="id-worldcup-bets-nav-item-admin" dataTarget="id-worldcup-bets-admin">
                                         Worldcup
                                     </TabItem>
@@ -132,6 +152,14 @@ const Leagues = () => {
                         active={false}
                         title="UEFA Europa League"
                         matchData={[eeLive, eeUpcoming, eeCompleted]}
+                    />
+                    <LeaguesTabContentAdmin
+                        id="id-english-bets-admin"
+                        hiddenBy="id-english-bets-nav-item-admin"
+                        show={false}
+                        active={false}
+                        title="English Premier League"
+                        matchData={[enLive, enUpcoming, enCompleted]}
                     />
                     <LeaguesTabContentAdmin
                         id="id-worldcup-bets-admin"

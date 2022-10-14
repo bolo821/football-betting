@@ -26,6 +26,9 @@ const Leagues = () => {
     const [eeLive, setEELive] = useState([]);
     const [eeUpcoming, setEEUpcoming] = useState([]);
     const [eeCompleted, setEECompleted] = useState([]);
+    const [enLive, setEnLive] = useState([]);
+    const [enUpcoming, setEnUpcoming] = useState([]);
+    const [enCompleted, setEnCompleted] = useState([]);
 
     useEffect(() => {
         dispatch(getBetStatus());
@@ -87,6 +90,9 @@ const Leagues = () => {
         let tmpEELive = [];
         let tmpEECompleted = [];
         let tmpEEUpcoming = [];
+        let tmpEnLive = [];
+        let tmpEnCompleted = [];
+        let tmpEnUpcoming = [];
 
         for (let i=0; i<matchData.length; i++) {
             let matchId = matchData[i].matchId;
@@ -116,6 +122,14 @@ const Leagues = () => {
                 } else {
                     tmpEELive.push(item);
                 }
+            } else if (type === "english_p") {
+                if (status === 2) {
+                    tmpEnCompleted.push(item);
+                } else if (status === 1) {
+                    tmpEnUpcoming.push(item);
+                } else {
+                    tmpEnLive.push(item);
+                }
             } else if (type === 'worldcup') {
                 if (status === 2) {
                     tmpWCompleted.push(item);
@@ -136,6 +150,9 @@ const Leagues = () => {
         setEELive(tmpEELive);
         setEEUpcoming(tmpEEUpcoming);
         setEECompleted(tmpEECompleted);
+        setEnLive(tmpEELive);
+        setEnUpcoming(tmpEEUpcoming);
+        setEnCompleted(tmpEECompleted);
     }, [matchData, betStatus]);
 
     return (
@@ -151,6 +168,9 @@ const Leagues = () => {
                                     </TabItem>
                                     <TabItem className="nav-link" id="id-uefa-bets-nav-item" dataTarget="id-uefa-bets">
                                         UEFA Europa
+                                    </TabItem>
+                                    <TabItem className="nav-link" id="id-english-bets-nav-item" dataTarget="id-english-bets">
+                                        English Premier
                                     </TabItem>
                                     <TabItem className="nav-link" id="id-worldcup-bets-nav-item" dataTarget="id-worldcup-bets">
                                         Worldcup
@@ -176,6 +196,14 @@ const Leagues = () => {
                         active={false}
                         title="UEFA Europa League"
                         matchData={[eeLive, eeUpcoming, eeCompleted]}
+                    />
+                    <LeaguesTabContent
+                        id="id-english-bets"
+                        hiddenBy="id-english-bets-nav-item"
+                        show={false}
+                        active={false}
+                        title="English Premier League"
+                        matchData={[enLive, enUpcoming, enCompleted]}
                     />
                     <LeaguesTabContent
                         id="id-worldcup-bets"

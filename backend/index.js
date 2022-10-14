@@ -53,7 +53,6 @@ if (MODE === 'development') {
 		]
 	}, app);
 
-	
 	const io = require('./socketServer')(httpsServer, socketServerOptions);
 	runStatusUpdateTimer(io);
 
