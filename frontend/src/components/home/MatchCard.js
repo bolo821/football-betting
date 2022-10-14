@@ -139,10 +139,6 @@ const MatchCard = props => {
                             </BetCard>
                         </div>
                     </BetCardContainer> :
-                 type === 'reviewing' ?
-                    <div className="bottom-item d-flex justify-content-center w-100 py-4 text-white">
-                        This match is under review. You can't bet or claim for now.
-                    </div> :
                     <BetCardContainer>
                         <div>
                             <BetCard className={type === 'claiming' && betResult === 0 ? 'success-rt' : type === 'claiming' && betResult !== 0 ? 'fail-rt' : ''}>
