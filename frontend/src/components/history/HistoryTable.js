@@ -31,7 +31,7 @@ const HistoryTable = props => {
                             </tbody>
                         </table>
                     </div> :
-                    <div className="d-flex w-100 justify-content-center bottom-area mt-60">
+                    <div className="d-flex w-100 justify-content-center bottom-area mt-60 mb-5">
                         <h5>No history to display.</h5>
                     </div>
                 }
