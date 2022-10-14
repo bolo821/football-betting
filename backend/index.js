@@ -12,6 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/public')));
 
+console.log('origin: ', process.env.CLIENT_ORIGIN);
 const MODE = process.env.DEPLOY_MODE;
 if (MODE === 'production') {
 	app.use(cors({
