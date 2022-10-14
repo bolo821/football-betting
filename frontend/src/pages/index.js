@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -32,6 +32,7 @@ const Index = () => {
 						<AdminRoute path="/admin" component={Admin} />
 						<AdminRoute path="/addmatch" component={AddMatch} />
 						<WalletRoute path="/history" component={History} />
+						<Redirect to="/" />
 					</Switch>
 				</Router>
 			</Loading>
