@@ -16,73 +16,70 @@ const Leagues = () => {
     const [eLive, setELive] = useState([]);
     const [eUpcoming, setEUpcoming] = useState([]);
     const [eCompleted, setECompleted] = useState([]);
+    const [eeLive, setEELive] = useState([]);
+    const [eeUpcoming, setEEUpcoming] = useState([]);
+    const [eeCompleted, setEECompleted] = useState([]);
 
     useEffect(() => {
         let tmpWLive = [];
+        let tmpWUpcoming = [];
         let tmpWCompleted = [];
         let tmpELive = [];
         let tmpECompleted = [];
+        let tmpEUpcoming = [];
+        let tmpEELive = [];
+        let tmpEECompleted = [];
+        let tmpEEUpcoming = [];
+
 
         for (let i=0; i<matches.length; i++) {
-            if (matches[i].matchType === 'uefa') {
-                if (betStatus[matches[i].matchId] === 2) {
-                    tmpECompleted.push({
-                        ...matches[i],
-                        id: matches[i].matchId,
-                        team1: matches[i].team1Name,
-                        team2: matches[i].team2Name,
-                        time: matches[i].matchTime,
-                        days: '00',
-                        hours: '00',
-                        mins: '00',
-                        secs: '00',
-                    });
+            let matchId = matches[i].matchId;
+            let status = betStatus[matchId];
+            let type = matches[i].matchType;
+            let item = {
+                ...matches[i],
+                id: matchId,
+                team1: matches[i].team1Name,
+                team2: matches[i].team2Name,
+                time: matches[i].matchTime,
+            };
+
+            if (type === 'uefa') {
+                if (status === 2) {
+                    tmpECompleted.push(item);
+                } else if (status === 1) {
+                    tmpEUpcoming.push(item);
                 } else {
-                    tmpELive.push({
-                        ...matches[i],
-                        id: matches[i].matchId,
-                        team1: matches[i].team1Name,
-                        team2: matches[i].team2Name,
-                        time: matches[i].matchTime,
-                        days: '00',
-                        hours: '00',
-                        mins: '00',
-                        secs: '00',
-                    });
+                    tmpELive.push(item);
                 }
-            } else if (matches[i].matchType === 'worldcup') {
-                if (betStatus[matches[i].matchId] === 2) {
-                    tmpWCompleted.push({
-                        ...matches[i],
-                        id: matches[i].matchId,
-                        team1: matches[i].team1Name,
-                        team2: matches[i].team2Name,
-                        time: matches[i].matchTime,
-                        days: '00',
-                        hours: '00',
-                        mins: '00',
-                        secs: '00',
-                    });
+            } else if (type === "uefa_e") {
+                if (status === 2) {
+                    tmpEECompleted.push(item);
+                } else if (status === 1) {
+                    tmpEEUpcoming.push(item);
                 } else {
-                    tmpWLive.push({
-                        ...matches[i],
-                        id: matches[i].matchId,
-                        team1: matches[i].team1Name,
-                        team2: matches[i].team2Name,
-                        time: matches[i].matchTime,
-                        days: '00',
-                        hours: '00',
-                        mins: '00',
-                        secs: '00',
-                    });
+                    tmpEELive.push(item);
+                }
+            } else if (type === 'worldcup') {
+                if (status === 2) {
+                    tmpWCompleted.push(item);
+                } else if (status === 1) {
+                    tmpWUpcoming.push(item);
+                } else {
+                    tmpWLive.push(item);
                 }
             }
         }
 
         setELive(tmpELive);
+        setEUpcoming(tmpEUpcoming);
         setECompleted(tmpECompleted);
         setWLive(tmpWLive);
         setWCompleted(tmpWCompleted);
+        setWUpcoming(tmpWUpcoming);
+        setEELive(tmpEELive);
+        setEEUpcoming(tmpEEUpcoming);
+        setEECompleted(tmpEECompleted);
     }, [matches, betStatus]);
 
     return (
@@ -105,11 +102,14 @@ const Leagues = () => {
                         <div className="row">
                             <div className="col-xl-9 col-lg-12">
                                 <ul className="nav league-nav-rt" role="tablist">
-                                    <TabItem className="nav-link active" id="id-uefa-bets-nav-item-admin" dataTarget="id-uefa-bets-admin">
-                                        EPL BETS
+                                    <TabItem className="nav-link active" id="id-uefa-champion-bets-nav-item-admin" dataTarget="id-uefa-champion-bets-admin">
+                                        UEFA Champion
+                                    </TabItem>
+                                    <TabItem className="nav-link" id="id-uefa-bets-nav-item-admin" dataTarget="id-uefa-bets-admin">
+                                        UEFA Europa
                                     </TabItem>
                                     <TabItem className="nav-link" id="id-worldcup-bets-nav-item-admin" dataTarget="id-worldcup-bets-admin">
-                                        Worldcup Bets
+                                        Worldcup
                                     </TabItem>
                                 </ul>
                             </div>
@@ -118,12 +118,20 @@ const Leagues = () => {
                 </div>
                 <div className="tab-content">
                     <LeaguesTabContentAdmin
-                        id="id-uefa-bets-admin"
-                        hiddenBy="id-uefa-bets-nav-item-admin"
+                        id="id-uefa-champion-bets-admin"
+                        hiddenBy="id-uefa-champion-bets-nav-item-admin"
                         show={true}
                         active={true}
-                        title="EPL BETS"
+                        title="UEFA Champion League"
                         matchData={[eLive, eUpcoming, eCompleted]}
+                    />
+                    <LeaguesTabContentAdmin
+                        id="id-uefa-bets-admin"
+                        hiddenBy="id-uefa-bets-nav-item-admin"
+                        show={false}
+                        active={false}
+                        title="UEFA Europa League"
+                        matchData={[eeLive, eeUpcoming, eeCompleted]}
                     />
                     <LeaguesTabContentAdmin
                         id="id-worldcup-bets-admin"

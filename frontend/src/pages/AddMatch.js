@@ -128,7 +128,8 @@ const AddMatch = () => {
                                     <label>* Match Type</label>
                                     <div className="input-area">
                                         <select name="matchType" value={formData.matchType} onChange={handleChange}>
-                                            <option value="uefa">UEFA</option>
+                                            <option value="uefa">UEFA Champion</option>
+                                            <option value="uefa_e">UEFA Europa</option>
                                             <option value="worldcup">WorldCup</option>
                                         </select>
                                     </div>

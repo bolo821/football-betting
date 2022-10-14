@@ -103,7 +103,7 @@
     }
 }
 
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 340px) {
     .bet-part-rt {
         padding-top: 280px;
     }
@@ -369,4 +369,13 @@ h5.country-name-rt {
 }
 .history-section-rt {
     background-color: var(--red-color);
+}
+@media screen and (max-width: 576px) {
+    .dashboard-content .dashboard-heading ul li .nav-link {
+        font-size: 12px;
+    }
+    .dashboard-content .bets-tab ul .cmn-btn.active, .dashboard-content .bets-tab ul .cmn-btn {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
 }
