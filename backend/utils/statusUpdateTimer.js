@@ -14,7 +14,7 @@ const runStatusUpdateTimer = (io) => {
             const betStatus = await getBetStatus();
 
             for (let i=0; i<matches.length; i++) {
-                if ((new Date().getTime() - new Date(matches[i].matchTime).getTime()) > 15*60*1000 && betStatus[matches[i].matchId] === 0) {
+                if ((new Date(matches[i].matchTime).getTime() - new Date().getTime()) < 15*60*1000 && betStatus[matches[i].matchId] === 0) {
                     await setBetStatus(matches[i].matchId, 1);
                     io.emit('UPDATE_STATUS');
                 }

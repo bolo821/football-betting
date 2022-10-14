@@ -27,7 +27,7 @@ const BetModal = ({ betAmount, setBetAmount, isOpen, setIsOpen, doBet }) => {
                     Please input your bet amount.
                 </h5>
                 <p>
-                    (You need to bet at least 0.011ETH.)
+                    (You need to bet at least 0.012ETH.)
                 </p>
                 <div className="input-area">
                     <input type="number" placeholder="Input your bet amount" value={betAmount} onChange={e => setBetAmount(e.target.value)} />
