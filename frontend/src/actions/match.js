@@ -6,8 +6,7 @@ import { setLoading } from "./flow";
 
 export const addMatch = data => async dispatch => {
     try {
-        // let createResOnBlockchain = await dispatch(createMatch());
-        let createResOnBlockchain = true;
+        let createResOnBlockchain = await dispatch(createMatch());
 
         if (createResOnBlockchain) {
             const createRes = await api.post('/match', data, {
