@@ -164,7 +164,7 @@ const Leagues = () => {
                             <div className="col-xl-9 col-lg-12">
                                 <ul className="nav league-nav-rt" role="tablist">
                                     <TabItem className="nav-link active" id="id-uefa-champion-bets-nav-item" dataTarget="id-uefa-champion-bets">
-                                        UEFA Champion
+                                        La Liga
                                     </TabItem>
                                     <TabItem className="nav-link" id="id-uefa-bets-nav-item" dataTarget="id-uefa-bets">
                                         UEFA Europa
@@ -186,7 +186,7 @@ const Leagues = () => {
                         hiddenBy="id-uefa-champion-bets-nav-item"
                         show={true}
                         active={true}
-                        title="UEFA Champion League"
+                        title="La Liga"
                         matchData={[eLive, eUpcoming, eCompleted]}
                     />
                     <LeaguesTabContent

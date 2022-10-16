@@ -11,7 +11,7 @@ import AdminRoute from '../AdminRoute';
 import WalletRoute from '../WalletRoute';
 import Home from './Home';
 import Admin from './Admin';
-import History from './History';
+// import History from './History';
 import AddMatch from './AddMatch';
 
 const Index = () => {
@@ -32,7 +32,7 @@ const Index = () => {
 						<Route exact path="/" component={Home} />
 						<AdminRoute path="/admin" component={Admin} />
 						<AdminRoute path="/addmatch" component={AddMatch} />
-						<WalletRoute path="/history" component={History} />
+						{/* <WalletRoute path="/history" component={History} /> */}
 						<Redirect to="/" />
 					</Switch>
 				</Router>
