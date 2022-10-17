@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import Header from '../layouts/Header';
-import Section1 from '../components/sections/Section1';
+import Section1 from '../components/home/Section1';
 import HistoryTable from '../components/history/HistoryTable';
 import { getRoundedNumber } from '../utils/helper';
 

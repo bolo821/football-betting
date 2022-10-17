@@ -6,9 +6,13 @@ import { calculateGasMargin } from '../utils/helper';
 import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT, SET_BET_AMOUNT, SET_TOTAL_BET, SET_CLAIM_HISTORY, SET_BET_STATS_DATA } from './';
 import { SOCKET, api } from '../config/apis';
 
-const web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrl));
+var web3 = null;
+if (window.ethereum) {
+    web3 = new Web3(window.ethereum);
+} else {
+    web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrl));
+}
 const routerContract = new web3.eth.Contract(config.routerContractAbi, config.routerContractAddress);
-
 const web3Signed = new Web3(window.ethereum);
 const routerContractSigned = new web3Signed.eth.Contract(config.routerContractAbi, config.routerContractAddress);
 
