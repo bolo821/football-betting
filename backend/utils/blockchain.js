@@ -6,9 +6,12 @@ const routerContract = new web3.eth.Contract(config.routerContractAbi, config.ro
 
 const getMatchId = async () => {
     try {
-        const res = await routerContract.methods.getMatchId().call().catch(async () => {
+        console.log('start to get match id');
+        const res = await routerContract.methods.getMatchId().call().catch(async (err) => {
+            console.log('error in getting match id in block: ', err);
             return await getMatchId();
         });
+        console.log('get match id result: ', res);
     
         if (res) {
             return res;
@@ -16,6 +19,7 @@ const getMatchId = async () => {
             return null;
         }
     } catch (err) {
+        console.log('error in getting match id: ', err);
         return await getBetStatus();
     }
 }

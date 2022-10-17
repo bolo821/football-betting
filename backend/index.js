@@ -32,10 +32,14 @@ const socketServerOptions = {
 	origins: [ process.env.CLIENT_ORIGIN ],
 }
 
+const { watchInPlayGames } = require('./utils/betsapi');
+
 if (MODE === 'development') {
 	PORT = 8080;
 	const server = http.createServer(app);
 	const io = require('./socketServer')(server, socketServerOptions);
+	
+	watchInPlayGames(io);
 
 	server.listen(PORT, () => {
 		console.log(`HTTP server is listening at port ${PORT}`);
@@ -51,6 +55,8 @@ if (MODE === 'development') {
 	}, app);
 
 	const io = require('./socketServer')(httpsServer, socketServerOptions);
+
+	watchInPlayGames(io);
 
 	httpsServer.listen(PORT, () => {
 		console.log(`HTTPS Server running on port ${PORT}`);

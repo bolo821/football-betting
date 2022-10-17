@@ -13,6 +13,11 @@ module.exports = (server, options) => {
 			socket.broadcast.emit('BET');
 		});
 
+		socket.on('CLAIMED', () => {
+			socket.emit('CLAIMED');
+			socket.broadcast.emit('CLAIMED');
+		})
+
 		socket.on('disconnect', () => {
 			delete users[socket.id];
 		});

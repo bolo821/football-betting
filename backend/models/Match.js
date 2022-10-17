@@ -46,7 +46,7 @@ const MatchSchema = new mongoose.Schema({
   matchType: {
     type: String,
     default: 'worldcup',
-  }
+  },
 });
 
 autoIncrement.initialize(mongoose.connection);

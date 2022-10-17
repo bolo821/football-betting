@@ -1,5 +1,5 @@
 import { SET_LOADING } from "./type";
-import { getEarnings, getMultipliers, getBetStatus, getBetResult, getBetAmount, getTotalBet, getBetStatsData } from "./transaction";
+import { getEarnings, getMultipliers, getBetStatus, getBetResult, getBetAmount, getTotalBet, getBetStatsData, getMatch } from "./";
 import { SOCKET } from "../config/apis";
 
 export const setLoading = data => {
@@ -17,7 +17,7 @@ export const onBet = () => (dispatch, getState) => {
         dispatch(getBetStatus());
         dispatch(getBetResult());
         dispatch(getTotalBet());
-        dispatch(getBetStatsData());
+        dispatch(getMatch());
 
         let account = getState().user.wallet;
         if (account) {
@@ -32,5 +32,21 @@ export const onStatusUpdate = () => dispatch => {
 
     SOCKET.on('UPDATE_STATUS', () => {
         dispatch(getBetStatus());       
+    });
+}
+
+export const onClaimed = () => dispatch => {
+    SOCKET.removeAllListeners("CLAIMED");
+
+    SOCKET.on("CLAIMED", () => {
+        dispatch(getBetStatsData());
+    });
+}
+
+export const onMatchScoreUpdatd = () => dispatch => {
+    SOCKET.removeAllListeners("UPDATE_SCORE");
+
+    SOCKET.on("UPDATE_SCORE", () => {
+        dispatch(getMatch());
     });
 }

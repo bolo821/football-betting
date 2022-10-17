@@ -60,6 +60,7 @@ export const claim = (account, matchId) => async dispatch => {
         if (res) {
             toast.success('Successfully claimed!!');
             dispatch(getEarnings(account));
+            SOCKET.emit('CLAIMED');
         }
     } catch (err) {
         if (err.message.includes('You can not claim at this time.')) {
