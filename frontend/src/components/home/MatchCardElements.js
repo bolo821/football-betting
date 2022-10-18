@@ -40,7 +40,6 @@ export const NumberCard = styled.div`
     padding: 0 5px;
     div {
         background-color: var(--hover-color);
-        border-radius: 20px;
         padding: 10px;
         span {
             color: white;
