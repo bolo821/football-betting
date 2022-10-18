@@ -21,7 +21,7 @@
 }
 .header-section-rt {
     background-color: #2d0572;
-    box-shadow: rgb(0 0 0 / 90%) 0px 7px 7px 0px, rgb(0 0 0 / 30%) 0px 5px 5px 0px;
+    box-shadow: 0 3px 3px 0 rgb(0 0 0 / 90%), 0 3px 3px 0 rgb(0 0 0 / 30%);
 }
 .section1-rt {
     padding-top: 100px;
@@ -434,4 +434,7 @@ h5.country-name-rt {
         font-size: 12px;
         padding: 5px 10px;
     }
+}
+.mr-2 {
+    margin-right: 5px;
 }

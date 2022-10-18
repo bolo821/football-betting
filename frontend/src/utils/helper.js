@@ -49,6 +49,12 @@ export const getRoundedNumber = float_num => {
     return Math.round(float_num * 1000) / 1000;
 }
 
+export const getRoundedNumber1 = float_num => {
+    if (isNaN(float_num)) return 0;
+    if (!float_num) return 0;
+    return Math.round(float_num * 10) / 10;
+}
+
 export const getDateString = time => {
     let t = new Date(time);
     let year = t.getFullYear();

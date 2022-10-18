@@ -28,6 +28,14 @@ const Header = () => {
         <header className="header-section header-section-rt">
             <div className='container'>
                 <div className="d-flex justify-content-end py-3">
+                    <a href="https://wcibets.com" target="_blank" rel="noreferrer noopener">
+                        <button
+                            type="button"
+                            className="cmn-btn reg connect-bn-rt mr-2"
+                        >
+                            PvP
+                        </button>
+                    </a>
                     <button
                         type="button"
                         className="cmn-btn reg connect-bn-rt"
