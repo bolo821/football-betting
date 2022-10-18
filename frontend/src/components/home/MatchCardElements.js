@@ -2,12 +2,14 @@ import styled from "styled-components";
 
 export const MatchCard = styled.div`
     background-color: var(--hover-alt-color);
-    border-radius: 10px;
+    border-radius: 20px;
     height: 100%;
+    box-shadow: rgb(0 0 0 / 50%) 0px 10px 10px 6px;
 `;
 
 export const MatchCardHeader = styled.div`
     background-color: #382591;
+    border-radius: 20px 20px 0 0;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
@@ -38,7 +40,7 @@ export const NumberCard = styled.div`
     padding: 0 5px;
     div {
         background-color: var(--hover-color);
-        border-radius: 10px;
+        border-radius: 20px;
         padding: 10px;
         span {
             color: white;

@@ -79,7 +79,7 @@
     z-index: 2;
 }
 .toolbar-rt .filter-section {
-    border-radius: 0 0 30px 30px!important;
+    box-shadow: rgb(0 0 0 / 90%) 0px 10px 16px 0px, rgb(0 0 0 / 30%) 0px 6px 20px 0px;
 }
 .toolbar-rt h3 {
     text-transform: uppercase;
@@ -109,6 +109,14 @@
 }
 .counter-section {
     top: -100px;
+}
+.dashboard-heading-rt {
+    background-color: #322a71;
+    border-radius: 20px;
+    box-shadow: rgb(0 0 0 / 90%) 0px 10px 16px 0px, rgb(0 0 0 / 30%) 0px 6px 20px 0px;
+}
+.dashboard-heading-rt button {
+    border-radius: 10px;
 }
 .counter-element-container-rt .number {
     background-color: #05A827;

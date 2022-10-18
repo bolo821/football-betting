@@ -172,10 +172,10 @@ const Leagues = () => {
     return (
         <section className="dashboard-content pt-2">
             <div className="overlay">
-                <div className="dashboard-heading">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-xl-9 col-lg-12">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="dashboard-heading-rt dashboard-heading p-3 w-100">
                                 <ul className="nav league-nav-rt" role="tablist">
                                     { tabItems.map((ele, index) => (
                                         <TabItem className={`nav-link${index === 0 ? ' active' : ''}`} id={ele.tabId} dataTarget={ele.contentId} key={index}>

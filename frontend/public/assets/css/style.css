@@ -1884,7 +1884,7 @@ p {
 
 .bet-this-game.all-soccer-bets .filter-section {
   padding: 60px 30px;
-  border-radius: 30px;
+  border-radius: 20px;
   background-color: #382590;
 }
 
@@ -3591,7 +3591,6 @@ p {
 
 .dashboard-content .dashboard-heading {
   background-color: #322a71;
-  margin-bottom: 30px;
 }
 
 .dashboard-content .dashboard-heading ul {
@@ -3602,7 +3601,6 @@ p {
   background-color: transparent;
   color: var(--bs-white);
   text-transform: capitalize;
-  padding: 30px 12px;
   font-weight: 700;
 }
 
