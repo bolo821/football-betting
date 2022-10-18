@@ -8,15 +8,65 @@
         font-size: 12px;
     }
 }
+.background-container-rt {
+    background: url("../assets/images/background.png");
+    background-size: cover;
+    background-attachment: fixed;
+}
+.background-container-rt > div {
+    background: rgba(255, 255, 255, 0.87);
+}
 .set-bn-rt {
     padding: 5px 10px;
 }
-
+.header-section-rt {
+    background-color: #2d0572;
+}
 .section1-rt {
-    margin-top: 100px;
+    padding-top: 100px;
+}
+.section1-rt .logo-rt img {
+    max-width: 400px;
+}
+.section1-rt .players-img-rt img {
+    cursor: pointer;
+    max-width: 400px;
+}
+.section1-rt .players-img-rt {
+    justify-content: flex-end;
+}
+@media screen and (max-width: 992px) {
+    .section1-rt .logo-rt img {
+        max-width: 300px;
+    }
+    .section1-rt .players-img-rt img {
+        max-width: 300px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .section1-rt .logo-rt {
+        justify-content: center;
+    }
+    .section1-rt .logo-rt img {
+        max-width: 80%;
+    }
+    .section1-rt .players-img-rt {
+        justify-content: center;
+    }
+    .section1-rt .players-img-rt img {
+        max-width: 80%;
+    }
+}
+@media screen and (max-width: 576px) {
+    .section1-rt .logo-rt img {
+        max-width: 100%;
+    }
+    .section1-rt .players-img-rt img {
+        max-width: 100%;
+    }
 }
 .section2-rt {
-    margin-top: 150px;
+    margin-top: 120px;
     background-color: var(--red-color);
     position: relative;
     margin-bottom: 0!important;
@@ -267,9 +317,6 @@ h5.country-name-rt {
 .ReactModalPortal {
     z-index: 1000;
     position: relative;
-}
-.logo-rt {
-    cursor: pointer;
 }
 .nice-select {
     border-radius: 5px;

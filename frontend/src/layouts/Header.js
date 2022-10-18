@@ -25,7 +25,7 @@ const Header = () => {
     }, []);
 
     return (
-        <header className="header-section">
+        <header className="header-section header-section-rt">
             <div className='container'>
                 <div className="d-flex justify-content-end py-3">
                     <button

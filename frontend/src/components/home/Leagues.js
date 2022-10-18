@@ -134,21 +134,21 @@ const Leagues = () => {
             {
                 tabId: "id-uefa-champion-bets-nav-item",
                 contentId: "id-uefa-champion-bets",
-                tabContent: "UEFA Champion",
+                tabContent: "UEFA",
                 contentTitle: "UEFA Champion League",
                 matchData: [tmpELive, tmpEUpcoming, tmpECompleted]
             },
             {
                 tabId: "id-uefa-bets-nav-item",
                 contentId: "id-uefa-bets",
-                tabContent: "UEFA Europa",
+                tabContent: "Europa",
                 contentTitle: "UEFA Europa League",
                 matchData: [tmpEELive, tmpEEUpcoming, tmpEECompleted]
             },
             {
                 tabId: "id-english-bets-nav-item",
                 contentId: "id-english-bets",
-                tabContent: "English Premier",
+                tabContent: "EPL",
                 contentTitle: "English Premier League",
                 matchData: [tmpEnLive, tmpEnUpcoming, tmpEnCompleted]
             },
@@ -170,7 +170,7 @@ const Leagues = () => {
     }, [matchData, betStatus]);
 
     return (
-        <section className="dashboard-content pt-120">
+        <section className="dashboard-content pt-2">
             <div className="overlay">
                 <div className="dashboard-heading">
                     <div className="container">
