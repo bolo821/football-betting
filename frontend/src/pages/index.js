@@ -14,8 +14,6 @@ import Admin from './Admin';
 import History from './History';
 import AddMatch from './AddMatch';
 
-import BackImg from '../assets/images/background.png';
-
 const Index = () => {
 	const dispatch = useDispatch();
 	const { loading, loadingText } = useSelector(state => state.flow);
