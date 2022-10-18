@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Match from './Match';
 import TabItem from '../TabItem';
 
 const LeaguesTabContent = props => {
     const { id, hiddenBy, show, active, title, matchData } = props;
+    const [compData, setCompData] = useState([]);
+
+    useEffect(() => {
+        let tmpComp = matchData[2].sort((a, b) => {
+            if (a.time >= b.time) return -1;
+            else return 1;
+        });
+
+        setCompData(tmpComp);
+    }, [matchData]);
 
     return (
         <div className={`tab-pane fade${show ? ' show' : ''}${active ? ' active' : ''}`} id={id} role="tabpanel" aria-labelledby={hiddenBy}>
@@ -41,7 +51,7 @@ const LeaguesTabContent = props => {
                                 <Match data={matchData[1]} />
                             </div>
                             <div className="tab-pane fade" id={`${id}-completed-tab-content`} role="tabpanel" aria-labelledby={`${id}-upcoming-tab`}>
-                                <Match data={matchData[2]} />
+                                <Match data={compData} />
                             </div>
                         </div>
                     </div>

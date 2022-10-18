@@ -9,19 +9,7 @@ const Leagues = () => {
     const history = useHistory();
     const betStatus = useSelector(state => state.transaction.betStatus);
     const matches = useSelector(state => state.match.matches);
-
-    const [wLive, setWLive] = useState([]);
-    const [wUpcoming, setWUpcoming] = useState([]);
-    const [wCompleted, setWCompleted] = useState([]);
-    const [eLive, setELive] = useState([]);
-    const [eUpcoming, setEUpcoming] = useState([]);
-    const [eCompleted, setECompleted] = useState([]);
-    const [eeLive, setEELive] = useState([]);
-    const [eeUpcoming, setEEUpcoming] = useState([]);
-    const [eeCompleted, setEECompleted] = useState([]);
-    const [enLive, setEnLive] = useState([]);
-    const [enUpcoming, setEnUpcoming] = useState([]);
-    const [enCompleted, setEnCompleted] = useState([]);
+    const [tabItems, setTabItems] = useState([]);
 
     useEffect(() => {
         let tmpWLive = [];
@@ -85,18 +73,43 @@ const Leagues = () => {
             }
         }
 
-        setELive(tmpELive);
-        setEUpcoming(tmpEUpcoming);
-        setECompleted(tmpECompleted);
-        setWLive(tmpWLive);
-        setWCompleted(tmpWCompleted);
-        setWUpcoming(tmpWUpcoming);
-        setEELive(tmpEELive);
-        setEEUpcoming(tmpEEUpcoming);
-        setEECompleted(tmpEECompleted);
-        setEnLive(tmpEnLive);
-        setEnUpcoming(tmpEnUpcoming);
-        setEnCompleted(tmpEnCompleted);
+        let tmpTabItems = [
+            {
+                tabId: "id-uefa-champion-bets-nav-item-admin",
+                contentId: "id-uefa-champion-bets-admin",
+                tabContent: "UEFA Champion",
+                contentTitle: "UEFA Champion League",
+                matchData: [tmpELive, tmpEUpcoming, tmpECompleted]
+            },
+            {
+                tabId: "id-uefa-bets-nav-item-admin",
+                contentId: "id-uefa-bets-admin",
+                tabContent: "UEFA Europa",
+                contentTitle: "UEFA Europa League",
+                matchData: [tmpEELive, tmpEEUpcoming, tmpEECompleted]
+            },
+            {
+                tabId: "id-english-bets-nav-item-admin",
+                contentId: "id-english-bets-admin",
+                tabContent: "English Premier",
+                contentTitle: "English Premier League",
+                matchData: [tmpEnLive, tmpEnUpcoming, tmpEnCompleted]
+            },
+            {
+                tabId: "id-worldcup-bets-nav-item-admin",
+                contentId: "id-worldcup-bets-admin",
+                tabContent: "Worldcup",
+                contentTitle: "Worldcup Bets",
+                matchData: [tmpWLive, tmpWUpcoming, tmpWCompleted]
+            },
+        ];
+
+        tmpTabItems = tmpTabItems.sort((a, b) => {
+            if (a.matchData[0].length > b.matchData[0].length) return -1;
+            else return 1;
+        })
+
+        setTabItems(tmpTabItems);
     }, [matches, betStatus]);
 
     return (
@@ -119,56 +132,28 @@ const Leagues = () => {
                         <div className="row">
                             <div className="col-xl-9 col-lg-12">
                                 <ul className="nav league-nav-rt" role="tablist">
-                                    <TabItem className="nav-link active" id="id-uefa-champion-bets-nav-item-admin" dataTarget="id-uefa-champion-bets-admin">
-                                        UEFA Champion
-                                    </TabItem>
-                                    <TabItem className="nav-link" id="id-uefa-bets-nav-item-admin" dataTarget="id-uefa-bets-admin">
-                                        UEFA Europa
-                                    </TabItem>
-                                    <TabItem className="nav-link" id="id-english-bets-nav-item-admin" dataTarget="id-english-bets-admin">
-                                        English Premier League
-                                    </TabItem>
-                                    <TabItem className="nav-link" id="id-worldcup-bets-nav-item-admin" dataTarget="id-worldcup-bets-admin">
-                                        Worldcup
-                                    </TabItem>
+                                    { tabItems.map((ele, index) => (
+                                        <TabItem className={`nav-link${index === 0 ? ' active' : ''}`} id={ele.tabId} dataTarget={ele.contentId} key={index}>
+                                            {ele.tabContent}
+                                        </TabItem>    
+                                    ))}
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="tab-content">
-                    <LeaguesTabContentAdmin
-                        id="id-uefa-champion-bets-admin"
-                        hiddenBy="id-uefa-champion-bets-nav-item-admin"
-                        show={true}
-                        active={true}
-                        title="UEFA Champion League"
-                        matchData={[eLive, eUpcoming, eCompleted]}
-                    />
-                    <LeaguesTabContentAdmin
-                        id="id-uefa-bets-admin"
-                        hiddenBy="id-uefa-bets-nav-item-admin"
-                        show={false}
-                        active={false}
-                        title="UEFA Europa League"
-                        matchData={[eeLive, eeUpcoming, eeCompleted]}
-                    />
-                    <LeaguesTabContentAdmin
-                        id="id-english-bets-admin"
-                        hiddenBy="id-english-bets-nav-item-admin"
-                        show={false}
-                        active={false}
-                        title="English Premier League"
-                        matchData={[enLive, enUpcoming, enCompleted]}
-                    />
-                    <LeaguesTabContentAdmin
-                        id="id-worldcup-bets-admin"
-                        hiddenBy="id-worldcup-bets-nav-item-admin"
-                        show={false}
-                        active={false}
-                        title="Worldcup Bets"
-                        matchData={[wLive, wUpcoming, wCompleted]}
-                    />
+                    { tabItems.map((ele, index) => (
+                        <LeaguesTabContentAdmin
+                            key={index}
+                            id={ele.contentId}
+                            hiddenBy={ele.tabId}
+                            show={index === 0}
+                            active={index === 0}
+                            title={ele.contentTitle}
+                            matchData={ele.matchData}
+                        />
+                    ))}
                 </div>
             </div>
         </section>
