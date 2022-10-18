@@ -120,7 +120,7 @@ const Section4 = () => {
                                 </div>
                                 <div className="text-area">
                                     <h3 className="m-none"><span>{winnerCount}</span></h3>
-                                    <p>Winners</p>
+                                    <p>Winners&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</p>
                                 </div>
                             </div>
                         </div>
