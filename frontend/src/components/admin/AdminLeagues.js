@@ -77,21 +77,21 @@ const Leagues = () => {
             {
                 tabId: "id-uefa-champion-bets-nav-item-admin",
                 contentId: "id-uefa-champion-bets-admin",
-                tabContent: "UEFA Champion",
+                tabContent: "UEFA",
                 contentTitle: "UEFA Champion League",
                 matchData: [tmpELive, tmpEUpcoming, tmpECompleted]
             },
             {
                 tabId: "id-uefa-bets-nav-item-admin",
                 contentId: "id-uefa-bets-admin",
-                tabContent: "UEFA Europa",
+                tabContent: "Europa",
                 contentTitle: "UEFA Europa League",
                 matchData: [tmpEELive, tmpEEUpcoming, tmpEECompleted]
             },
             {
                 tabId: "id-english-bets-nav-item-admin",
                 contentId: "id-english-bets-admin",
-                tabContent: "English Premier",
+                tabContent: "EPL",
                 contentTitle: "English Premier League",
                 matchData: [tmpEnLive, tmpEnUpcoming, tmpEnCompleted]
             },
@@ -126,11 +126,10 @@ const Leagues = () => {
                         {' '} Add a new match
                     </button>
                 </div>
-                <div className="dashboard-heading">
-                    <div className="container">
-                        
-                        <div className="row">
-                            <div className="col-xl-9 col-lg-12">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="dashboard-heading-rt dashboard-heading p-3 w-100">
                                 <ul className="nav league-nav-rt" role="tablist">
                                     { tabItems.map((ele, index) => (
                                         <TabItem className={`nav-link${index === 0 ? ' active' : ''}`} id={ele.tabId} dataTarget={ele.contentId} key={index}>

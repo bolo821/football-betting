@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
-import BetModal from '../BetModal';
+import BetModal from './BetModal';
 import MatchCard from './MatchCard';
 
 import { getRoundedNumber } from '../../utils/helper';

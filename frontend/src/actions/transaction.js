@@ -289,6 +289,7 @@ export const setBetResult = (account, data, callback) => async dispatch => {
     
         if (res) {
             await api.put(`/match/${matchId}`, { team1Score, team2Score });
+            toast.success('Successfully set the bet result.');
             SOCKET.emit('BET');
         }
     } catch (err) {
