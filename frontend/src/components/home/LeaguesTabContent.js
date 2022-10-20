@@ -4,14 +4,20 @@ import TabItem from '../TabItem';
 
 const LeaguesTabContent = props => {
     const { id, hiddenBy, show, active, title, matchData } = props;
+    const [liveData, setLiveData] = useState([]);
     const [compData, setCompData] = useState([]);
 
     useEffect(() => {
+        let tmpLive = matchData[0].sort((a, b) => {
+            if (a.time < b.time) return -1;
+            else return 1;
+        })
         let tmpComp = matchData[2].sort((a, b) => {
-            if (a.time >= b.time) return -1;
+            if (a.time > b.time) return -1;
             else return 1;
         });
 
+        setLiveData(tmpLive);
         setCompData(tmpComp);
     }, [matchData]);
 
@@ -45,7 +51,7 @@ const LeaguesTabContent = props => {
                     <div className="bet-this-game bet-this-game-rt">
                         <div className="tab-content">
                             <div className="tab-pane fade show active" id={`${id}-live-tab-content`} role="tabpanel" aria-labelledby={`${id}-live-tab`}>
-                                <Match data={matchData[0]} />
+                                <Match data={liveData} />
                             </div>
                             <div className="tab-pane fade" id={`${id}-upcoming-tab-content`} role="tabpanel" aria-labelledby={`${id}-live-tab`}>
                                 <Match data={matchData[1]} />

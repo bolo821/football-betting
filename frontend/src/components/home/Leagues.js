@@ -70,6 +70,9 @@ const Leagues = () => {
     }, [matches]);
 
     useEffect(() => {
+        let tmpAllLive = [];
+        let tmpAllUpcoming = [];
+        let tmpAllCompleted = [];
         let tmpWLive = [];
         let tmpWUpcoming = [];
         let tmpWCompleted = [];
@@ -95,12 +98,20 @@ const Leagues = () => {
                 time: matchData[i].matchTime,
             };
 
+            if (status === 2) {
+                tmpAllCompleted.push(item);
+            } else if (status === 1) {
+                tmpAllUpcoming.push(item);
+            } else if (status === 0) {
+                tmpAllLive.push(item);
+            }
+
             if (type === 'uefa') {
                 if (status === 2) {
                     tmpECompleted.push(item);
                 } else if (status === 1) {
                     tmpEUpcoming.push(item);
-                } else {
+                } else if (status === 0) {
                     tmpELive.push(item);
                 }
             } else if (type === "uefa_e") {
@@ -108,7 +119,7 @@ const Leagues = () => {
                     tmpEECompleted.push(item);
                 } else if (status === 1) {
                     tmpEEUpcoming.push(item);
-                } else {
+                } else if (status === 0) {
                     tmpEELive.push(item);
                 }
             } else if (type === "english_p") {
@@ -116,7 +127,7 @@ const Leagues = () => {
                     tmpEnCompleted.push(item);
                 } else if (status === 1) {
                     tmpEnUpcoming.push(item);
-                } else {
+                } else if (status === 0) {
                     tmpEnLive.push(item);
                 }
             } else if (type === 'worldcup') {
@@ -124,13 +135,20 @@ const Leagues = () => {
                     tmpWCompleted.push(item);
                 } else if (status === 1) {
                     tmpWUpcoming.push(item);
-                } else {
+                } else if (status === 0) {
                     tmpWLive.push(item);
                 }
             }
         }
 
         let tmpTabItems = [
+            {
+                tabId: "id-all-bets-nav-item",
+                contentId: "id-all-bets",
+                tabContent: "All",
+                contentTitle: "All Matches",
+                matchData: [tmpAllLive, tmpAllUpcoming, tmpAllCompleted]
+            },
             {
                 tabId: "id-uefa-champion-bets-nav-item",
                 contentId: "id-uefa-champion-bets",
