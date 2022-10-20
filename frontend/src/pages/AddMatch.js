@@ -131,6 +131,7 @@ const AddMatch = () => {
                                             <option value="uefa">UEFA Champion</option>
                                             <option value="uefa_e">UEFA Europa</option>
                                             <option value="english_p">English Premier</option>
+                                            <option value="laliga">La Liga</option>
                                             <option value="worldcup">WorldCup</option>
                                         </select>
                                     </div>

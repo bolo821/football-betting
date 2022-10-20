@@ -12,9 +12,6 @@ const Leagues = () => {
     const [tabItems, setTabItems] = useState([]);
 
     useEffect(() => {
-        let tmpWLive = [];
-        let tmpWUpcoming = [];
-        let tmpWCompleted = [];
         let tmpELive = [];
         let tmpECompleted = [];
         let tmpEUpcoming = [];
@@ -24,6 +21,12 @@ const Leagues = () => {
         let tmpEnLive = [];
         let tmpEnCompleted = [];
         let tmpEnUpcoming = [];
+        let tmpLaLive = [];
+        let tmpLaUpcoming = [];
+        let tmpLaCompleted = [];
+        let tmpWLive = [];
+        let tmpWUpcoming = [];
+        let tmpWCompleted = [];
 
 
         for (let i=0; i<matches.length; i++) {
@@ -62,6 +65,14 @@ const Leagues = () => {
                 } else {
                     tmpEnLive.push(item);
                 }
+            } else if (type === "laliga") {
+                if (status === 2) {
+                    tmpLaCompleted.push(item);
+                } else if (status === 1) {
+                    tmpLaUpcoming.push(item);
+                } else {
+                    tmpLaLive.push(item);
+                }
             } else if (type === 'worldcup') {
                 if (status === 2) {
                     tmpWCompleted.push(item);
@@ -94,6 +105,13 @@ const Leagues = () => {
                 tabContent: "EPL",
                 contentTitle: "English Premier League",
                 matchData: [tmpEnLive, tmpEnUpcoming, tmpEnCompleted]
+            },
+            {
+                tabId: "id-laliga-nav-item-admin",
+                contentId: "id-laliga-admin",
+                tabContent: "LaLiga",
+                contentTitle: "La Liga Matches",
+                matchData: [tmpLaLive, tmpLaUpcoming, tmpLaCompleted]
             },
             {
                 tabId: "id-worldcup-bets-nav-item-admin",
