@@ -1,4 +1,4 @@
-import { api } from "../config/apis";
+import { api, SOCKET } from "../config/apis";
 import { toast } from "react-toastify";
 import { SET_MATCH } from "./type";
 import { createMatch } from "./transaction";
@@ -14,6 +14,7 @@ export const addMatch = data => async dispatch => {
             });
             if (createRes && createRes.data) {
                 toast.success('Successfully added a match.');
+                SOCKET.emit('BET');
             }
         } else {
             toast.error('There occurred an error while creating a new match on blockchain.');
