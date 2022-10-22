@@ -13,6 +13,8 @@ const config = {
     routerContractAddress: '0x3CFa37680F40d6E6921faa96281dA0aa511D8aF2',
     routerContractAbi,
     adminWalletAddress: '0xbCffB0493d5b5EE9550F495BFC05667DdC9878f9',
+    wciTokenAbi,
+    wciTokenAddress: '0xC5a9BC46A7dbe1c6dE493E84A18f02E70E2c5A32',
 };
 
 // const config = {
