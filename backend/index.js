@@ -39,7 +39,7 @@ if (MODE === 'development') {
 	const server = http.createServer(app);
 	const io = require('./socketServer')(server, socketServerOptions);
 	
-	watchInPlayGames(io);
+	// watchInPlayGames(io);
 
 	server.listen(PORT, () => {
 		console.log(`HTTP server is listening at port ${PORT}`);

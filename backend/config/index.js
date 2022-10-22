@@ -9,7 +9,7 @@ module.exports = {
         symbol: "ETH",
         decimal: 18,
     },
-    routerContractAddress: '0x9683ee11E9a9A6faA1F424Dd4762Fcc3CBfaF8C7',
+    routerContractAddress: '0x3CFa37680F40d6E6921faa96281dA0aa511D8aF2',
     routerContractAbi,
     adminWalletAddress: '0xbCffB0493d5b5EE9550F495BFC05667DdC9878f9',
 }
@@ -23,7 +23,7 @@ module.exports = {
 //         symbol: "ETH",
 //         decimal: 18,
 //     },
-//     routerContractAddress: '0x1F4083864534A69a0F08A1EfdaF97FD13Ee7915b',
+//     routerContractAddress: '0xED77c98E19A8FA02AB03E52Da6F2d13e492F3Cc1',
 //     routerContractAbi,
 //     adminWalletAddress: '0x718C6E457500202F23Be231b439C8A92A46c288C',
 // };

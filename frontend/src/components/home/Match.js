@@ -90,6 +90,7 @@ const Match = props => {
                                         seconds={ele.secs}
                                         matchId={ele.id}
                                         totalBet={getRoundedNumber(totalBets[ele.id])}
+                                        totalBetWci={getRoundedNumber(totalBetsWci[ele.id])}
                                         team1Logo={ele.team1Logo}
                                         team2Logo={ele.team2Logo}
                                         team1Abbr={ele.team1}
@@ -106,6 +107,7 @@ const Match = props => {
                                         drawBetWci={getRoundedNumber(betAmountsWci[ele.id]?.draw)}
                                         drawWin={(getRoundedNumber(earnings[ele.id]?.draw))}
                                         drawWinWci={(getRoundedNumber(earningsWci[ele.id]?.draw))}
+                                        drawMulti={betAmounts[ele.id]?.draw === '0' || earnings[ele.id]?.draw === '0' ? multipliers[ele.id]?.draw : getRoundedNumber(earnings[ele.id]?.draw/betAmounts[ele.id]?.draw)}
                                         drawMultiWci={multipliersWci[ele.id]?.draw}
                                         team2Bet={getRoundedNumber(betAmounts[ele.id]?.lose)}
                                         team2BetWci={getRoundedNumber(betAmountsWci[ele.id]?.lose)}

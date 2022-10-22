@@ -10,7 +10,7 @@ const defaultState = {
     betAmounts: [],
     betAmountsWci: [],
     totalBets: [],
-    totalbetsWci: [],
+    totalBetsWci: [],
     claimHistory: [],
     claimHistoryWci: [],
     totalPrize: 0,
