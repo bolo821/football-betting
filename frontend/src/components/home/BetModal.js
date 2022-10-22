@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-const BetModal = ({ betAmount, setBetAmount, isOpen, setIsOpen, doBet }) => {
+const BetModal = ({ betAmount, setBetAmount, isOpen, setIsOpen, doBet, token }) => {
     useEffect(() => {
         if (!isOpen) {
             setBetAmount(0);
@@ -27,7 +27,11 @@ const BetModal = ({ betAmount, setBetAmount, isOpen, setIsOpen, doBet }) => {
                     Please input your bet amount.
                 </h5>
                 <p>
-                    (You need to bet at least 0.01ETH.)
+                    { token === 'ETH' ?
+                        "(You need to bet at least 0.01 ETH.)" :
+                        "(You need to bet at least 1000 WCI.)"
+                    }
+                    
                 </p>
                 <div className="input-area">
                     <input type="number" placeholder="Input your bet amount" value={betAmount} onChange={e => setBetAmount(e.target.value)} />

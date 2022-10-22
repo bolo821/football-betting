@@ -6,18 +6,23 @@ import BetModal from './BetModal';
 import MatchCard from './MatchCard';
 
 import { getRoundedNumber } from '../../utils/helper';
-import { bet, claim } from '../../actions';
+import { bet, claim, approveWci } from '../../actions';
+
+var token = "ETH";
 
 const Match = props => {
     const dispatch = useDispatch();
     const { data } = props;
 
-    const earnings = useSelector(state => state.transaction.earnings);
-    const betAmounts = useSelector(state => state.transaction.betAmounts);
-    const multipliers = useSelector(state => state.transaction.multipliers);
-    const betStatus = useSelector(state => state.transaction.betStatus);
-    const betResult = useSelector(state => state.transaction.betResult);
-    const totalBets = useSelector(state => state.transaction.totalBets);
+    const {
+        earnings, earningsWci,
+        betAmounts, betAmountsWci,
+        multipliers, multipliersWci,
+        betStatus,
+        betResult,
+        totalBets, totalBetsWci
+    } = useSelector(state => state.transaction);
+    const allowed = useSelector(state => state.wci.allowed);
 
     const [displayCount, setDisplayCount] = useState(6);
     const [displayMatches, setDisplayMatches] = useState([]);
@@ -37,10 +42,11 @@ const Match = props => {
         setDisplayMatches(data.slice(0, displayCount));
     }, [data, displayCount]);
 
-    const openBetModal = (matchId, _choice) => {
+    const openBetModal = (matchId, _choice, _token) => {
         setCurrentMatch(matchId);
         setChoice(_choice);
         setModalOpen(true);
+        token = _token;
     }
 
     const doBet = () => {
@@ -48,24 +54,24 @@ const Match = props => {
             toast.error('Please connect your wallet!');
             return;
         }
-        if (betAmount < 0.011) {
+        if (betAmount < 0.01) {
             toast.error('Minimum bet amount is 0.01 ether.');
             return;
         }
 
-        dispatch(bet(account, currentMatch, betAmount, choice, () => {
+        dispatch(bet(account, currentMatch, betAmount, choice, token, () => {
             setBetAmount(0);
             setModalOpen(false);
         }));
     }
 
-    const handleClaim = matchId => {
+    const handleClaim = (matchId, token) => {
         if (!account) {
             toast.error('Please connect your wallet.');
             return;
         }
 
-        dispatch(claim(account, matchId));
+        dispatch(claim(account, matchId, token));
     }
 
     return (
@@ -82,6 +88,7 @@ const Match = props => {
                                         hours={ele.hours}
                                         minutes={ele.mins}
                                         seconds={ele.secs}
+                                        matchId={ele.id}
                                         totalBet={getRoundedNumber(totalBets[ele.id])}
                                         team1Logo={ele.team1Logo}
                                         team2Logo={ele.team2Logo}
@@ -90,19 +97,27 @@ const Match = props => {
                                         team1Score={ele.team1Score}
                                         team2Score={ele.team2Score}
                                         team1Bet={getRoundedNumber(betAmounts[ele.id]?.win)}
+                                        team1BetWci={getRoundedNumber(betAmountsWci[ele.id]?.win)}
                                         team1Win={getRoundedNumber(earnings[ele.id]?.win)}
+                                        team1WinWci={getRoundedNumber(earningsWci[ele.id]?.win)}
                                         team1Multi={betAmounts[ele.id]?.win === '0' || earnings[ele.id]?.win === '0' ? multipliers[ele.id]?.win : getRoundedNumber(earnings[ele.id]?.win/betAmounts[ele.id]?.win)}
+                                        team1MultiWci={multipliersWci[ele.id]?.win}
                                         drawBet={getRoundedNumber(betAmounts[ele.id]?.draw)}
+                                        drawBetWci={getRoundedNumber(betAmountsWci[ele.id]?.draw)}
                                         drawWin={(getRoundedNumber(earnings[ele.id]?.draw))}
-                                        drawMulti={betAmounts[ele.id]?.draw === '0' || earnings[ele.id]?.draw === '0' ? multipliers[ele.id]?.draw : getRoundedNumber(earnings[ele.id]?.draw/betAmounts[ele.id]?.draw)}
+                                        drawWinWci={(getRoundedNumber(earningsWci[ele.id]?.draw))}
+                                        drawMultiWci={multipliersWci[ele.id]?.draw}
                                         team2Bet={getRoundedNumber(betAmounts[ele.id]?.lose)}
+                                        team2BetWci={getRoundedNumber(betAmountsWci[ele.id]?.lose)}
                                         team2Win={(getRoundedNumber(earnings[ele.id]?.lose))}
+                                        team2WinWci={(getRoundedNumber(earningsWci[ele.id]?.lose))}
                                         team2Multi={betAmounts[ele.id]?.lose === '0' || earnings[ele.id]?.lose === '0' ? multipliers[ele.id]?.lose : getRoundedNumber(earnings[ele.id]?.lose/betAmounts[ele.id]?.lose)}
+                                        team2MultiWci={multipliersWci[ele.id]?.lose}
                                         betResult={betResult[ele.id]}
-                                        onTeam1Bet={() => openBetModal(ele.id, 0)}
-                                        onDrawBet={() => openBetModal(ele.id, 1)}
-                                        onTeam2Bet={() => openBetModal(ele.id, 2)}
-                                        onClaim={() => handleClaim(ele.id)}
+                                        onBet={openBetModal}
+                                        onClaim={handleClaim}
+                                        wciAllowed={allowed}
+                                        approveWci={() => dispatch(approveWci(account))}
                                     />
                                 </div>
                             ))}
@@ -125,7 +140,7 @@ const Match = props => {
                         }
                     </div>
                 </div>
-                <BetModal isOpen={modalOpen} setIsOpen={setModalOpen} betAmount={betAmount} setBetAmount={setBetAmount} doBet={doBet} />
+                <BetModal isOpen={modalOpen} setIsOpen={setModalOpen} betAmount={betAmount} setBetAmount={setBetAmount} doBet={doBet} token={token} />
             </section>
         </>
     );

@@ -28,9 +28,9 @@
 }
 .section1-rt .logo-rt img {
     max-width: 400px;
+    cursor: pointer;
 }
 .section1-rt .players-img-rt img {
-    cursor: pointer;
     max-width: 400px;
 }
 .section1-rt .players-img-rt {

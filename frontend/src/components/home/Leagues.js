@@ -4,7 +4,18 @@ import { useWeb3React } from '@web3-react/core';
 
 import LeaguesTabContent from '../home/LeaguesTabContent';
 import TabItem from '../TabItem';
-import { getEarnings, getMultipliers, getBetResult, getBetStatus, getBetAmount, getTotalBet, getClaimHistory, getBetStatsData, getMatch } from '../../actions';
+import {
+    getEarnings,
+    getMultipliers,
+    getBetResult,
+    getBetStatus,
+    getBetAmount,
+    getTotalBet,
+    getClaimHistory,
+    getBetStatsData,
+    getMatch,
+    getAllowance
+} from '../../actions';
 import { getTimeDifference } from '../../utils/helper';
 
 var timer = null;
@@ -33,6 +44,7 @@ const Leagues = () => {
             dispatch(getBetAmount(account));
             dispatch(getEarnings(account));
             dispatch(getClaimHistory(account));
+            dispatch(getAllowance(account));
         }
     }, [account]);
 

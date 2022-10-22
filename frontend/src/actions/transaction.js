@@ -17,22 +17,38 @@ const web3Signed = new Web3(window.ethereum);
 const routerContractSigned = new web3Signed.eth.Contract(config.routerContractAbi, config.routerContractAddress);
 
 
-export const bet = (account, matchId, amount, choice, callback) => async dispatch => {
+export const bet = (account, matchId, amount, choice, token, callback) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Betting...' }));
 
     try {
-        const gasLimit = await routerContractSigned.methods.bet(matchId, choice).estimateGas({ from: account, value: web3.utils.toWei(amount.toString(), 'ether') });
-        const res = await routerContractSigned.methods.bet(matchId, choice)
-        .send({ from: account, value: web3.utils.toWei(amount.toString(), 'ether'), gasLimit: calculateGasMargin(gasLimit) })
-        .catch(err => {
-            console.log('error in bet block: ', err);
-            toast.error('There was a blockchain network error. Please try again.');
-            return;
-        });
-    
-        if (res) {
-            toast.success('Success!!!');
-            SOCKET.emit('BET');
+        if (token === "ETH") {
+            const gasLimit = await routerContractSigned.methods.betEther(matchId, choice).estimateGas({ from: account, value: web3.utils.toWei(amount.toString(), 'ether') });
+            const res = await routerContractSigned.methods.betEther(matchId, choice)
+            .send({ from: account, value: web3.utils.toWei(amount.toString(), 'ether'), gasLimit: calculateGasMargin(gasLimit) })
+            .catch(err => {
+                console.log('error in bet block: ', err);
+                toast.error('There was a blockchain network error. Please try again.');
+                return;
+            });
+        
+            if (res) {
+                toast.success('Success!!!');
+                SOCKET.emit('BET');
+            }
+        } else if (token === "WCI") {
+            const gasLimit = await routerContractSigned.methods.betWCI(matchId, web3.utils.toWei(amount.toString(), 'gwei'), choice).estimateGas({ from: account });
+            const res = await routerContractSigned.methods.betWCI(matchId, web3.utils.toWei(amount.toString(), 'gwei'), choice)
+            .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
+            .catch(err => {
+                console.log('error in bet block: ', err);
+                toast.error('There was a blockchain network error. Please try again.');
+                return;
+            });
+        
+            if (res) {
+                toast.success('Success!!!');
+                SOCKET.emit('BET');
+            }
         }
     } catch (err) {
         if (err.message.includes('You can not bet at this time.')) {
@@ -44,12 +60,14 @@ export const bet = (account, matchId, amount, choice, callback) => async dispatc
     }
 }
 
-export const claim = (account, matchId) => async dispatch => {
+export const claim = (account, matchId, token) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Claiming...' }));
 
+    let tokenParam = token === 'ETH' ? 0 : 1;
+
     try {
-        const gasLimit = await routerContractSigned.methods.claim(matchId).estimateGas({ from: account });
-        const res = await routerContractSigned.methods.claim(matchId)
+        const gasLimit = await routerContractSigned.methods.claim(matchId, tokenParam).estimateGas({ from: account });
+        const res = await routerContractSigned.methods.claim(matchId, tokenParam)
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in bet block: ', err);
@@ -100,25 +118,72 @@ export const createMatch = () => async (dispatch, useState) => {
     }
 }
 
+export const getBetAmount = (account) => async dispatch => {
+    try {
+        let amountRes = await routerContract.methods.getPlayerBetAmount(account).call().catch(async () => {
+            return await dispatch(getBetAmount(account));
+        });
+
+        let amounts = amountRes[0];
+        let amountsWci = amountRes[1];
+        let betAmounts = [];
+        let betAmountsWci = [];
+
+        for (let i=0; i<amounts.length/3; i++) {
+            betAmounts.push({
+                win: web3.utils.fromWei(amounts[i*3], 'ether'),
+                draw: web3.utils.fromWei(amounts[i*3+1], 'ether'),
+                lose: web3.utils.fromWei(amounts[i*3+2], 'ether'),
+            });
+            betAmountsWci.push({
+                win: web3.utils.fromWei(amountsWci[i*3], 'gwei'),
+                draw: web3.utils.fromWei(amountsWci[i*3+1], 'gwei'),
+                lose: web3.utils.fromWei(amountsWci[i*3+2], 'gwei'),
+            });
+        }
+        dispatch({
+            type: SET_BET_AMOUNT,
+            payload: {
+                eth: betAmounts,
+                wci: betAmountsWci,
+            },
+        });
+    } catch (err) {
+        return await dispatch(getBetAmount(account));
+    }
+}
+
 export const getEarnings = (account) => async dispatch => {
     try {
-        const res = await routerContract.methods.getClaimAmount().call({ from: account }).catch(async err => {
+        const earningRes = await routerContract.methods.getClaimAmount().call({ from: account }).catch(async err => {
             await dispatch(getEarnings(account));
         });
     
-        if (res) {
+        if (earningRes) {
+            let res = earningRes[0];
+            let resWci = earningRes[1];
             let claimData = [];
+            let claimDataWci = [];
+
             for (let i=0; i<res.length; i+=3) {
                 claimData.push({
                     win: web3.utils.fromWei(res[i], 'ether'),
                     draw: web3.utils.fromWei(res[i+1], 'ether'),
                     lose: web3.utils.fromWei(res[i+2], 'ether'),
                 });
+                claimDataWci.push({
+                    win: web3.utils.fromWei(resWci[i], 'gwei'),
+                    draw: web3.utils.fromWei(resWci[i+1], 'gwei'),
+                    lose: web3.utils.fromWei(resWci[i+2], 'gwei'),
+                });
             }
     
             dispatch({
                 type: SET_EARNINGS,
-                payload: claimData,
+                payload: {
+                    eth: claimData,
+                    wci: claimDataWci,
+                },
             });
         }
     } catch (err) {
@@ -127,48 +192,37 @@ export const getEarnings = (account) => async dispatch => {
     
 }
 
-export const getBetAmount = (account) => async dispatch => {
-    try {
-        let amounts = await routerContract.methods.getPlayerBetAmount(account).call().catch(async () => {
-            return await dispatch(getBetAmount(account));
-        });
-
-        let betAmounts = [];
-        for (let i=0; i<amounts.length/3; i++) {
-            betAmounts.push({
-                win: web3.utils.fromWei(amounts[i*3], 'ether'),
-                draw: web3.utils.fromWei(amounts[i*3+1], 'ether'),
-                lose: web3.utils.fromWei(amounts[i*3+2], 'ether'),
-            });
-        }
-        dispatch({
-            type: SET_BET_AMOUNT,
-            payload: betAmounts,
-        });
-    } catch (err) {
-        return await dispatch(getBetAmount(account));
-    }
-}
-
 export const getMultipliers = () => async dispatch => {
     try {
-        const res = await routerContract.methods.getMultiplier().call().catch(async err => {
+        const mulRes = await routerContract.methods.getMultiplier().call().catch(async err => {
             await dispatch(getMultipliers());
         });
     
-        if (res) {
+        if (mulRes) {
+            let res = mulRes[0];
+            let resWci = mulRes[1];
             let multiplierData = [];
+            let multiplierDataWci = [];
+            
             for (let i=0; i<res.length; i+=3) {
                 multiplierData.push({
                     win: parseInt(res[i]) / 1000,
                     draw: parseInt(res[i+1]) / 1000,
                     lose: parseInt(res[i+2]) / 1000,
                 });
+                multiplierDataWci.push({
+                    win: parseInt(resWci[i]) / 1000,
+                    draw: parseInt(resWci[i+1]) / 1000,
+                    lose: parseInt(resWci[i+2]) / 1000,
+                });
             }
     
             dispatch({
                 type: SET_MULTIPLIERS,
-                payload: multiplierData,
+                payload: {
+                    eth: multiplierData,
+                    wci: multiplierDataWci,
+                },
             });
         }
     } catch (err) {
@@ -214,15 +268,21 @@ export const getBetResult = () => async dispatch => {
 
 export const getTotalBet = () => async dispatch => {
     try {
-        let amounts = await routerContract.methods.getTotalBet().call().catch(async err => {
+        let totalRes = await routerContract.methods.getTotalBet().call().catch(async err => {
             return await dispatch(getTotalBet());
         });
 
+        let amounts = totalRes[0];
+        let amountsWci = totalRes[1];
         let totalBets = amounts.map(ele => web3.utils.fromWei(ele, 'ether'));
+        let totalBetsWci = amountsWci.map(ele => web3.utils.fromWei(ele, 'gwei'));
 
         dispatch({
             type: SET_TOTAL_BET,
-            payload: totalBets,
+            payload: {
+                eth: totalBets,
+                wci: totalBetsWci,
+            },
         });
     } catch (err) {
         return await dispatch(getTotalBet());
@@ -231,15 +291,22 @@ export const getTotalBet = () => async dispatch => {
 
 export const getClaimHistory = (account) => async dispatch => {
     try {
-        const res = await routerContract.methods.getPlayerClaimHistory(account).call().catch(async () => {
+        const claimRes = await routerContract.methods.getPlayerClaimHistory(account).call().catch(async () => {
             await dispatch(getClaimHistory(account));
         });
     
-        if (res) {
+        if (claimRes) {
+            let res = claimRes[0];
+            let resWci = claimRes[1];
             let resultData = res.map(ele => web3.utils.fromWei(ele, 'ether'));
+            let resultDataWci = resWci.map(ele => web3.utils.fromWei(ele, 'gwei'));
+
             dispatch({
                 type: SET_CLAIM_HISTORY,
-                payload: resultData,
+                payload: {
+                    eth: resultData,
+                    wci: resultDataWci,
+                },
             });
         }
     } catch (err) {
@@ -300,44 +367,23 @@ export const setBetResult = (account, data, callback) => async dispatch => {
     }
 }
 
-export const withdrawMatchProfit = (account, matchId) => async dispatch => {
-    dispatch(setLoading({ loading: true, loadingText: 'Withdrawing a match profit...' }));
-
-    try {
-        const gasLimit = await routerContractSigned.methods.withdrawProfitFromPair(matchId).estimateGas({ from: account });
-        const res = await routerContractSigned.methods.withdrawProfitFromPair(matchId)
-        .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
-        .catch(err => {
-            console.log('error in bet block: ', err);
-            toast.error('There was a blockchain network error. Please try again.');
-            return;
-        });
-    
-        if (res) {
-            toast.success('Successfully withdrew the match profit.');
-            SOCKET.emit('BET');
-        }
-    } catch (err) {
-        if (err.message.includes("No profit to withdraw")) {
-            toast.error("No profit to withdraw.");
-        }
-    } finally {
-        dispatch(setLoading({ loading: false, loadingText: '' }));
-    }
-}
-
 export const getBetStatsData = () => async dispatch => {
     try {
-        const res = await routerContract.methods.getBetStatsData().call().catch(async () => {
+        const statsRes = await routerContract.methods.getBetStatsData().call().catch(async () => {
             await dispatch(getBetStatsData());
         });
     
-        if (res) {
+        if (statsRes) {
+            let res = statsRes[0];
+            let resWci = statsRes[1];
+
             dispatch({
                 type: SET_BET_STATS_DATA,
                 payload: {
                     totalPrize: web3.utils.fromWei(res[0], 'ether'),
                     winnerCount: res[1],
+                    totalPrizeWci: web3.utils.fromWei(resWci[0], 'gwei'),
+                    winnerCountWci: resWci[1],
                 }
             });
         }

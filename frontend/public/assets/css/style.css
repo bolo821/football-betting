@@ -169,6 +169,12 @@ select {
   background-size: 1em;
 }
 
+@media screen and (max-width: 576px) {
+  select {
+    background-position: right 5px center;
+  }
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

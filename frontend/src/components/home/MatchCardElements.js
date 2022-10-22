@@ -16,14 +16,13 @@ export const MatchCardHeader = styled.div`
     align-items: center;
 `;
 
-export const TokenType = styled.div`
+export const TokenSelect = styled.select`
     background-color: var(--hover-color);
-    padding: 10px 15px;
-    border-radius: 25px;
-
-    span {
-        color: white;
-        font-weight: 600;
+    width: 90px;
+    @media screen and (max-width: 576px) {
+        font-size: 14px;
+        width: 60px;
+        padding: 10px;
     }
 `;
 
