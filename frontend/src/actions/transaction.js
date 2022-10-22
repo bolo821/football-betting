@@ -211,9 +211,9 @@ export const getMultipliers = () => async dispatch => {
                     lose: parseInt(res[i+2]) / 1000,
                 });
                 multiplierDataWci.push({
-                    win: parseInt(resWci[i]) / 1000,
-                    draw: parseInt(resWci[i+1]) / 1000,
-                    lose: parseInt(resWci[i+2]) / 1000,
+                    win: parseInt(resWci[i]) / 1000 < 1 ? 1 : parseInt(resWci[i]) / 1000,
+                    draw: parseInt(resWci[i+1]) / 1000 < 1 ? 1 : parseInt(resWci[i+1]) / 1000,
+                    lose: parseInt(resWci[i+2]) / 1000 < 1 ? 1 : parseInt(resWci[i+2]) / 1000,
                 });
             }
     
