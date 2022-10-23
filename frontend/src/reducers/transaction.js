@@ -80,7 +80,7 @@ const transaction = (state = defaultState, action) => {
                 ...state,
                 totalPrize: action.payload.totalPrize,
                 winnerCount: action.payload.winnerCount,
-                totalPrizeWci: action.paload.totalPrizeWci,
+                totalPrizeWci: action.payload.totalPrizeWci,
                 winnerCountWci: action.payload.winnerCountWci,
             }
         }
