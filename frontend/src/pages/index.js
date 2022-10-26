@@ -10,6 +10,7 @@ import { onBet, onStatusUpdate, onClaimed, onMatchScoreUpdatd } from '../actions
 import AdminRoute from '../AdminRoute';
 import WalletRoute from '../WalletRoute';
 import Home from './Home';
+import Collaterals from './Collaterals';
 import Admin from './Admin';
 import History from './History';
 import AddMatch from './AddMatch';
@@ -37,6 +38,7 @@ const Index = () => {
 								<AdminRoute path="/admin" component={Admin} />
 								<AdminRoute path="/addmatch" component={AddMatch} />
 								<WalletRoute path="/history" component={History} />
+								<WalletRoute path="/collaterals" component={Collaterals} />
 								<Redirect to="/" />
 							</Switch>
 						</Router>

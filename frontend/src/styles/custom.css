@@ -413,6 +413,9 @@ h5.country-name-rt {
     }
 }
 
+.history-table-rt {
+    margin-bottom: 50px;
+}
 .history-table-rt tr {
     background-color: #291b6b;
     border-bottom: 1px solid var(--body-color);
@@ -423,8 +426,12 @@ h5.country-name-rt {
     vertical-align: middle;
     padding: 15px 10px;
 }
+.history-table-rt th {
+    padding: 20px 10px;
+}
 .history-section-rt {
     background-color: var(--red-color);
+    margin-top: 120px;
 }
 @media screen and (max-width: 576px) {
     .dashboard-content .dashboard-heading ul li .nav-link {
@@ -436,5 +443,41 @@ h5.country-name-rt {
     }
 }
 .mr-2 {
-    margin-right: 5px;
+    margin-right: 10px;
+}
+.title-rt {
+    width: 100%;
+    position: absolute;
+    margin-top: -140px;
+    z-index: 2;
+}
+.content-rt {
+    margin-top: 80px;
+}
+.title-container-rt {
+    padding: 60px 30px;
+    border-radius: 20px;
+    background-color: #382590;
+}
+@media screen and (max-width: 992px) {
+    .title-rt {
+        margin-top: -110px;
+    }
+    .content-rt {
+        margin-top: 40px;
+    }
+    .title-container-rt {
+        padding: 40px 20px;
+    }
+}
+@media screen and (max-width: 576px) {
+    .title-rt {
+        margin-top: -90px;
+    }
+    .content-rt {
+        margin-top: 20px;
+    }
+    .title-container-rt {
+        padding: 30px 20px;
+    }
 }

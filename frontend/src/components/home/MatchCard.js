@@ -3,6 +3,7 @@ import {
     MatchCard as MatchCardContainer,
     MatchCardHeader,
     TokenSelect,
+    MultiplierSelect,
     NumberCardContainer,
     NumberCard,
     MatchCardBody,
@@ -37,10 +38,16 @@ const MatchCard = props => {
     return (
         <MatchCardContainer>
             <MatchCardHeader>
-                <TokenSelect onChange={e => setToken(e.target.value)}>
-                    <option value="ETH">ETH</option>
-                    <option value="WCI">WCI</option>
-                </TokenSelect>
+                <div className="d-flex">
+                    <TokenSelect onChange={e => setToken(e.target.value)}>
+                        <option value="ETH">ETH</option>
+                        <option value="WCI">WCI</option>
+                    </TokenSelect>
+                    <MultiplierSelect onChange={() => {}}>
+                        <option value="2">2X</option>
+                        <option value="3">3X</option>
+                    </MultiplierSelect>
+                </div>
                 { type === 'betting' &&
                     <NumberCardContainer>
                         <NumberCard>

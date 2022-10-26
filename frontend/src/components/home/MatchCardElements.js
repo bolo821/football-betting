@@ -14,6 +14,9 @@ export const MatchCardHeader = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media screen and (max-width: 400px) {
+        flex-direction: column;
+    }
 `;
 
 export const TokenSelect = styled.select`
@@ -26,9 +29,23 @@ export const TokenSelect = styled.select`
     }
 `;
 
+export const MultiplierSelect = styled.select`
+    background-color: var(--hover-color);
+    width: 80px;
+    margin-left: 10px;
+    @media screen and (max-width: 576px) {
+        font-size: 14px;
+        width: 50px;
+        padding: 10px;
+    }
+`;
+
 export const NumberCardContainer = styled.div`
     display: flex;
     margin: 0 -5px;
+    @media screen and (max-width: 400px) {
+        margin-top: 10px;
+    }
 `;
 
 export const NumberCard = styled.div`

@@ -36,14 +36,14 @@ const History = () => {
                 if (bet.win !== '0') {
                     let profit;
                     if (status === 0 || status === 1) {
-                        profit = earnings[betId].win;
+                        profit = earnings[betId]?.win;
                     } else {
                         if (result === 0) {
-                            if (earnings[betId].win === '0') {
+                            if (earnings[betId]?.win === '0') {
                                 profit = claimHistory[betId];
                                 status_ = 'Claimed';
                             } else {
-                                profit = earnings[betId].win;
+                                profit = earnings[betId]?.win;
                                 status_ = 'Clamable';
                             }
                         } else {
@@ -62,14 +62,14 @@ const History = () => {
                 if (bet.draw !== '0') {
                     let profit;
                     if (status === 0 || status === 1) {
-                        profit = earnings[betId].draw;
+                        profit = earnings[betId]?.draw;
                     } else {
                         if (result === 1) {
-                            if (earnings[betId].draw === '0') {
+                            if (earnings[betId]?.draw === '0') {
                                 profit = claimHistory[betId];
                                 status_ = 'Claimed';
                             } else {
-                                profit = earnings[betId].draw;
+                                profit = earnings[betId]?.draw;
                                 status_ = 'Clamable';
                             }
                         } else {
@@ -88,14 +88,14 @@ const History = () => {
                 if (bet.lose !== '0') {
                     let profit;
                     if (status === 0 || status === 1) {
-                        profit = earnings[betId].lose;
+                        profit = earnings[betId]?.lose;
                     } else {
                         if (result === 2) {
-                            if (earnings[betId].lose === '0') {
+                            if (earnings[betId]?.lose === '0') {
                                 profit = claimHistory[betId];
                                 status_ = 'Claimed';
                             } else {
-                                profit = earnings[betId].lose;
+                                profit = earnings[betId]?.lose;
                                 status_ = 'Clamable';
                             }
                         } else {
@@ -121,7 +121,22 @@ const History = () => {
         <>
             <Header />
             <Section1 />
-            <HistoryTable data={data} />
+            <section className="pt-5 history-section-rt">
+                <div className="bet-this-game all-soccer-bets">
+                    <div className="title-rt">
+                        <div className="container">
+                            <div className="title-container-rt">
+                                <div className="text-center">
+                                    <h3 className='m-0'>History</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="content-rt">
+                    <HistoryTable data={data} />
+                </div>
+            </section>
         </>
     )
 }
