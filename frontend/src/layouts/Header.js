@@ -6,6 +6,8 @@ import { getReducedAddressString } from "../utils/helper";
 import { useWeb3React } from '@web3-react/core';
 import config from '../config';
 
+import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
+
 const Header = () => {
     const history = useHistory();
     const wallet = useSelector(state => state.user.wallet);
@@ -15,14 +17,21 @@ const Header = () => {
     useEffect(() => {
         var fixed_top = $(".header-section");
         window.$(window).on("scroll", function () {
-        if (window.$(window).scrollTop() > 50) {
-            fixed_top.addClass("animated fadeInDown header-fixed");
-        }
-        else {
-            fixed_top.removeClass("animated fadeInDown header-fixed");
-        }
+            if (window.$(window).scrollTop() > 50) {
+                fixed_top.addClass("animated fadeInDown header-fixed");
+            }
+            else {
+                fixed_top.removeClass("animated fadeInDown header-fixed");
+            }
         });
     }, []);
+
+    const handleBuyCrypto = () => {
+        new RampInstantSDK({
+            hostAppName: 'WorldCupInu',
+            hostLogoUrl: 'https://wcibets.club:8443/logo.png',
+        }).show();
+    }
 
     return (
         <header className="header-section header-section-rt">
@@ -36,6 +45,13 @@ const Header = () => {
                             PvP
                         </button>
                     </a>
+                    <button
+                        type="button"
+                        className="cmn-btn reg connect-bn-rt mr-2"
+                        onClick={handleBuyCrypto}
+                    >
+                        Buy Crypto
+                    </button>
                     <button
                         type="button"
                         className="cmn-btn reg connect-bn-rt"
