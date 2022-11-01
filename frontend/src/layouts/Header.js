@@ -6,8 +6,6 @@ import { getReducedAddressString } from "../utils/helper";
 import { useWeb3React } from '@web3-react/core';
 import config from '../config';
 
-import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
-
 const Header = () => {
     const history = useHistory();
     const wallet = useSelector(state => state.user.wallet);
@@ -26,13 +24,6 @@ const Header = () => {
         });
     }, []);
 
-    const handleBuyCrypto = () => {
-        new RampInstantSDK({
-            hostAppName: 'WorldCupInu',
-            hostLogoUrl: 'https://wcibets.club:8443/logo.png',
-        }).show();
-    }
-
     return (
         <header className="header-section header-section-rt">
             <div className='container'>
@@ -48,9 +39,9 @@ const Header = () => {
                     <button
                         type="button"
                         className="cmn-btn reg connect-bn-rt mr-2"
-                        onClick={handleBuyCrypto}
+                        onClick={() => history.push('/trade')}
                     >
-                        Buy Crypto
+                        Trade
                     </button>
                     <button
                         type="button"
