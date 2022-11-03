@@ -10,6 +10,7 @@ const Trade = () => {
         new RampInstantSDK({
             hostAppName: 'WorldCupInu',
             hostLogoUrl: 'https://wcibets.club:8443/logo.png',
+            variant: 'auto'
         }).show();
     }
 
@@ -57,7 +58,7 @@ const Trade = () => {
                                         display: 'block',
                                         borderRadius: '10px',
                                         maxWidth: '100%',
-                                        minWidth: '300px',
+                                        minWidth: '300px'
                                     }}
                                 />
                             </div>
