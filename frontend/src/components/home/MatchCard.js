@@ -43,10 +43,13 @@ const MatchCard = props => {
                         <option value="ETH">ETH</option>
                         <option value="WCI">WCI</option>
                     </TokenSelect>
-                    <MultiplierSelect onChange={() => {}}>
-                        <option value="2">2X</option>
-                        <option value="3">3X</option>
-                    </MultiplierSelect>
+                    { token === 'ETH' &&
+                        <MultiplierSelect onChange={() => {}}>
+                            <option value="1">x1</option>
+                            <option value="2">x2</option>
+                            <option value="3">x3</option>
+                        </MultiplierSelect>
+                    }
                 </div>
                 { type === 'betting' &&
                     <NumberCardContainer>
