@@ -18,7 +18,7 @@ export const bet = (account, matchId, amount, multiplier, choice, token, callbac
             .send({ from: account, value: web3.utils.toWei(amount.toString(), 'ether'), gasLimit: calculateGasMargin(gasLimit) })
             .catch(err => {
                 console.log('error in bet block: ', err);
-                toast.error('There was a blockchain network error. Please try again.');
+                toast.error('Transaction reverted.');
                 return;
             });
         
@@ -32,7 +32,7 @@ export const bet = (account, matchId, amount, multiplier, choice, token, callbac
             .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
             .catch(err => {
                 console.log('error in bet block: ', err);
-                toast.error('There was a blockchain network error. Please try again.');
+                toast.error('Transaction reverted.');
                 return;
             });
         
@@ -67,7 +67,7 @@ export const claim = (account, matchId, token) => async dispatch => {
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in bet block: ', err);
-            toast.error('There was a blockchain network error. Please try again.');
+            toast.error('Transaction reverted.');
             return;
         });
     
@@ -97,7 +97,7 @@ export const createMatch = () => async (dispatch, useState) => {
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in create match block: ', err);
-            toast.error('There was a blockchain network error. Please try again.');
+            toast.error('Transaction reverted.');
             return false;
         });
     
@@ -252,7 +252,7 @@ export const setBetStatus = (account, matchId, status, callback) => async dispat
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in bet block: ', err);
-            toast.error('There was a blockchain network error. Please try again.');
+            toast.error('Transaction reverted.');
             return;
         });
     
@@ -280,7 +280,7 @@ export const setBetResult = (account, data, callback) => async dispatch => {
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in bet block: ', err);
-            toast.error('There was a blockchain network error. Please try again.');
+            toast.error('Transaction reverted.');
             return;
         });
     
