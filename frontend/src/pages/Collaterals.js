@@ -17,7 +17,7 @@ const Collaterals = () => {
 
     useEffect(() => {
         if (account) {
-            dispatch(getCollaterals(account));
+            dispatch(getCollaterals(account));  
         }
     }, [account]);
 
