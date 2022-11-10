@@ -1,4 +1,4 @@
-import * as BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 
 export const getReducedAddressString = address => {
     let len = address.length;
@@ -40,6 +40,7 @@ export const getTimeDifference = (date1, date2) => {
 }
 
 export const calculateGasMargin = (value) => {
+    console.log('value: ', value);
 	return BigNumber(value).multipliedBy(BigNumber(13)).dividedToIntegerBy(BigNumber(10));
 }
 

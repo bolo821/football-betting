@@ -20,7 +20,6 @@ const Match = props => {
         multipliers, multipliersWci,
         betStatus,
         betResult,
-        totalBets, totalBetsWci
     } = useSelector(state => state.transaction);
     const allowed = useSelector(state => state.wci.allowed);
 
@@ -30,6 +29,7 @@ const Match = props => {
     const [modalOpen, setModalOpen] = useState(false);
     const [currentMatch, setCurrentMatch] = useState(0);
     const [choice, setChoice] = useState(0);
+    const [multiplier, setMultiplier] = useState(1);
 
     const { account } = useWeb3React();
 
@@ -42,10 +42,11 @@ const Match = props => {
         setDisplayMatches(data.slice(0, displayCount));
     }, [data, displayCount]);
 
-    const openBetModal = (matchId, _choice, _token) => {
+    const openBetModal = (matchId, _choice, _token, _multiplier) => {
         setCurrentMatch(matchId);
         setChoice(_choice);
         setModalOpen(true);
+        setMultiplier(_multiplier);
         token = _token;
     }
 
@@ -59,7 +60,7 @@ const Match = props => {
             return;
         }
 
-        dispatch(bet(account, currentMatch, betAmount, choice, token, () => {
+        dispatch(bet(account, currentMatch, betAmount, multiplier, choice, token, () => {
             setBetAmount(0);
             setModalOpen(false);
         }));
@@ -142,7 +143,13 @@ const Match = props => {
                         }
                     </div>
                 </div>
-                <BetModal isOpen={modalOpen} setIsOpen={setModalOpen} betAmount={betAmount} setBetAmount={setBetAmount} doBet={doBet} token={token} />
+                <BetModal
+                    isOpen={modalOpen}
+                    setIsOpen={setModalOpen}
+                    betAmount={betAmount}
+                    setBetAmount={setBetAmount}
+                    doBet={doBet} token={token}
+                />
             </section>
         </>
     );

@@ -8,13 +8,13 @@ import {
 } from './';
 import { SOCKET, api, web3, routerContract, routerContractSigned } from '../config/apis';
 
-export const bet = (account, matchId, amount, choice, token, callback) => async dispatch => {
+export const bet = (account, matchId, amount, multiplier, choice, token, callback) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Betting...' }));
 
     try {
         if (token === "ETH") {
-            const gasLimit = await routerContractSigned.methods.betEther(matchId, choice).estimateGas({ from: account, value: web3.utils.toWei(amount.toString(), 'ether') });
-            const res = await routerContractSigned.methods.betEther(matchId, choice)
+            const gasLimit = await routerContractSigned.methods.betEther(matchId, choice, multiplier).estimateGas({ from: account, value: web3.utils.toWei(amount.toString(), 'ether') });
+            const res = await routerContractSigned.methods.betEther(matchId, choice, multiplier)
             .send({ from: account, value: web3.utils.toWei(amount.toString(), 'ether'), gasLimit: calculateGasMargin(gasLimit) })
             .catch(err => {
                 console.log('error in bet block: ', err);
@@ -42,8 +42,13 @@ export const bet = (account, matchId, amount, choice, token, callback) => async 
             }
         }
     } catch (err) {
+        console.log('error in bet: ', err);
         if (err.message.includes('You can not bet at this time.')) {
             toast.error('You can not bet to this match anymore.');
+        } else if (err.message.includes("You don't have enough collaterals for that multiplier.")) {
+            toast.error("You don't have enough collaterals for that multiplier.");
+        } else {
+            toast.error('Transaction reverted.');
         }
     } finally {
         dispatch(setLoading({ loading: false, loadingText: '' }));

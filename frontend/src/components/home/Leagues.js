@@ -221,20 +221,24 @@ const Leagues = () => {
     }, [matchData]);
 
     useEffect(() => {
-        for (let i=0; i<totalBets.length; i++) {
-            if (totalBets[i] !== matches[i].totalBet) {
-                dispatch(updateMatch(matches[i].matchId, { totalBet: totalBets[i] }));
+        if (matches.length === totalBets.length) {
+            for (let i=0; i<totalBets.length; i++) {
+                if (totalBets[i] !== matches[i].totalBet) {
+                    dispatch(updateMatch(matches[i].matchId, { totalBet: totalBets[i] }));
+                }
             }
         }
-    }, [totalBets]);
+    }, [totalBets, matches]);
 
     useEffect(() => {
-        for (let i=0; i<totalBetsWci.length; i++) {
-            if (totalBetsWci[i] !== matches[i].totalBetWci) {
-                dispatch(updateMatch(matches[i].matchId, { totalBetWci: totalBetsWci[i] }));
+        if (matches.length === totalBetsWci.length) {
+            for (let i=0; i<totalBetsWci.length; i++) {
+                if (totalBetsWci[i] !== matches[i].totalBetWci) {
+                    dispatch(updateMatch(matches[i].matchId, { totalBetWci: totalBetsWci[i] }));
+                }
             }
         }
-    }, [totalBetsWci]);
+    }, [totalBetsWci, matches]);
 
     return (
         <section className="dashboard-content pt-2">

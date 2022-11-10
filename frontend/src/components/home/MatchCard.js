@@ -34,6 +34,7 @@ const MatchCard = props => {
     } = props;
     const { account } = useWeb3React();
     const [token, setToken] = useState('ETH');
+    const [multiplier, setMultiplier] = useState(1);
 
     return (
         <MatchCardContainer>
@@ -44,7 +45,7 @@ const MatchCard = props => {
                         <option value="WCI">WCI</option>
                     </TokenSelect>
                     { token === 'ETH' &&
-                        <MultiplierSelect onChange={() => {}}>
+                        <MultiplierSelect onChange={e => setMultiplier(e.target.value)}>
                             <option value="1">x1</option>
                             <option value="2">x2</option>
                             <option value="3">x3</option>
@@ -112,7 +113,7 @@ const MatchCard = props => {
                             <BetCard>
                                 { token === 'ETH' ?
                                     <>
-                                        <button onClick={() => onBet(matchId, 0, token)}>
+                                        <button onClick={() => onBet(matchId, 0, token, multiplier)}>
                                             <span>{team1Abbr}</span>
                                             <span className="score">x{team1Multi}</span>
                                         </button>    
@@ -127,7 +128,7 @@ const MatchCard = props => {
                                     </> :
                                     <>
                                         { wciAllowed ?
-                                            <button onClick={() => onBet(matchId, 0, token)}>
+                                            <button onClick={() => onBet(matchId, 0, token, 1)}>
                                                 <span>{team1Abbr}</span>
                                                 <span className="score">x{team1MultiWci}</span>
                                             </button> :
@@ -152,7 +153,7 @@ const MatchCard = props => {
                             <BetCard>
                                 { token === 'ETH' ?
                                     <>
-                                        <button onClick={() => onBet(matchId, 1, token)}>
+                                        <button onClick={() => onBet(matchId, 1, token, multiplier)}>
                                             <span>Draw</span>
                                             <span className="score">x{drawMulti}</span>
                                         </button>   
@@ -167,7 +168,7 @@ const MatchCard = props => {
                                     </> :
                                     <>
                                         { wciAllowed ?
-                                            <button onClick={() => onBet(matchId, 1, token)}>
+                                            <button onClick={() => onBet(matchId, 1, token, 1)}>
                                                 <span>Draw</span>
                                                 <span className="score">x{drawMultiWci}</span>
                                             </button> :
@@ -192,7 +193,7 @@ const MatchCard = props => {
                             <BetCard>
                                 { token === 'ETH' ?
                                     <>
-                                        <button onClick={() => onBet(matchId, 2, token)}>
+                                        <button onClick={() => onBet(matchId, 2, token, multiplier)}>
                                             <span>{team2Abbr}</span>
                                             <span className="score">x{team2Multi}</span>
                                         </button>
@@ -207,7 +208,7 @@ const MatchCard = props => {
                                     </> :
                                     <>
                                         { wciAllowed ?
-                                            <button onClick={() => onBet(matchId, 2, token)}>
+                                            <button onClick={() => onBet(matchId, 2, token, 1)}>
                                                 <span>{team2Abbr}</span>
                                                 <span className="score">x{team2MultiWci}</span>
                                             </button> :
