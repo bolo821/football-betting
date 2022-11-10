@@ -5,7 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 import Header from '../layouts/Header';
 import Section1 from '../components/home/Section1';
 import CollateralsTable from '../components/collaterals/CollateralsTable';
-import { approveUsdt, approveUsdc, approveShib, approveDoge, depositEth, depositTokens, withdrawTokens } from '../actions';
+import { getCollaterals, approveUsdt, approveUsdc, approveShib, approveDoge, depositEth, depositTokens, withdrawTokens } from '../actions';
 
 const Collaterals = () => {
     const dispatch = useDispatch();
@@ -17,6 +17,8 @@ const Collaterals = () => {
 
     useEffect(() => {
         if (account) {
+            dispatch(getCollaterals(account));
+            
             setData([
                 {
                     crypto: 'ETH',
