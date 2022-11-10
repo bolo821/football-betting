@@ -18,7 +18,11 @@ const Collaterals = () => {
     useEffect(() => {
         if (account) {
             dispatch(getCollaterals(account));
-            
+        }
+    }, [account]);
+
+    useEffect(() => {
+        if (account) {
             setData([
                 {
                     crypto: 'ETH',

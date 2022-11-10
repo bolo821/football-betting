@@ -45,7 +45,7 @@ const CollateralsTable = props => {
                             { data.map((ele, index) => (
                                 <tr key={index}>
                                     <td>{ele.crypto}</td>
-                                    <td>{parseInt(ele.amount)}</td>
+                                    <td>{parseInt(ele.amount * 1000) / 1000}</td>
                                     <td>
                                         { index !== 0 && ele.allowance === 0 ?
                                             <button
