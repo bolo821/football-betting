@@ -29,7 +29,7 @@ process.on('uncaughtException', err => {});
 let PORT;
 const socketServerOptions = {
 	cors: true,
-	origins: [ process.env.CLIENT_ORIGIN ],
+	origins: [ process.env.CLIENT_ORIGIN, 'http://82.180.154.156:3000' ],
 }
 
 const { watchInPlayGames } = require('./utils/betsapi');
