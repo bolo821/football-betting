@@ -97,7 +97,6 @@ export const createMatch = () => async (dispatch, useState) => {
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
         .catch(err => {
             console.log('error in create match block: ', err);
-            toast.error('Transaction reverted.');
             return false;
         });
     
@@ -107,9 +106,7 @@ export const createMatch = () => async (dispatch, useState) => {
             return false;
         }
     } catch (err) {
-        if (err.message.includes('caller is not the owner')) {
-            toast.error('Only contract owner can create a new match.');
-        }
+        toast.error('Transaction reverted.');
         return false;
     }
 }

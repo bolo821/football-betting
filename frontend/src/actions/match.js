@@ -16,8 +16,6 @@ export const addMatch = data => async dispatch => {
                 toast.success('Successfully added a match.');
                 SOCKET.emit('BET');
             }
-        } else {
-            toast.error('There occurred an error while creating a new match on blockchain.');
         }
     } catch (err) {
         console.log('error in add match: ', err);
