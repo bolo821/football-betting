@@ -24,8 +24,8 @@ const WithdrawModal = ({ amount, setAmount, isOpen, setIsOpen, withdraw }) => {
             closeTimeoutMS={500}
         >
             <div className="bet-modal-content-rt">
-                <h5>
-                    Please input deposit amount
+                <h5 className="mb-4">
+                    Please input withdraw amount
                 </h5>
                 <div className="input-area">
                     <input type="number" placeholder="Input your bet amount" value={amount} onChange={e => setAmount(e.target.value)} />
