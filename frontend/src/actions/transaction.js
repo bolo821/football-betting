@@ -73,7 +73,7 @@ export const claim = (account, matchId, token) => async dispatch => {
     
         if (res) {
             toast.success('Successfully claimed!!');
-            dispatch(getEarnings(account));
+            dispatch(getSingleInformation(account, token));
             SOCKET.emit('CLAIMED');
         }
     } catch (err) {
@@ -282,7 +282,7 @@ export const setBetResult = (account, data, callback) => async dispatch => {
         });
     
         if (res) {
-            await api.put(`/match/${matchId}`, { team1Score, team2Score });
+            await api.put(`/match/${matchId}`, { team1Score, team2Score, matchStatus: 2 });
             toast.success('Successfully set the bet result.');
             SOCKET.emit('BET');
         }

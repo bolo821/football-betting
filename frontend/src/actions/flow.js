@@ -19,6 +19,7 @@ export const onBet = () => (dispatch, getState) => {
             dispatch(getSingleInformation(account, 0));
             dispatch(getTripleInformation(account, 1));
             dispatch(getSingleInformation(account, 1));
+            dispatch(getMatch());
         }
     });
 }
