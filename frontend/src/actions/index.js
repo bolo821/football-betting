@@ -4,3 +4,4 @@ export * from './flow';
 export * from './transaction';
 export * from './match';
 export * from './wci';
+export * from './collateral';

@@ -1,5 +1,6 @@
 import routerContractAbi from './abis/routerContract.json';
-import wciTokenAbi from './abis/wciToken.json';
+import erc20Abi from './abis/ERC20.json';
+import usdtAbi from './abis/usdt.json';
 
 const config = {
     netId: 1,
@@ -10,11 +11,16 @@ const config = {
         symbol: "ETH",
         decimal: 18,
     },
-    routerContractAddress: '0x3CFa37680F40d6E6921faa96281dA0aa511D8aF2',
+    routerContractAddress: '0xa36799739dB0Db84B500AfDD1695F6A670c244f0',
     routerContractAbi,
     adminWalletAddress: '0xbCffB0493d5b5EE9550F495BFC05667DdC9878f9',
-    wciTokenAbi,
-    wciTokenAddress: '0xC5a9BC46A7dbe1c6dE493E84A18f02E70E2c5A32',
+    erc20Abi,
+    usdtAbi,
+    wciAddress: '0xC5a9BC46A7dbe1c6dE493E84A18f02E70E2c5A32',
+    usdtAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+    usdcAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+    shibAddress: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE',
+    dogeAddress: '0x4206931337dc273a630d328dA6441786BfaD668f',
 };
 
 // const config = {
@@ -27,9 +33,9 @@ const config = {
 //         decimal: 18,
 //     },
 //     routerContractAddress: '0xED77c98E19A8FA02AB03E52Da6F2d13e492F3Cc1',
-//     wciTokenAddress: '0x12Bc9bbb73AbEc4e93b4A244E25906CE35B5e939',
+//     wciAddress: '0x12Bc9bbb73AbEc4e93b4A244E25906CE35B5e939',
 //     routerContractAbi,
-//     wciTokenAbi,
+//     erc20Abi,
 //     adminWalletAddress: '0x718C6E457500202F23Be231b439C8A92A46c288C',
 // };
 

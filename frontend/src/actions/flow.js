@@ -1,5 +1,5 @@
 import { SET_LOADING } from "./type";
-import { getEarnings, getMultipliers, getBetStatus, getBetResult, getBetAmount, getTotalBet, getBetStatsData, getMatch } from "./";
+import { getTripleInformation, getSingleInformation, getBetStatsData, getMatch } from "./";
 import { SOCKET } from "../config/apis";
 
 export const setLoading = data => {
@@ -13,16 +13,12 @@ export const onBet = () => (dispatch, getState) => {
     SOCKET.removeAllListeners("BET");
 
     SOCKET.on('BET', () => {
-        dispatch(getMultipliers());
-        dispatch(getBetStatus());
-        dispatch(getBetResult());
-        dispatch(getTotalBet());
-        dispatch(getMatch());
-
         let account = getState().user.wallet;
         if (account) {
-            dispatch(getEarnings(account));
-            dispatch(getBetAmount(account));
+            dispatch(getTripleInformation(account, 0));
+            dispatch(getSingleInformation(account, 0));
+            dispatch(getTripleInformation(account, 1));
+            dispatch(getSingleInformation(account, 1));
         }
     });
 }
@@ -31,7 +27,8 @@ export const onStatusUpdate = () => dispatch => {
     SOCKET.removeAllListeners("UPDATE_STATUS");
 
     SOCKET.on('UPDATE_STATUS', () => {
-        dispatch(getBetStatus());       
+        dispatch(getSingleInformation(account, 0));
+        dispatch(getSingleInformation(account, 1)); 
     });
 }
 

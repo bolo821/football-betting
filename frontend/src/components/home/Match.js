@@ -83,14 +83,14 @@ const Match = props => {
                             { displayMatches.map((ele, index) => (
                                 <div className="col-lg-6" key={index}>
                                     <MatchCard
-                                        type={betStatus[ele.id] === 0 ? 'betting' : betStatus[ele.id] === 1 ? 'reviewing' : 'claiming'}
+                                        type={ele.matchStatus === 0 ? 'betting' : betStatus[ele.id] === 1 ? 'reviewing' : 'claiming'}
                                         days={ele.days}
                                         hours={ele.hours}
                                         minutes={ele.mins}
                                         seconds={ele.secs}
                                         matchId={ele.id}
-                                        totalBet={getRoundedNumber(totalBets[ele.id])}
-                                        totalBetWci={getRoundedNumber(totalBetsWci[ele.id])}
+                                        totalBet={getRoundedNumber(ele.totalBet)}
+                                        totalBetWci={getRoundedNumber(ele.totalBetWci)}
                                         team1Logo={ele.team1Logo}
                                         team2Logo={ele.team2Logo}
                                         team1Abbr={ele.team1}

@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DepositModal from './DepositModal';
+import WithdrawModal from './WithdrawModal';
+
+var token = 0;
+var deposit = () => {};
+var withdraw = () => {};
 
 const CollateralsTable = props => {
     const { data } = props;
+    const [amount, setAmount] = useState('');
+    const [showDModal, setShowDModal] = useState(false);
+    const [showWModal, setShowWModal] = useState(false);
+
+    const handleDeposit = (ele, index) => {
+        token = index;
+        deposit = (amount) => {
+            ele.handleDeposit(amount);
+        }
+        setShowDModal(true);
+    }
+
+    const handleWithdraw = (ele, index) => {
+        token = index;
+        withdraw = (amount) => {
+            ele.handleWithdraw(amount);
+        }
+        setShowWModal(true);
+    }
 
     return (
         <div className="container">
@@ -20,21 +45,30 @@ const CollateralsTable = props => {
                             { data.map((ele, index) => (
                                 <tr key={index}>
                                     <td>{ele.crypto}</td>
-                                    <td>{ele.amount}</td>
+                                    <td>{parseInt(ele.amount)}</td>
                                     <td>
-                                        <button
-                                            type="button"
-                                            className="cmn-btn reg set-bn-rt"
-                                            onClick={() => {}}
-                                        >
-                                            Deposit
-                                        </button>
+                                        { index !== 0 && ele.allowance === 0 ?
+                                            <button
+                                                type="button"
+                                                className="cmn-btn reg set-bn-rt"
+                                                onClick={ele.handleApprove}
+                                            >
+                                                Approve
+                                            </button> :
+                                            <button
+                                                type="button"
+                                                className="cmn-btn reg set-bn-rt"
+                                                onClick={() => {handleDeposit(ele, index)}}
+                                            >
+                                                Deposit
+                                            </button>
+                                        }
                                     </td>
                                     <td>
                                         <button
                                             type="button"
                                             className="cmn-btn reg set-bn-rt"
-                                            onClick={() => {}}
+                                            onClick={() => {handleWithdraw(ele, index)}}
                                         >
                                             Withdraw
                                         </button>
@@ -48,6 +82,22 @@ const CollateralsTable = props => {
                     <h5>No collateral to display.</h5>
                 </div>
             }
+            <DepositModal
+                amount={amount}
+                setAmount={setAmount}
+                isOpen={showDModal}
+                setIsOpen={setShowDModal}
+                deposit={() => deposit(amount)}
+                token={token}
+            />
+            <WithdrawModal
+                amount={amount}
+                setAmount={setAmount}
+                isOpen={showWModal}
+                setIsOpen={setShowWModal}
+                withdraw={() => withdraw(amount)}
+                token={token}
+            />
         </div>
     )
 }

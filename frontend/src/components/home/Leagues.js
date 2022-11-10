@@ -5,16 +5,17 @@ import { useWeb3React } from '@web3-react/core';
 import LeaguesTabContent from '../home/LeaguesTabContent';
 import TabItem from '../TabItem';
 import {
-    getEarnings,
-    getMultipliers,
-    getBetResult,
-    getBetStatus,
-    getBetAmount,
-    getTotalBet,
-    getClaimHistory,
+    getSingleInformation,
+    getTripleInformation,
     getBetStatsData,
     getMatch,
-    getAllowance
+    getAllowance as getWciAllowance,
+    getCollaterals,
+    getUSDTAllowance,
+    getUSDCAllowance,
+    getSHIBAllowance,
+    getDOGEAllowance,
+    updateMatch,
 } from '../../actions';
 import { getTimeDifference } from '../../utils/helper';
 
@@ -22,8 +23,8 @@ var timer = null;
 
 const Leagues = () => {
     const dispatch = useDispatch();
-    const betStatus = useSelector(state => state.transaction.betStatus);
     const matches = useSelector(state => state.match.matches);
+    const { totalBets, totalBetsWci } = useSelector(state => state.transaction);
 
     const { account } = useWeb3React();
 
@@ -31,20 +32,22 @@ const Leagues = () => {
     const [tabItems, setTabItems] = useState([]);
 
     useEffect(() => {
-        dispatch(getBetStatus());
-        dispatch(getMultipliers());
-        dispatch(getBetResult());
-        dispatch(getTotalBet());
         dispatch(getBetStatsData());
         dispatch(getMatch());
-    }, [dispatch]);
-    
+    }, []);
+
     useEffect(() => {
         if (account) {
-            dispatch(getBetAmount(account));
-            dispatch(getEarnings(account));
-            dispatch(getClaimHistory(account));
-            dispatch(getAllowance(account));
+            dispatch(getWciAllowance(account));
+            dispatch(getSingleInformation(account, 0));
+            dispatch(getTripleInformation(account, 0));
+            dispatch(getSingleInformation(account, 1));
+            dispatch(getTripleInformation(account, 1));
+            dispatch(getCollaterals(account));
+            dispatch(getUSDTAllowance(account));
+            dispatch(getUSDCAllowance(account));
+            dispatch(getSHIBAllowance(account));
+            dispatch(getDOGEAllowance(account));
         }
     }, [account]);
 
@@ -103,7 +106,7 @@ const Leagues = () => {
 
         for (let i=0; i<matchData.length; i++) {
             let matchId = matchData[i].matchId;
-            let status = betStatus[matchId];
+            let status = matchData[i].matchStatus;
             let type = matchData[i].matchType;
             let item = {
                 ...matchData[i],
@@ -215,7 +218,23 @@ const Leagues = () => {
         })
 
         setTabItems(tmpTabItems);
-    }, [matchData, betStatus]);
+    }, [matchData]);
+
+    useEffect(() => {
+        for (let i=0; i<totalBets.length; i++) {
+            if (totalBets[i] !== matches[i].totalBet) {
+                dispatch(updateMatch(matches[i].matchId, { totalBet: totalBets[i] }));
+            }
+        }
+    }, [totalBets]);
+
+    useEffect(() => {
+        for (let i=0; i<totalBetsWci.length; i++) {
+            if (totalBetsWci[i] !== matches[i].totalBetWci) {
+                dispatch(updateMatch(matches[i].matchId, { totalBetWci: totalBetsWci[i] }));
+            }
+        }
+    }, [totalBetsWci]);
 
     return (
         <section className="dashboard-content pt-2">

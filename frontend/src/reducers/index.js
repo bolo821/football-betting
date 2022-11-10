@@ -4,6 +4,7 @@ import flow from './flow';
 import transaction from './transaction';
 import match from './match';
 import wci from './wci';
+import collateral from './collateral';
 
 export default combineReducers({
     user,
@@ -11,4 +12,5 @@ export default combineReducers({
     transaction,
     match,
     wci,
+    collateral,
 });

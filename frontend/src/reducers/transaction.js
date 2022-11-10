@@ -1,4 +1,8 @@
-import { SET_EARNINGS, SET_MULTIPLIERS, SET_BET_STATUS, SET_BET_RESULT, SET_BET_AMOUNT, SET_TOTAL_BET, SET_CLAIM_HISTORY, SET_BET_STATS_DATA } from "../actions";
+import {
+    SET_BET_STATS_DATA,
+    SET_TRIPLE_INFORMATION,
+    SET_SINGLE_INFORMATION,
+} from "../actions";
 
 const defaultState = {
     earnings: [],
@@ -21,57 +25,40 @@ const defaultState = {
 
 const transaction = (state = defaultState, action) => {
     switch (action.type) {
-        case SET_EARNINGS: {
-            return {
-                ...state,
-                earnings: action.payload.eth,
-                earningsWci: action.payload.wci,
+        case SET_TRIPLE_INFORMATION: {
+            if (action.payload.token === 0) {
+                return {
+                    ...state,
+                    betAmounts: action.payload.betAmounts,
+                    multipliers: action.payload.multipliers,
+                    earnings: action.payload.earnings,
+                }
+            } else {
+                return {
+                    ...state,
+                    betAmountsWci: action.payload.betAmounts,
+                    multipliersWci: action.payload.multipliers,
+                    earningsWci: action.payload.earnings,
+                }
             }
         }
-
-        case SET_MULTIPLIERS: {
-            return {
-                ...state,
-                multipliers: action.payload.eth,
-                multipliersWci: action.payload.wci,
-            }
-        }
-
-        case SET_BET_STATUS: {
-            return {
-                ...state,
-                betStatus: action.payload,
-            }
-        }
-
-        case SET_BET_RESULT: {
-            return {
-                ...state,
-                betResult: action.payload,
-            }
-        }
-
-        case SET_BET_AMOUNT: {
-            return {
-                ...state,
-                betAmounts: action.payload.eth,
-                betAmountsWci: action.payload.wci,
-            }
-        }
-
-        case SET_TOTAL_BET: {
-            return {
-                ...state,
-                totalBets: action.payload.eth,
-                totalBetsWci: action.payload.wci,
-            }
-        }
-
-        case SET_CLAIM_HISTORY: {
-            return {
-                ...state,
-                claimHistory: action.payload.eth,
-                claimHistoryWci: action.payload.wci,
+        case SET_SINGLE_INFORMATION: {
+            if (action.payload.token === 0) {
+                return {
+                    ...state,
+                    betStatus: action.payload.betStatus,
+                    betResult: action.payload.betResult,
+                    claimHistory: action.payload.claimHistory,
+                    totalBets: action.payload.totalBet,
+                }
+            } else {
+                return {
+                    ...state,
+                    betStatus: action.payload.betStatus,
+                    betResult: action.payload.betResult,
+                    claimHistoryWci: action.payload.claimHistory,
+                    totalBetsWci: action.payload.totalBet,
+                }
             }
         }
 
@@ -79,9 +66,9 @@ const transaction = (state = defaultState, action) => {
             return {
                 ...state,
                 totalPrize: action.payload.totalPrize,
-                winnerCount: action.payload.winnerCount,
+                winnerCount: action.payload.winnerCount,   
                 totalPrizeWci: action.payload.totalPrizeWci,
-                winnerCountWci: action.payload.winnerCountWci,
+                winnerCountWci: action.payload.winnerCountWci, 
             }
         }
 

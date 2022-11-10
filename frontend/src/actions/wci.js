@@ -1,13 +1,9 @@
 import { SET_WCI_ALLOWANCE } from "./type";
-import Web3 from "web3";
 import { calculateGasMargin } from "../utils/helper";
 import config from "../config";
 import { setLoading } from "./";
 import { toast } from "react-toastify";
-
-const web3Signed = new Web3(window.ethereum);
-const wciContract = new web3Signed.eth.Contract(config.wciTokenAbi, config.wciTokenAddress);
-
+import { wciContract } from "../config/apis";
 
 export const getAllowance = account => async dispatch => {
     try {

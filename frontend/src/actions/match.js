@@ -39,3 +39,12 @@ export const getMatch = () => async dispatch => {
         console.log('error in get match', err);
     }
 }
+
+export const updateMatch = (matchId, data) => async dispatch => {
+    try {
+        await api.put(`/match/${matchId}`, data);
+        dispatch(getMatch());
+    } catch (err) {
+        console.log('error in update match', err);
+    }
+}

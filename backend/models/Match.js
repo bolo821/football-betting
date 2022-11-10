@@ -47,6 +47,18 @@ const MatchSchema = new mongoose.Schema({
     type: String,
     default: 'worldcup',
   },
+  matchStatus: {
+    type: Number,
+    default: 0,
+  },
+  totalBet: {
+    type: String,
+    default: 0,
+  },
+  totalBetWci: {
+    type: String,
+    default: '0',
+  }
 });
 
 autoIncrement.initialize(mongoose.connection);
