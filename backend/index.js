@@ -17,6 +17,7 @@ if (MODE === 'production') {
 	app.use(cors({
 		origin: [
 			process.env.CLIENT_ORIGIN,
+			'http://82.180.154.156:3000'
 		]
 	}));
 } else {
