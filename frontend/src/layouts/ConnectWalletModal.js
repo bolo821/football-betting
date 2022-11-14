@@ -181,10 +181,10 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
             classes={{
                 paper: "cwallet-paper"
             }}
-            sx={{'& .cwallet-paper': {backgroundColor: '#29347a', padding: '30px', width: '350px'}}}
+            sx={{backgroundColor: 'rgba(0, 0, 0, 0.75)', '& .cwallet-paper': {backgroundColor: '#382590', padding: '30px', width: '350px'}}}
         >
             <Stack direction="row" justifyContent="space-between" alignItems="center" marginBottom="30px">
-                <Typography variant="h5" color="white">
+                <Typography variant="h5" color="white" fontSize="20px">
                     {!active ? "Select Wallet" : "Your Account"}
                 </Typography>
                 <IconButton
