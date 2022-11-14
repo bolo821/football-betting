@@ -131,7 +131,7 @@ const Leagues = () => {
     }, [matches, betStatus]);
 
     return (
-        <section className="dashboard-content pt-120">
+        <section className="dashboard-content section1-rt">
             <div className="overlay">
                 <div className="d-flex justify-content-center">
                     <button

@@ -1,16 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { styled } from '@mui/styles';
 import ConnectWalletModal from './ConnectWalletModal';
 import { getReducedAddressString } from "../utils/helper";
 import { useWeb3React } from '@web3-react/core';
 import config from '../config';
+import MobileMenu from './MobileMenu';
+
+const NavbarItems = styled('ul')({
+    display: 'flex',
+    marginRight: '20px',
+    '& li': {
+        padding: '0 10px',
+        '& a': {
+            color: 'white',
+            padding: 0,
+            fontWeight: '700',
+        },
+        '& a:focus': {
+            color: 'white',
+        },
+        '& a:hover': {
+            color: 'var(--head-color)',
+        },
+        '& a.active': {
+            color: 'var(--head-color)',
+        }
+    },
+    '@media screen and (max-width: 500px)': {
+        display: 'none'
+    }
+});
+
+const Hamburger = styled('button')({
+    border: 'none',
+    background: 'transparent',
+    color: 'white',
+    display: 'none',
+    marginLeft: '10px',
+    '@media screen and (max-width: 500px)': {
+        display: 'block'
+    }
+});
 
 const Header = () => {
-    const history = useHistory();
-    const wallet = useSelector(state => state.user.wallet);
+    const { pathname } = useLocation();
     const { account } = useWeb3React();
     const [openModal, setOpenModal] = useState(false);
+    const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
     useEffect(() => {
         var fixed_top = $(".header-section");
@@ -27,63 +64,51 @@ const Header = () => {
     return (
         <header className="header-section header-section-rt">
             <div className='container'>
-                <div className="d-flex justify-content-end py-3">
-                    <a href="https://wcibets.com" target="_blank" rel="noreferrer noopener">
-                        <button
-                            type="button"
-                            className="cmn-btn reg connect-bn-rt mr-2"
-                        >
-                            PvP
-                        </button>
-                    </a>
-                    <button
-                        type="button"
-                        className="cmn-btn reg connect-bn-rt mr-2"
-                        onClick={() => history.push('/trade')}
-                    >
-                        Trade
-                    </button>
-                    <button
-                        type="button"
-                        className="cmn-btn reg connect-bn-rt"
-                        onClick={() => setOpenModal(true)}
-                    >
-                        {!wallet ? 'CONNECT' : getReducedAddressString(wallet)}
-                    </button>
-                    { account ?
-                        <>
+                <nav className="navbar navbar-expand-lg navbar-light">
+                    <div className="d-flex w-100 justify-content-end align-items-center">
+                        <NavbarItems>
+                            <li className="nav-item">
+                                <Link className={`nav-link${pathname === '/' ? ' active' : ''}`} aria-current="page" to="/">Home</Link>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="https://wcibets.com" target="_blank" rel="noreferrer noopener">
+                                    PvP
+                                </a>
+                            </li>
+                            { account ?
+                                <>
+                                    <li className="nav-item">
+                                        <Link className={`nav-link${pathname === '/collaterals' ? ' active' : ''}`} aria-current="page" to="/collaterals">Collaterals</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className={`nav-link${pathname === '/history' ? ' active' : ''}`} aria-current="page" to="/history">History</Link>
+                                    </li>
+                                </> :
+                                <></>
+                            }
+                            { account === config.adminWalletAddress &&
+                                <li className="nav-item">
+                                    <Link className={`nav-link${pathname === '/admin' ? ' active' : ''}`} aria-current="page" to="/admin">Admin</Link>
+                                </li>
+                            }
+                        </NavbarItems>
+                        <div className="d-flex align-items-center">
                             <button
                                 type="button"
                                 className="cmn-btn reg connect-bn-rt"
-                                onClick={() => history.push('/collaterals')}
-                                style={{marginLeft: '10px'}}
+                                onClick={() => setOpenModal(true)}
                             >
-                                Collaterals
+                                {!account ? 'CONNECT' : getReducedAddressString(account)}
                             </button>
-                            <button
-                                type="button"
-                                className="cmn-btn reg connect-bn-rt"
-                                onClick={() => history.push('/history')}
-                                style={{marginLeft: '10px'}}
-                            >
-                                History
-                            </button>
-                        </> :
-                        <></>
-                    }
-                    { account === config.adminWalletAddress &&
-                        <button
-                            type="button"
-                            className="cmn-btn reg connect-bn-rt"
-                            onClick={() => history.push('/admin')}
-                            style={{marginLeft: '10px'}}
-                        >
-                            Admin Page
-                        </button>
-                    }
-                </div>
+                        </div>
+                        <Hamburger onClick={() => setOpenMobileMenu(true)}>
+                            <i className="fas fa-bars"></i>
+                        </Hamburger>
+                    </div>
+                </nav>
             </div>
             <ConnectWalletModal isOpen={openModal} setIsOpen={setOpenModal} />
+            <MobileMenu isOpen={openMobileMenu} setIsOpen={setOpenMobileMenu} path={pathname} />
         </header>
     )
 }

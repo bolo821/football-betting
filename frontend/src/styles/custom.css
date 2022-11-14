@@ -4,7 +4,7 @@
 }
 @media screen and (max-width: 768px) {
     .connect-bn-rt {
-        padding: 5px;
+        padding: 10px 15px;
         font-size: 12px;
     }
 }
@@ -456,6 +456,16 @@ h5.country-name-rt {
     background-color: var(--red-color);
     margin-top: 120px;
 }
+@media screen and (max-width: 992px) {
+    .history-section-rt {
+        margin-top: 90px;
+    }
+}
+@media screen and (max-width: 576px) {
+    .history-section-rt {
+        margin-top: 60px;
+    }
+}
 @media screen and (max-width: 576px) {
     .dashboard-content .dashboard-heading ul li .nav-link {
         font-size: 12px;
@@ -502,5 +512,18 @@ h5.country-name-rt {
     }
     .title-container-rt {
         padding: 30px 20px;
+    }
+}
+.header-section .navbar {
+    padding: 20px 0;
+}
+@media (max-width: 991px) {
+    .dashboard-content {
+        margin-top: 20px;
+    }
+}
+@media (max-width: 575px) {
+    .dashboard-content {
+        margin-top: 0;
     }
 }

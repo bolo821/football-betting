@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import {
@@ -13,22 +12,20 @@ import {
 } from "@web3-react/walletconnect-connector";
 import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from "@web3-react/frame-connector";
 import Config from "../config"
+import {
+    Box,
+    List,
+    Link,
+    Dialog,
+    Tooltip,
+    ListItem,
+    IconButton,
+    ListItemIcon,
+    CircularProgress,
+    Stack,
+    Typography
+} from "@mui/material";
 
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import Link from "@mui/material/Link";
-import Dialog from "@mui/material/Dialog";
-import Tooltip from "@mui/material/Tooltip";
-import ListItem from "@mui/material/ListItem";
-import IconButton from "@mui/material/IconButton";
-import DialogTitle from "@mui/material/DialogTitle";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import DialogContent from "@mui/material/DialogContent";
-import CircularProgress from "@mui/material/CircularProgress";
-import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
-
-import useStyles from "./styles";
 import { Wallets, ConnectedWallet } from "../constants/wallets";
 
 import CloseIcon from "@mui/icons-material/Close";
@@ -43,12 +40,9 @@ import { walletconnect } from "../constants/connectors";
 import { useEagerConnect, useInactiveListener } from "../hooks";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import { setUserWallet } from "../actions";
 import config from "../config";
 
 const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
-    const dispatch = useDispatch();
-    const classes = useStyles();
     const triedEager = useEagerConnect();
     const {
         activate,
@@ -58,7 +52,6 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
         connector,
         error,
         setError,
-        library,
     } = useWeb3React();
 
     const [activatingConnector, setActivatingConnector] = useState(false);
@@ -81,11 +74,6 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
             walletconnect.off(URI_AVAILABLE, logURI);
         };
     }, []);
-
-    useEffect(() => {
-        if (account)
-            dispatch(setUserWallet(account));
-    }, [account]);
 
     useInactiveListener(!triedEager);
 
@@ -190,52 +178,50 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
         <Dialog
             onClose={handleClose}
             open={isOpen}
-            maxWidth="xs"
-            className={classes.cWallet}
             classes={{
                 paper: "cwallet-paper"
             }}
+            sx={{'& .cwallet-paper': {backgroundColor: '#29347a', padding: '30px', width: '350px'}}}
         >
-            <Box className="title">
-                <DialogTitle color="black">
+            <Stack direction="row" justifyContent="space-between" alignItems="center" marginBottom="30px">
+                <Typography variant="h5" color="white">
                     {!active ? "Select Wallet" : "Your Account"}
-                </DialogTitle>
+                </Typography>
                 <IconButton
+                    sx={{padding: '0'}}
                     onClick={() => {
                         setIsOpen(false);
                     }}
                 >
-                    <CloseIcon />
+                    <CloseIcon sx={{fill: 'white'}} />
                 </IconButton>
-            </Box>
-            <DialogContent className="content">
+            </Stack>
+            <Box padding="0">
                 {active && (
                     <List>
-                        <ListItem className="item">
-                            <ListItemIcon className="symbol">
-                                <img src={cWallet.logo} alt={cWallet.name} />
-                            </ListItemIcon>
-                            <ListItemText
-                                className="description"
-                                primary={`Connected to ${cWallet.name}`}
-                            />
-                            <ListItemSecondaryAction className="action">
-                                <Tooltip arrow title="Disconnect wallet">
-                                    <IconButton size="small" onClick={onDeactiveWallet}>
-                                        <LowPriorityRoundedIcon />
-                                    </IconButton>
-                                </Tooltip>
-                            </ListItemSecondaryAction>
+                        <ListItem sx={{padding: 0, marginBottom: '20px', justifyContent: 'space-between'}}>
+                            <Stack direction="row" alignItems="center">
+                                <ListItemIcon className="symbol">
+                                    <img src={cWallet.logo} alt={cWallet.name} />
+                                </ListItemIcon>
+                                <Typography color="white">{`Connected to ${cWallet.name}`}</Typography>
+                            </Stack>
+                            <Tooltip arrow title="Disconnect wallet">
+                                <IconButton size="small" onClick={onDeactiveWallet}>
+                                    <LowPriorityRoundedIcon sx={{fill: 'white'}} />
+                                </IconButton>
+                            </Tooltip>
                         </ListItem>
-                        <ListItem className="item">
-                            <ListItemIcon className="symbol">
-                                <AccountBalanceWalletRoundedIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                                className="description"
-                                primary={`${account.substring(0, 8)} ... ${account.substring(account.length - 4)}`}
-                            />
-                            <ListItemSecondaryAction className="action">
+                        <ListItem sx={{padding: 0, justifyContent: 'space-between'}}>
+                            <Stack direction="row" alignItems="center">
+                                <ListItemIcon className="symbol">
+                                    <AccountBalanceWalletRoundedIcon sx={{fill: 'white'}} />
+                                </ListItemIcon>
+                                <Typography color="white">
+                                    {`${account.substring(0, 5)}...${account.substring(account.length - 3)}`}
+                                </Typography>
+                            </Stack>
+                            <Stack direction="row">
                                 <Link
                                     href={`${config.blockExplorer}/address/${account}`}
                                     target="_blank"
@@ -243,7 +229,7 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
                                 >
                                     <Tooltip arrow title="View on explorer">
                                         <IconButton size="small">
-                                            <LaunchRoundedIcon />
+                                            <LaunchRoundedIcon sx={{fill: 'white'}} />
                                         </IconButton>
                                     </Tooltip>
                                 </Link>
@@ -252,11 +238,11 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
                                 >
                                     <Tooltip arrow title="Copy address">
                                         <IconButton size="small">
-                                            <AssignmentTurnedInRoundedIcon />
+                                            <AssignmentTurnedInRoundedIcon sx={{fill: 'white'}} />
                                         </IconButton>
                                     </Tooltip>
                                 </CopyToClipboard>
-                            </ListItemSecondaryAction>
+                            </Stack>
                         </ListItem>
                     </List>
                 )}
@@ -264,24 +250,23 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
                     !active && (() => {
                         if (isSelectingWallet) {
                             return (
-                                <List>
+                                <List sx={{'& > li:not(:last-child)': {marginBottom: '20px'}}}>
                                     {Wallets.map((item, idx) => {
                                         return (
                                             <ListItem
                                                 key={idx}
-                                                className="item"
+                                                padding="0"
+                                                sx={{cursor: 'pointer'}}
                                                 onClick={() => onConnectWallet(item)}
                                             >
                                                 <ListItemIcon className="symbol">
                                                     <img
                                                         src={item.logo}
                                                         alt={item.logo}
+                                                        width="30px"
                                                     />
                                                 </ListItemIcon>
-                                                <ListItemText
-                                                    className="description"
-                                                    primary={item.title}
-                                                />
+                                                <Typography color="white">{item.title}</Typography>
                                             </ListItem>
                                         );
                                     })}
@@ -291,51 +276,49 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
                             const activating = Wallets.find(item => (item.connector === activatingConnector || item.connector === connector));
                             return (
                                 <List>
-                                    <ListItem
-                                        className="state"
-                                    >
-                                        <ListItemIcon className="symbol">
+                                    <ListItem sx={{padding: 0, marginBottom: '20px'}}>
+                                        <ListItemIcon>
                                             {error ? (
                                                 <IconButton>
-                                                    <WarningRoundedIcon />
+                                                    <WarningRoundedIcon sx={{fill: 'white'}} />
                                                 </IconButton>
-                                            ) : <CircularProgress />}
+                                            ) : <CircularProgress sx={{fill: 'white'}} />}
                                         </ListItemIcon>
-                                        <ListItemText className="description">
+                                        <Typography color="white">
                                             {error ? getErrorMessage(error) : "Initializing..."}
-                                        </ListItemText>
+                                        </Typography>
                                         {
                                             error && (
-                                                <ListItemSecondaryAction>
-                                                    <IconButton onClick={() => retryConnect(activating)}>
-                                                        <ReplayIcon />
-                                                    </IconButton>
-                                                </ListItemSecondaryAction>
+                                                <IconButton onClick={() => retryConnect(activating)}>
+                                                    <ReplayIcon sx={{fill: 'white'}} />
+                                                </IconButton>
                                             )
                                         }
                                     </ListItem>
                                     <ListItem
                                         className="item activating-item"
                                         onClick={() => changeWallet(error)}
+                                        sx={{padding: 0, cursor: 'pointer'}}
                                     >
                                         <ListItemIcon className="symbol">
                                             <img
                                                 src={activating ? activating.logo : ""}
                                                 alt={activating ? activating.logo : ""}
+                                                width="30px"
                                             />
                                         </ListItemIcon>
-                                        <ListItemText
-                                            className="activating-description"
-                                            primary={activating ? activating.title : ""}
-                                            secondary={activating ? activating.description : ""}
-                                        />
+                                        <Typography color="white">
+                                            {activating ? activating.title : ""}
+                                            <br />
+                                            <font color="#AAAAAA">{activating ? activating.description : ""}</font>
+                                        </Typography>
                                     </ListItem>
                                 </List>
                             )
                         }
                     })()
                 }
-            </DialogContent>
+            </Box>
         </Dialog>
     );
 };
