@@ -527,3 +527,46 @@ h5.country-name-rt {
         margin-top: 0;
     }
 }
+.content-rt .container .row {
+    margin: -12px;
+}
+
+.content-rt .container .row > div {
+    padding: 12px;
+}
+.referral-bar {
+    border: 1px solid #474a9e;
+    border-radius: 10px;
+    background-color: #322a71;
+    padding: 30px;
+    margin: 25px 0 30px;
+}
+.referral-bar > p {
+    margin-bottom: 10px;
+}
+.referral-bar .input-area {
+    display: flex;
+    align-items: center;
+    border: 1px solid #b7a7ff;
+    background-color: #282470;
+    border-radius: 10px;
+    padding: 5px 20px 5px 15px;
+
+}
+.referral-bar .input-area input {
+    padding-left: 0;
+    background-color: #282470;
+    border: none;
+}
+@media screen and (max-width: 465px) {
+    .referral-bar {
+        padding: 20px;
+    }
+    .referral-bar .input-area {
+        padding: 5px 5px 5px 15px;
+    
+    }
+    .referral-bar .input-area input {
+        padding: 0;
+    }
+}

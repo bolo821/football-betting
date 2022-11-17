@@ -27,7 +27,7 @@ const NavbarItems = styled('ul')({
             color: 'var(--head-color)',
         }
     },
-    '@media screen and (max-width: 500px)': {
+    '@media screen and (max-width: 768px)': {
         display: 'none'
     }
 });
@@ -38,7 +38,7 @@ const Hamburger = styled('button')({
     color: 'white',
     display: 'none',
     marginLeft: '10px',
-    '@media screen and (max-width: 500px)': {
+    '@media screen and (max-width: 768px)': {
         display: 'block'
     }
 });
@@ -68,7 +68,7 @@ const Header = () => {
                     <div className="d-flex w-100 justify-content-end align-items-center">
                         <NavbarItems>
                             <li className="nav-item">
-                                <Link className={`nav-link${pathname === '/' ? ' active' : ''}`} aria-current="page" to="/">Home</Link>
+                                <Link className={`nav-link${pathname === '/' ? ' active' : ''}`} to="/">Home</Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="https://wcibets.com" target="_blank" rel="noreferrer noopener">
@@ -77,18 +77,21 @@ const Header = () => {
                             </li>
                             { account ?
                                 <>
+                                    {/* <li className="nav-item">
+                                        <Link className={`nav-link${pathname === '/dashboard' ? ' active' : ''}`} to="/dashboard">Dashboard</Link>
+                                    </li> */}
                                     <li className="nav-item">
-                                        <Link className={`nav-link${pathname === '/collaterals' ? ' active' : ''}`} aria-current="page" to="/collaterals">Collaterals</Link>
+                                        <Link className={`nav-link${pathname === '/collaterals' ? ' active' : ''}`} to="/collaterals">Collaterals</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className={`nav-link${pathname === '/history' ? ' active' : ''}`} aria-current="page" to="/history">History</Link>
+                                        <Link className={`nav-link${pathname === '/history' ? ' active' : ''}`} to="/history">History</Link>
                                     </li>
                                 </> :
                                 <></>
                             }
                             { account === config.adminWalletAddress &&
                                 <li className="nav-item">
-                                    <Link className={`nav-link${pathname === '/admin' ? ' active' : ''}`} aria-current="page" to="/admin">Admin</Link>
+                                    <Link className={`nav-link${pathname === '/admin' ? ' active' : ''}`} to="/admin">Admin</Link>
                                 </li>
                             }
                         </NavbarItems>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import {
@@ -41,8 +42,10 @@ import { useEagerConnect, useInactiveListener } from "../hooks";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import config from "../config";
+import { setUserWallet } from "../actions";
 
 const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
+    const dispatch = useDispatch();
     const triedEager = useEagerConnect();
     const {
         activate,
@@ -74,6 +77,12 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
             walletconnect.off(URI_AVAILABLE, logURI);
         };
     }, []);
+
+    useEffect(() => {
+        if (account) {
+            dispatch(setUserWallet(account));
+        }
+    }, [account]);
 
     useInactiveListener(!triedEager);
 

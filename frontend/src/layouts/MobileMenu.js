@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core';
-import { Dialog, IconButton, Stack, List, ListItem,Typography, Button } from '@mui/material';
+import { Dialog, IconButton, Stack, List, ListItem,Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import config from '../config';
 
@@ -40,6 +40,15 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
                     </ListItem>
                     { account ?
                         <>
+                            <ListItem className="d-flex justify-content-center">
+                                <Typography
+                                    onClick={() => {history.push('/dashboard'); setIsOpen(false)}}
+                                    fontSize="20px"
+                                    color={path === '/dashboard' ? 'var(--head-color)' : 'white'}
+                                >
+                                    Dashboard
+                                </Typography>
+                            </ListItem>
                             <ListItem className="d-flex justify-content-center">
                                 <Typography
                                     onClick={() => {history.push('/collaterals'); setIsOpen(false)}}

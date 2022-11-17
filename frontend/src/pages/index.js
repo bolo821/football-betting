@@ -15,6 +15,7 @@ import Admin from './Admin';
 import History from './History';
 import AddMatch from './AddMatch';
 import Trade from './Trade';
+import Dashboard from './Dashboard';
 
 const Index = () => {
 	const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const Index = () => {
 								<AdminRoute path="/addmatch" component={AddMatch} />
 								<WalletRoute path="/history" component={History} />
 								<WalletRoute path="/collaterals" component={Collaterals} />
+								<WalletRoute path="/dashboard" component={Dashboard} />
 								<Redirect to="/" />
 							</Switch>
 						</Router>
