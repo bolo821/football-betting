@@ -16,6 +16,7 @@ import {
     getSHIBAllowance,
     getDOGEAllowance,
     updateMatch,
+    getReferralData,
 } from '../../actions';
 import { getTimeDifference } from '../../utils/helper';
 
@@ -48,6 +49,7 @@ const Leagues = () => {
             dispatch(getUSDCAllowance(account));
             dispatch(getSHIBAllowance(account));
             dispatch(getDOGEAllowance(account));
+            dispatch(getReferralData(account));
         }
     }, [account]);
 

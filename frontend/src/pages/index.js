@@ -37,12 +37,13 @@ const Index = () => {
 						<Router>
 							<Switch>
 								<Route exact path="/" component={Home} />
-								<Route path="/trade" component={Trade} />
-								<AdminRoute path="/admin" component={Admin} />
-								<AdminRoute path="/addmatch" component={AddMatch} />
-								<WalletRoute path="/history" component={History} />
-								<WalletRoute path="/collaterals" component={Collaterals} />
-								<WalletRoute path="/dashboard" component={Dashboard} />
+								<Route exact path="/trade" component={Trade} />
+								<AdminRoute exact path="/admin" component={Admin} />
+								<AdminRoute exact path="/addmatch" component={AddMatch} />
+								<WalletRoute exact path="/history" component={History} />
+								<WalletRoute exact path="/collaterals" component={Collaterals} />
+								<WalletRoute exact path="/dashboard" component={Dashboard} />
+								<Route path="/:referral" component={Home} />
 								<Redirect to="/" />
 							</Switch>
 						</Router>

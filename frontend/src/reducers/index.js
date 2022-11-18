@@ -5,6 +5,7 @@ import transaction from './transaction';
 import match from './match';
 import wci from './wci';
 import collateral from './collateral';
+import referral from './referral';
 
 export default combineReducers({
     user,
@@ -13,4 +14,5 @@ export default combineReducers({
     match,
     wci,
     collateral,
+    referral,
 });

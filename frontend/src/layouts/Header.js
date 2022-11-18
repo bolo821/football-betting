@@ -50,7 +50,7 @@ const Header = () => {
     const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
     useEffect(() => {
-        var fixed_top = $(".header-section");
+        var fixed_top = window.$(".header-section");
         window.$(window).on("scroll", function () {
             if (window.$(window).scrollTop() > 50) {
                 fixed_top.addClass("animated fadeInDown header-fixed");
@@ -77,9 +77,9 @@ const Header = () => {
                             </li>
                             { account ?
                                 <>
-                                    {/* <li className="nav-item">
+                                    <li className="nav-item">
                                         <Link className={`nav-link${pathname === '/dashboard' ? ' active' : ''}`} to="/dashboard">Dashboard</Link>
-                                    </li> */}
+                                    </li>
                                     <li className="nav-item">
                                         <Link className={`nav-link${pathname === '/collaterals' ? ' active' : ''}`} to="/collaterals">Collaterals</Link>
                                     </li>
