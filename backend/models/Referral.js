@@ -12,6 +12,10 @@ const ReferralSchema = new mongoose.Schema({
   referrerEarned: {
     type: Number,
     default: 0.0,
+  },
+  profitClaimed: {
+    type: Boolean,
+    default: false,
   }
 });
 
