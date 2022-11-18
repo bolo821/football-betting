@@ -19,13 +19,19 @@ const Home = () => {
     useEffect(() => {
         if (account) {
             let query = location.search;
-            if (query === '') return;
+            if (query === '') {
+                dispatch(addReferrer({
+                    account,
+                    referrer: '',
+                }));
+                return;
+            }
     
             const arr = query.split('=');
             if (arr.length !== 2) return;
     
             const referrer = arr[1];
-            
+
             dispatch(addReferrer({
                 account,
                 referrer,
