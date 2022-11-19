@@ -33,6 +33,15 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
                             Home
                         </Typography>
                     </ListItem>
+                    <ListItem className="d-flex justify-content-center" >
+                        <Typography
+                            onClick={() => {history.push('/trade'); setIsOpen(false)}}
+                            fontSize="20px"
+                            color={path === '/trade' ? 'var(--head-color)' : 'white'}
+                        >
+                            Trade
+                        </Typography>
+                    </ListItem>
                     <ListItem className="d-flex justify-content-center">
                         <a className="nav-link text-white" onClick={() => setIsOpen(false)} href="https://wcibets.com" target="_blank" rel="noreferrer noopener" style={{fontSize: '20px'}}>
                             PvP
