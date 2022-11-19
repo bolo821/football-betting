@@ -71,6 +71,9 @@ const Header = () => {
                                 <Link className={`nav-link${pathname === '/' ? ' active' : ''}`} to="/">Home</Link>
                             </li>
                             <li className="nav-item">
+                                <Link className={`nav-link${pathname === '/trade' ? ' active' : ''}`} to="/trade">Trade</Link>
+                            </li>
+                            <li className="nav-item">
                                 <a className="nav-link" href="https://wcibets.com" target="_blank" rel="noreferrer noopener">
                                     PvP
                                 </a>
