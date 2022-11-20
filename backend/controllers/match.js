@@ -47,12 +47,12 @@ const updateMatch = async (req, res) => {
         if (req.body.totalBet) {
             const findRes = await Match.findOne({ matchId });
             if (!findRes) {
-                res.status(400).json('No data');
+                res.status(200).json('No data');
                 return;
             }
 
             if (parseFloat(findRes.totalBet) >= parseFloat(req.body.totalBet)) {
-                res.status(400).json('No need to update');
+                res.status(200).json('No need to update');
                 return;
             }
         }
@@ -60,12 +60,12 @@ const updateMatch = async (req, res) => {
         if (req.body.totalBetWci) {
             const findRes = await Match.findOne({ matchId });
             if (!findRes) {
-                res.status(400).json('No data');
+                res.status(200).json('No data');
                 return;
             }
 
             if (parseFloat(findRes.totalBetWci) >= parseFloat(req.body.totalBetWci)) {
-                res.status(400).json('No need to update');
+                res.status(200).json('No need to update');
                 return;
             }
         }
