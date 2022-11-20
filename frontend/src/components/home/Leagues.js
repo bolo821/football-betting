@@ -223,9 +223,11 @@ const Leagues = () => {
     }, [matchData]);
 
     useEffect(() => {
+        console.log('matches: ', matches);
+        console.log('total bets: ', totalBets);
         if (matches.length === totalBets.length) {
             for (let i=0; i<totalBets.length; i++) {
-                if (totalBets[i] !== matches[i].totalBet) {
+                if (parseFloat(totalBets[i]) > parseFloat(matches[i].totalBet)) {
                     dispatch(updateMatch(matches[i].matchId, { totalBet: totalBets[i] }));
                 }
             }
@@ -235,7 +237,7 @@ const Leagues = () => {
     useEffect(() => {
         if (matches.length === totalBetsWci.length) {
             for (let i=0; i<totalBetsWci.length; i++) {
-                if (totalBetsWci[i] !== matches[i].totalBetWci) {
+                if (parseFloat(totalBetsWci[i]) > parseFloat(matches[i].totalBetWci)) {
                     dispatch(updateMatch(matches[i].matchId, { totalBetWci: totalBetsWci[i] }));
                 }
             }
