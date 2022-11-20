@@ -223,8 +223,6 @@ const Leagues = () => {
     }, [matchData]);
 
     useEffect(() => {
-        console.log('matches: ', matches);
-        console.log('total bets: ', totalBets);
         if (matches.length === totalBets.length) {
             for (let i=0; i<totalBets.length; i++) {
                 if (parseFloat(totalBets[i]) > parseFloat(matches[i].totalBet)) {
