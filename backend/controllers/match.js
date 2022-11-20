@@ -51,7 +51,7 @@ const updateMatch = async (req, res) => {
                 return;
             }
 
-            if (parseFloat(findRes.totalBet) <= parseFloat(req.body.totalBet)) {
+            if (parseFloat(findRes.totalBet) >= parseFloat(req.body.totalBet)) {
                 res.status(400).json('No need to update');
                 return;
             }
@@ -64,7 +64,7 @@ const updateMatch = async (req, res) => {
                 return;
             }
 
-            if (parseFloat(findRes.totalBetWci) <= parseFloat(req.body.totalBetWci)) {
+            if (parseFloat(findRes.totalBetWci) >= parseFloat(req.body.totalBetWci)) {
                 res.status(400).json('No need to update');
                 return;
             }
