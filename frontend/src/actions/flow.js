@@ -13,13 +13,14 @@ export const onBet = () => (dispatch, getState) => {
     SOCKET.removeAllListeners("BET");
 
     SOCKET.on('BET', () => {
+        dispatch(getMatch());
+        
         let account = getState().user.wallet;
         if (account) {
             dispatch(getTripleInformation(account, 0));
             dispatch(getSingleInformation(account, 0));
             dispatch(getTripleInformation(account, 1));
             dispatch(getSingleInformation(account, 1));
-            dispatch(getMatch());
         }
     });
 }
