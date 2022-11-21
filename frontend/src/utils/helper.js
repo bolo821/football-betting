@@ -40,7 +40,6 @@ export const getTimeDifference = (date1, date2) => {
 }
 
 export const calculateGasMargin = (value) => {
-    console.log('value: ', value);
 	return BigNumber(value).multipliedBy(BigNumber(13)).dividedToIntegerBy(BigNumber(10));
 }
 
