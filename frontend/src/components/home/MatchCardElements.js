@@ -208,6 +208,9 @@ export const BetCard = styled.div`
         .score {
             font-weight: 700;
             font-size: 14px;
+            @media screen and (max-width: 576px) {
+                font-size: 10px;
+            }
         }
     }
     div.multi-div-rt {
