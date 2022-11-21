@@ -37,6 +37,13 @@ const config = {
 //     routerContractAbi,
 //     erc20Abi,
 //     adminWalletAddress: '0x718C6E457500202F23Be231b439C8A92A46c288C',
+//     erc20Abi,
+//     usdtAbi,
+//     wciAddress: '0xC5a9BC46A7dbe1c6dE493E84A18f02E70E2c5A32',
+//     usdtAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+//     usdcAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+//     shibAddress: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE',
+//     dogeAddress: '0x4206931337dc273a630d328dA6441786BfaD668f',
 // };
 
 export default config;

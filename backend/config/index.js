@@ -2,7 +2,7 @@ const routerContractAbi = require('./abis/routerContract.json');
 
 module.exports = {
     netId: 1,
-    rpcUrl: "https://mainnet.infura.io/v3/4da8a7d74b014664838d33fb259b6a14",
+    rpcUrl: "https://mainnet.infura.io/v3/41edc44a52744312836fd6c63d09881f",
     blockExplorer: "https://etherscan.io",
     nativeCoin: {
         name: "ETH",

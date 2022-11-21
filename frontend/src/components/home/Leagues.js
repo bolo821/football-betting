@@ -15,7 +15,7 @@ import {
     getUSDCAllowance,
     getSHIBAllowance,
     getDOGEAllowance,
-    updateMatch,
+    // updateMatch,
     getReferralData,
 } from '../../actions';
 import { getTimeDifference } from '../../utils/helper';
@@ -25,7 +25,7 @@ var timer = null;
 const Leagues = () => {
     const dispatch = useDispatch();
     const matches = useSelector(state => state.match.matches);
-    const { totalBets, totalBetsWci } = useSelector(state => state.transaction);
+    // const { totalBets, totalBetsWci } = useSelector(state => state.transaction);
 
     const { account } = useWeb3React();
 
@@ -222,25 +222,25 @@ const Leagues = () => {
         setTabItems(tmpTabItems);
     }, [matchData]);
 
-    useEffect(() => {
-        if (matches.length === totalBets.length) {
-            for (let i=0; i<totalBets.length; i++) {
-                if (parseFloat(totalBets[i]) > parseFloat(matches[i].totalBet)) {
-                    dispatch(updateMatch(matches[i].matchId, { totalBet: totalBets[i] }));
-                }
-            }
-        }
-    }, [totalBets, matches]);
+    // useEffect(() => {
+    //     if (matches.length === totalBets.length) {
+    //         for (let i=0; i<totalBets.length; i++) {
+    //             if (parseFloat(totalBets[i]) > parseFloat(matches[i].totalBet)) {
+    //                 dispatch(updateMatch(matches[i].matchId, { totalBet: totalBets[i] }));
+    //             }
+    //         }
+    //     }
+    // }, [totalBets, matches]);
 
-    useEffect(() => {
-        if (matches.length === totalBetsWci.length) {
-            for (let i=0; i<totalBetsWci.length; i++) {
-                if (parseFloat(totalBetsWci[i]) > parseFloat(matches[i].totalBetWci)) {
-                    dispatch(updateMatch(matches[i].matchId, { totalBetWci: totalBetsWci[i] }));
-                }
-            }
-        }
-    }, [totalBetsWci, matches]);
+    // useEffect(() => {
+    //     if (matches.length === totalBetsWci.length) {
+    //         for (let i=0; i<totalBetsWci.length; i++) {
+    //             if (parseFloat(totalBetsWci[i]) > parseFloat(matches[i].totalBetWci)) {
+    //                 dispatch(updateMatch(matches[i].matchId, { totalBetWci: totalBetsWci[i] }));
+    //             }
+    //         }
+    //     }
+    // }, [totalBetsWci, matches]);
 
     return (
         <section className="dashboard-content pt-2">

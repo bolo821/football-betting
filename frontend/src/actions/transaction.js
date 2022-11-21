@@ -217,7 +217,7 @@ export const getSingleInformation = (account, token) => async dispatch => {
             }
         });
     } catch (err) {
-        console.log('error in get triple information: ', err);
+        console.log('error in get single information: ', err);
     }
 }
 
