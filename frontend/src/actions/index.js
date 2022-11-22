@@ -6,3 +6,4 @@ export * from './match';
 export * from './wci';
 export * from './collateral';
 export * from './referral';
+export * from './leaderboard';

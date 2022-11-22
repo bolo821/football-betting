@@ -13,9 +13,9 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
             onClose={() => setIsOpen(false)}
             open={isOpen}
             classes={{
-                paper: "cwallet-paper"
+                paper: "mobile-menu-paper-rt"
             }}
-            sx={{'& .cwallet-paper': {backgroundColor: '#382590', padding: '30px', width: '100vw', height: '100vh', margin: '0', maxHeight: '100vh'}}}
+            sx={{'& .mobile-menu-paper-rt': {backgroundColor: '#382590', padding: '30px', width: '100vw', height: '100vh', margin: '0', maxHeight: '100vh'}}}
         >
             <Stack direction="row" justifyContent="flex-end">
                 <IconButton onClick={() => setIsOpen(false)}>
@@ -76,6 +76,15 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
                                     History
                                 </Typography>
                             </ListItem>
+                            {/* <ListItem className="d-flex justify-content-center">
+                                <Typography
+                                    onClick={() => {history.push('/leaderboard'); setIsOpen(false)}}
+                                    fontSize="20px"
+                                    color={path === '/leaderboard' ? 'var(--head-color)' : 'white'}
+                                >
+                                    Leaderboard
+                                </Typography>
+                            </ListItem> */}
                         </> :
                         <></>
                     }

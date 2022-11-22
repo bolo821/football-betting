@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { styled } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import ConnectWalletModal from './ConnectWalletModal';
 import { getReducedAddressString } from "../utils/helper";
 import { useWeb3React } from '@web3-react/core';
@@ -27,7 +27,7 @@ const NavbarItems = styled('ul')({
             color: 'var(--head-color)',
         }
     },
-    '@media screen and (max-width: 768px)': {
+    '@media screen and (max-width: 992px)': {
         display: 'none'
     }
 });
@@ -38,7 +38,7 @@ const Hamburger = styled('button')({
     color: 'white',
     display: 'none',
     marginLeft: '10px',
-    '@media screen and (max-width: 768px)': {
+    '@media screen and (max-width: 992px)': {
         display: 'block'
     }
 });
@@ -89,6 +89,9 @@ const Header = () => {
                                     <li className="nav-item">
                                         <Link className={`nav-link${pathname === '/history' ? ' active' : ''}`} to="/history">History</Link>
                                     </li>
+                                    {/* <li className="nav-item">
+                                        <Link className={`nav-link${pathname === '/leaderboard' ? ' active' : ''}`} to="/leaderboard">Leaderboard</Link>
+                                    </li> */}
                                 </> :
                                 <></>
                             }

@@ -35,6 +35,7 @@ export const approveWci = account => async dispatch => {
         }
     } catch (err) {
         console.log('error in wci approve: ', err);
+        alert('error: ', err);
     } finally {
         dispatch(setLoading({ loading: false, loadingText: '' }));
     }

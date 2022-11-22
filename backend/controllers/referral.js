@@ -1,4 +1,5 @@
 const Referral = require('mongoose').model('Referral');
+const Leaderboard = require('mongoose').model('Leaderboard');
 
 const addReferral = async (data) => {
     try {
@@ -7,6 +8,7 @@ const addReferral = async (data) => {
             return false;
         } else {
             await new Referral(data).save();
+            await new Leaderboard({ account: data.account }).save();
             return true;
         }
     } catch (err) {
@@ -14,6 +16,7 @@ const addReferral = async (data) => {
         return false;
     }
 }
+
 const getReferredUsers = async (referralAccount) => {
     try {
         const findRes = await Referral.find({ referrer: referralAccount });
@@ -22,6 +25,7 @@ const getReferredUsers = async (referralAccount) => {
         return [];
     }
 }
+
 const updateReferral = async (account, updateData) => {
     try {
         await Referral.findOneAndUpdate({ account }, updateData);
