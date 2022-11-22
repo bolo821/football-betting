@@ -6,6 +6,7 @@ import TotalImg from '../assets/images/total.png';
 import ClaimImg from '../assets/images/claim.png';
 import DCard from '../components/dashboard/DCard';
 import ReferralCard from '../components/dashboard/ReferralCard';
+import { getRoundedNumber1 } from '../utils/helper';
 
 const Dashboard = () => {
     const { betAmounts, betAmountsWci, claimHistory, claimHistoryWci } = useSelector(state => state.transaction);
@@ -52,16 +53,16 @@ const Dashboard = () => {
                     <div className="container">
                         <div className="row">
                             <div className="col-xl-3 col-md-6 col-12">
-                                <DCard Image={TotalImg} label={`${totalBet} ETH`} description="Total Bet ETH Amount" />
+                                <DCard Image={TotalImg} label={`${getRoundedNumber1(totalBet)} ETH`} description="Total Bet ETH Amount" />
                             </div>
                             <div className="col-xl-3 col-md-6 col-12">
-                                <DCard Image={ClaimImg} label={`${totalClaim} ETH`} description="Total Earning ETH Amount" />
+                                <DCard Image={ClaimImg} label={`${getRoundedNumber1(totalClaim)} ETH`} description="Total Earning ETH Amount" />
                             </div>
                             <div className="col-xl-3 col-md-6 col-12">
-                                <DCard Image={TotalImg} label={`${totalBetWci} WCI`} description="Total Bet WCI Amount" />
+                                <DCard Image={TotalImg} label={`${parseInt(totalBetWci)} WCI`} description="Total Bet WCI Amount" />
                             </div>
                             <div className="col-xl-3 col-md-6 col-12">
-                                <DCard Image={ClaimImg} label={`${totalClaimWci} WCI`} description="Total Earning WCI Amount" />
+                                <DCard Image={ClaimImg} label={`${parseInt(totalClaimWci)} WCI`} description="Total Earning WCI Amount" />
                             </div>
                         </div>
                         <ReferralCard />
