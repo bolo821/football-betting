@@ -68,7 +68,7 @@ export const bet = (account, matchId, amount, multiplier, choice, token, callbac
     }
 }
 
-export const claim = (account, matchId, token) => async dispatch => {
+export const claim = (account, matchId, token) => async (dispatch, getState) => {
     dispatch(setLoading({ loading: true, loadingText: 'Claiming...' }));
 
     const leaderboards = getState().leaderboard.leaderboard;
