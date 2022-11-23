@@ -48,7 +48,7 @@ export const bet = (account, matchId, amount, multiplier, choice, token, callbac
             });
         
             if (res) {
-                await dispatch(updateLeaderboard(account, { totalBetWci: parseFloat(oldLeaderboardData.totalBetWci) + parseFloat(amount) }));
+                await dispatch(updateLeaderboard(account, { totalBetWci: parseFloat(oldLeaderboardData.totalBetWci) + parseFloat(amount)*19/20 }));
                 toast.success('Success!!!');
                 SOCKET.emit('BET');
             }
@@ -82,7 +82,8 @@ export const claim = (account, matchId, token) => async (dispatch, getState) => 
 
     const betResult = getState().transaction.betResult[matchId];
     let choice = betResult === 0 ? 'win' : betResult === 1 ? 'draw' : 'lose';
-    const claimAmount = getState().transaction.earnings[choice];
+    const claimAmount = getState().transaction.earnings[matchId][choice];
+    const claimAmountWci = getState().transaction.earningsWci[matchId][choice];
 
     let tokenParam = token === 'ETH' ? 0 : 1;
 
@@ -97,7 +98,12 @@ export const claim = (account, matchId, token) => async (dispatch, getState) => 
         });
     
         if (res) {
-            await dispatch(updateLeaderboard(account, { totalClaim: parseFloat(oldLeaderboardData.totalClaim) + parseFloat(claimAmount) }));
+            if (tokenParam === 0) {
+                await dispatch(updateLeaderboard(account, { totalClaim: parseFloat(oldLeaderboardData.totalClaim) + parseFloat(claimAmount) }));
+            } else {
+                await dispatch(updateLeaderboard(account, { totalClaimWci: parseFloat(oldLeaderboardData.totalClaimWci) + parseFloat(claimAmountWci) }));
+            }
+            
             toast.success('Successfully claimed!!');
             dispatch(getSingleInformation(account, token));
             SOCKET.emit('CLAIMED');

@@ -40,6 +40,7 @@ export const onClaimed = () => dispatch => {
 
     SOCKET.on("CLAIMED", () => {
         dispatch(getBetStatsData());
+        dispatch(getLeaderboard());
 
         let account = getState().user.wallet;
         if (account) {
