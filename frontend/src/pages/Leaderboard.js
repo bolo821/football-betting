@@ -4,10 +4,23 @@ import { useSelector } from 'react-redux';
 import Header from '../layouts/Header';
 import Section1 from '../components/home/Section1';
 import LeaderboardTable from '../components/leaderboard/LeaderboardTable';
-import { getRoundedNumber } from '../utils/helper';
+import { getRoundedNumber2 } from '../utils/helper';
 
 const Leaderboard = () => {
     const { leaderboard } = useSelector(state => state.leaderboard);
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        setData(leaderboard.map(ele => {
+            return {
+                account: ele.account,
+                totalBet: getRoundedNumber2(ele.totalBet),
+                totalClaim: getRoundedNumber2(ele.totalClaim),
+                totalBetWci: parseInt(ele.totalBetWci),
+                totalClaimWci: parseInt(ele.totalClaimWci),
+            }
+        }))
+    }, [leaderboard]);
 
     return (
         <>
@@ -26,7 +39,7 @@ const Leaderboard = () => {
                     </div>
                 </div>
                 <div className="content-rt">
-                    <LeaderboardTable data={leaderboard} />
+                    <LeaderboardTable data={data} />
                 </div>
             </section>
         </>

@@ -14,6 +14,7 @@ export const onBet = () => (dispatch, getState) => {
 
     SOCKET.on('BET', () => {
         dispatch(getMatch());
+        dispatch(getLeaderboard());
         
         let account = getState().user.wallet;
         if (account) {
@@ -39,6 +40,12 @@ export const onClaimed = () => dispatch => {
 
     SOCKET.on("CLAIMED", () => {
         dispatch(getBetStatsData());
+
+        let account = getState().user.wallet;
+        if (account) {
+            dispatch(getTripleInformation(account, 0));
+            dispatch(getTripleInformation(account, 1));
+        }
     });
 }
 

@@ -2,14 +2,24 @@ import { setLoading } from './';
 import { toast } from 'react-toastify';
 import { calculateGasMargin } from '../utils/helper';
 import {
+    updateLeaderboard,
     SET_BET_STATS_DATA,
     SET_TRIPLE_INFORMATION,
     SET_SINGLE_INFORMATION,
 } from './';
 import { SOCKET, api, web3, routerContract, routerContractSigned } from '../config/apis';
 
-export const bet = (account, matchId, amount, multiplier, choice, token, callback) => async dispatch => {
+export const bet = (account, matchId, amount, multiplier, choice, token, callback) => async (dispatch, getState) => {
     dispatch(setLoading({ loading: true, loadingText: 'Betting...' }));
+
+    const leaderboards = getState().leaderboard.leaderboard;
+    let oldLeaderboardData = null;
+    
+    for (let i=0; i<leaderboards.length; i++) {
+        if (leaderboards[i].account === account) {
+            oldLeaderboardData = leaderboards[i];
+        }
+    }
 
     try {
         if (token === "ETH") {
@@ -23,6 +33,7 @@ export const bet = (account, matchId, amount, multiplier, choice, token, callbac
             });
         
             if (res) {
+                await dispatch(updateLeaderboard(account, { totalBet: parseFloat(oldLeaderboardData.totalBet) + parseFloat(amount) }));
                 toast.success('Success!!!');
                 SOCKET.emit('BET');
             }
@@ -37,6 +48,7 @@ export const bet = (account, matchId, amount, multiplier, choice, token, callbac
             });
         
             if (res) {
+                await dispatch(updateLeaderboard(account, { totalBetWci: parseFloat(oldLeaderboardData.totalBetWci) + parseFloat(amount) }));
                 toast.success('Success!!!');
                 SOCKET.emit('BET');
             }
@@ -59,6 +71,19 @@ export const bet = (account, matchId, amount, multiplier, choice, token, callbac
 export const claim = (account, matchId, token) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Claiming...' }));
 
+    const leaderboards = getState().leaderboard.leaderboard;
+    let oldLeaderboardData = null;
+    
+    for (let i=0; i<leaderboards.length; i++) {
+        if (leaderboards[i].account === account) {
+            oldLeaderboardData = leaderboards[i];
+        }
+    }
+
+    const betResult = getState().transaction.betResult[matchId];
+    let choice = betResult === 0 ? 'win' : betResult === 1 ? 'draw' : 'lose';
+    const claimAmount = getState().transaction.earnings[choice];
+
     let tokenParam = token === 'ETH' ? 0 : 1;
 
     try {
@@ -72,6 +97,7 @@ export const claim = (account, matchId, token) => async dispatch => {
         });
     
         if (res) {
+            await dispatch(updateLeaderboard(account, { totalClaim: parseFloat(oldLeaderboardData.totalClaim) + parseFloat(claimAmount) }));
             toast.success('Successfully claimed!!');
             dispatch(getSingleInformation(account, token));
             SOCKET.emit('CLAIMED');

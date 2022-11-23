@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Stack } from '@mui/material';
+import Pagination from '../Pagination';
 
 const LeaderboardTable = props => {
     const { data } = props;
+    const [currentPage, setCurrentPage] = useState(0);
+    const [tableData, setTableData] = useState([]);
+
+    useEffect(() => {
+        setTableData(data.slice(currentPage*10, (currentPage+1)*10));
+    }, [data, currentPage]);
 
     return (
         <div className="container">
             { data.length > 0 ?
-                <div className="table-responsive">
+                <div className="table-responsive mb-5">
                     <table className="table history-table-rt">
                         <thead>
                             <tr>
@@ -18,7 +26,7 @@ const LeaderboardTable = props => {
                             </tr>
                         </thead>
                         <tbody>
-                            { data.map((ele, index) => (
+                            { tableData.map((ele, index) => (
                                 <tr key={index}>
                                     <td>{ele.account}</td>
                                     <td>{ele.totalBet}</td>
@@ -29,6 +37,9 @@ const LeaderboardTable = props => {
                             ))}
                         </tbody>
                     </table>
+                    <Stack direction="row" justifyContent="flex-end">
+                        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalCount={data.length} pageSize={10} />
+                    </Stack>
                 </div> :
                 <div className="d-flex w-100 justify-content-center bottom-area mt-60 mb-5">
                     <h5>No history to display.</h5>

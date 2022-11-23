@@ -17,7 +17,6 @@ export const getLeaderboard = () => async (dispatch) => {
 export const updateLeaderboard = (account, data) => async (dispatch) => {
     try {
         await api.put(`/leaderboard/${account}`, data);
-        dispatch(getLeaderboard);
     } catch (err) {
         console.log('error in adding leaderboard: ', err);
     }
