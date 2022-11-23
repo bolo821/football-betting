@@ -61,21 +61,25 @@ const LeaderboardTable = props => {
                                     Total Bet ETH
                                     { (sortBy === 0 && sortDirection === 'down') && <ArrowDropDownIcon /> }
                                     { (sortBy === 0 && sortDirection === 'up') && <ArrowDropUpIcon /> }
+                                    { sortBy !== 0 && <ArrowDropUpIcon style={{ visibility: 'hidden' }} /> }
                                 </th>
                                 <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort(1)}>
                                     Total Claim ETH
                                     { (sortBy === 1 && sortDirection === 'down') && <ArrowDropDownIcon /> }
                                     { (sortBy === 1 && sortDirection === 'up') && <ArrowDropUpIcon /> }
+                                    { sortBy !== 1 && <ArrowDropUpIcon style={{ visibility: 'hidden' }} /> }
                                 </th>
                                 <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort(2)}>
                                     Total Bet WCI
                                     { (sortBy === 2 && sortDirection === 'down') && <ArrowDropDownIcon /> }
                                     { (sortBy === 2 && sortDirection === 'up') && <ArrowDropUpIcon /> }
+                                    { sortBy !== 2 && <ArrowDropUpIcon style={{ visibility: 'hidden' }} /> }
                                 </th>
                                 <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort(3)}>
                                     Total Claim WCI
                                     { (sortBy === 3 && sortDirection === 'down') && <ArrowDropDownIcon /> }
                                     { (sortBy === 3 && sortDirection === 'up') && <ArrowDropUpIcon /> }
+                                    { sortBy !== 3 && <ArrowDropUpIcon style={{ visibility: 'hidden' }} /> }
                                 </th>
                             </tr>
                         </thead>
