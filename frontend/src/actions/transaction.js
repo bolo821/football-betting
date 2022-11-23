@@ -98,10 +98,12 @@ export const claim = (account, matchId, token) => async (dispatch, getState) => 
         });
     
         if (res) {
-            if (tokenParam === 0) {
-                await dispatch(updateLeaderboard(account, { totalClaim: parseFloat(oldLeaderboardData.totalClaim) + parseFloat(claimAmount) }));
-            } else {
-                await dispatch(updateLeaderboard(account, { totalClaimWci: parseFloat(oldLeaderboardData.totalClaimWci) + parseFloat(claimAmountWci) }));
+            if (oldLeaderboardData) {
+                if (tokenParam === 0) {
+                    await dispatch(updateLeaderboard(account, { totalClaim: parseFloat(oldLeaderboardData.totalClaim) + parseFloat(claimAmount) }));
+                } else {
+                    await dispatch(updateLeaderboard(account, { totalClaimWci: parseFloat(oldLeaderboardData.totalClaimWci) + parseFloat(claimAmountWci) }));
+                }
             }
             
             toast.success('Successfully claimed!!');
