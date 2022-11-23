@@ -7,12 +7,9 @@ import HistoryTable from '../components/history/HistoryTable';
 import { getRoundedNumber } from '../utils/helper';
 
 const History = () => {
-    const betStatus = useSelector(state => state.transaction.betStatus);
-    const claimHistory = useSelector(state => state.transaction.claimHistory);
-    const earnings = useSelector(state => state.transaction.earnings);
-    const betAmounts = useSelector(state => state.transaction.betAmounts);
-    const betResult = useSelector(state => state.transaction.betResult);
     const matches = useSelector(state => state.match.matches);
+    const { betStatus, betResult, claimHistory, earnings, betAmounts, claimHistoryWci, earningsWci, betAmountsWci } = useSelector(state => state.transaction);
+    
 
     const [data, setData] = useState([]);
 
@@ -23,6 +20,7 @@ const History = () => {
             for (let i=0; i<matches.length; i++) {
                 let betId = matches[i].matchId;
                 let bet = betAmounts[betId];
+                let betWci = betAmountsWci[betId];
                 let team1 = matches[i].team1Name;
                 let team2 = matches[i].team2Name;
                 let status = betStatus[betId];
@@ -54,9 +52,37 @@ const History = () => {
                     temp.push({
                         ...ele,
                         choice: team1,
-                        betAmount: bet.win,
+                        betAmount: getRoundedNumber(bet.win),
                         profit: getRoundedNumber(profit),
                         status: status_,
+                        token: 'ETH',
+                    });
+                }
+                if (betWci.win !== '0') {
+                    let profit;
+                    if (status === 0 || status === 1) {
+                        profit = earningsWci[betId]?.win;
+                    } else {
+                        if (result === 0) {
+                            if (earningsWci[betId]?.win === '0') {
+                                profit = claimHistoryWci[betId];
+                                status_ = 'Claimed';
+                            } else {
+                                profit = earningsWci[betId]?.win;
+                                status_ = 'Clamable';
+                            }
+                        } else {
+                            profit = '0';
+                            status_ = 'Lost';
+                        }
+                    }
+                    temp.push({
+                        ...ele,
+                        choice: team1,
+                        betAmount: parseInt(betWci.win),
+                        profit: parseInt(profit),
+                        status: status_,
+                        token: 'WCI',
                     });
                 }
                 if (bet.draw !== '0') {
@@ -80,9 +106,37 @@ const History = () => {
                     temp.push({
                         ...ele,
                         choice: 'Draw',
-                        betAmount: bet.draw,
+                        betAmount: getRoundedNumber(bet.draw),
                         profit: getRoundedNumber(profit),
                         status: status_,
+                        token: 'ETH',
+                    });
+                }
+                if (betWci.draw !== '0') {
+                    let profit;
+                    if (status === 0 || status === 1) {
+                        profit = earningsWci[betId]?.draw;
+                    } else {
+                        if (result === 1) {
+                            if (earningsWci[betId]?.draw === '0') {
+                                profit = claimHistoryWci[betId];
+                                status_ = 'Claimed';
+                            } else {
+                                profit = earningsWci[betId]?.draw;
+                                status_ = 'Clamable';
+                            }
+                        } else {
+                            profit = '0';
+                            status_ = 'Lost';
+                        }
+                    }
+                    temp.push({
+                        ...ele,
+                        choice: 'Draw',
+                        betAmount: parseInt(betWci.draw),
+                        profit: parseInt(profit),
+                        status: status_,
+                        token: 'WCI',
                     });
                 }
                 if (bet.lose !== '0') {
@@ -106,9 +160,37 @@ const History = () => {
                     temp.push({
                         ...ele,
                         choice: team2,
-                        betAmount: bet.lose,
+                        betAmount: getRoundedNumber(bet.lose),
                         profit: getRoundedNumber(profit),
                         status: status_,
+                        token: 'ETH',
+                    });
+                }
+                if (betWci.lose !== '0') {
+                    let profit;
+                    if (status === 0 || status === 1) {
+                        profit = earningsWci[betId]?.lose;
+                    } else {
+                        if (result === 2) {
+                            if (earningsWci[betId]?.lose === '0') {
+                                profit = claimHistoryWci[betId];
+                                status_ = 'Claimed';
+                            } else {
+                                profit = earningsWci[betId]?.lose;
+                                status_ = 'Clamable';
+                            }
+                        } else {
+                            profit = '0';
+                            status_ = 'Lost';
+                        }
+                    }
+                    temp.push({
+                        ...ele,
+                        choice: team2,
+                        betAmount: parseInt(betWci.lose),
+                        profit: parseInt(profit),
+                        status: status_,
+                        token: 'WCI',
                     });
                 }
             }
