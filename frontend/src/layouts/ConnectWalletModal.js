@@ -211,7 +211,7 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
                         <ListItem sx={{padding: 0, marginBottom: '20px', justifyContent: 'space-between'}}>
                             <Stack direction="row" alignItems="center">
                                 <ListItemIcon className="symbol">
-                                    <img src={cWallet.logo} alt={cWallet.name} />
+                                    <img src={cWallet.logo} alt={cWallet.name} style={{ maxWidth: '36px' }} />
                                 </ListItemIcon>
                                 <Typography color="white">{`Connected to ${cWallet.name}`}</Typography>
                             </Stack>
