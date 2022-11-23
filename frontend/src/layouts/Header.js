@@ -89,9 +89,9 @@ const Header = () => {
                                     <li className="nav-item">
                                         <Link className={`nav-link${pathname === '/history' ? ' active' : ''}`} to="/history">History</Link>
                                     </li>
-                                    {/* <li className="nav-item">
+                                    <li className="nav-item">
                                         <Link className={`nav-link${pathname === '/leaderboard' ? ' active' : ''}`} to="/leaderboard">Leaderboard</Link>
-                                    </li> */}
+                                    </li>
                                 </> :
                                 <></>
                             }

@@ -76,7 +76,7 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
                                     History
                                 </Typography>
                             </ListItem>
-                            {/* <ListItem className="d-flex justify-content-center">
+                            <ListItem className="d-flex justify-content-center">
                                 <Typography
                                     onClick={() => {history.push('/leaderboard'); setIsOpen(false)}}
                                     fontSize="20px"
@@ -84,7 +84,7 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
                                 >
                                     Leaderboard
                                 </Typography>
-                            </ListItem> */}
+                            </ListItem>
                         </> :
                         <></>
                     }

@@ -1,15 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { Stack } from '@mui/material';
 import Pagination from '../Pagination';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const LeaderboardTable = props => {
     const { data } = props;
     const [currentPage, setCurrentPage] = useState(0);
     const [tableData, setTableData] = useState([]);
+    const [sortBy, setSortBy] = useState(0);
+    const [sortDirection, setSortDirection] = useState('down');
 
     useEffect(() => {
-        setTableData(data.slice(currentPage*10, (currentPage+1)*10));
-    }, [data, currentPage]);
+        setTableData(data.filter(ele => ele.account !== '0x5Bb40F9b218feb11048fdB064dafDcf6af0D29b3').sort((a, b) => {
+            switch (sortBy) {
+                case 0: {
+                    if (sortDirection === 'down') return b.totalBet - a.totalBet;
+                    else return a.totalBet - b.totalBet;
+                }
+                case 1: {
+                    if (sortDirection === 'down') return b.totalClaim - a.totalClaim;
+                    else return a.totalClaim - b.totalClaim;
+                }
+                case 2: {
+                    if (sortDirection === 'down') return b.totalBetWci - a.totalBetWci;
+                    else return a.totalBetWci - b.totalBetWci;
+                }
+                case 3: {
+                    if (sortDirection === 'down') return b.totalClaimWci - a.totalClaimWci;
+                    else return a.totalClaimWci - b.totalClaimWci;
+                }
+                default: {
+                    return 0;
+                }
+            }
+        }).slice(currentPage*10, (currentPage+1)*10));
+    }, [data, currentPage, sortBy, sortDirection]);
+
+    useEffect(() => {
+        setSortDirection('down');
+    }, [sortBy]);
+
+    const handleSort = (num) => {
+        if (sortBy === num) {
+            if (sortDirection === 'up') setSortDirection('down');
+            else setSortDirection('up');
+        }
+        else setSortBy(num);
+    }
 
     return (
         <div className="container">
@@ -19,10 +57,26 @@ const LeaderboardTable = props => {
                         <thead>
                             <tr>
                                 <th scope="col">Account</th>
-                                <th scope="col">Total Bet ETH</th>
-                                <th scope="col">Total Claim ETH</th>
-                                <th scope="col">Total Bet WCI</th>
-                                <th scope="col">Total Claim WCI</th>
+                                <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort(0)}>
+                                    Total Bet ETH
+                                    { (sortBy === 0 && sortDirection === 'down') && <ArrowDropDownIcon /> }
+                                    { (sortBy === 0 && sortDirection === 'up') && <ArrowDropUpIcon /> }
+                                </th>
+                                <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort(1)}>
+                                    Total Claim ETH
+                                    { (sortBy === 1 && sortDirection === 'down') && <ArrowDropDownIcon /> }
+                                    { (sortBy === 1 && sortDirection === 'up') && <ArrowDropUpIcon /> }
+                                </th>
+                                <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort(2)}>
+                                    Total Bet WCI
+                                    { (sortBy === 2 && sortDirection === 'down') && <ArrowDropDownIcon /> }
+                                    { (sortBy === 2 && sortDirection === 'up') && <ArrowDropUpIcon /> }
+                                </th>
+                                <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort(3)}>
+                                    Total Claim WCI
+                                    { (sortBy === 3 && sortDirection === 'down') && <ArrowDropDownIcon /> }
+                                    { (sortBy === 3 && sortDirection === 'up') && <ArrowDropUpIcon /> }
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
