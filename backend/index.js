@@ -57,7 +57,7 @@ if (MODE === 'development') {
 
 	const io = require('./socketServer')(httpsServer, socketServerOptions);
 
-	// watchInPlayGames(io);
+	watchInPlayGames(io);
 
 	httpsServer.listen(PORT, () => {
 		console.log(`HTTPS Server running on port ${PORT}`);
