@@ -1,5 +1,5 @@
 import { SET_LOADING } from "./type";
-import { getTripleInformation, getSingleInformation, getBetStatsData, getMatch } from "./";
+import { getTripleInformation, getSingleInformation, getBetStatsData, getMatch, getLeaderboard } from "./";
 import { SOCKET } from "../config/apis";
 
 export const setLoading = data => {
