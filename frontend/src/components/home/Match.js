@@ -84,7 +84,7 @@ const Match = props => {
                             { displayMatches.map((ele, index) => (
                                 <div className="col-lg-6" key={index}>
                                     <MatchCard
-                                        type={ele.matchStatus === 0 ? 'betting' : betStatus[ele.id] === 1 ? 'reviewing' : 'claiming'}
+                                        type={ele.matchStatus === 0 ? 'betting' : ele.matchStatus === 1 ? 'reviewing' : 'claiming'}
                                         days={ele.days}
                                         hours={ele.hours}
                                         minutes={ele.mins}
