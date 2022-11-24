@@ -18,7 +18,6 @@ const Match = props => {
         earnings, earningsWci,
         betAmounts, betAmountsWci,
         multipliers, multipliersWci,
-        betStatus,
         betResult,
     } = useSelector(state => state.transaction);
     const allowed = useSelector(state => state.wci.allowed);

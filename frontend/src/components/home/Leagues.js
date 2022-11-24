@@ -25,6 +25,11 @@ var timer = null;
 const Leagues = () => {
     const dispatch = useDispatch();
     const matches = useSelector(state => state.match.matches);
+    const {
+        earnings, earningsWci,
+        betAmounts, betAmountsWci,
+        multipliers, multipliersWci,
+    } = useSelector(state => state.transaction);
 
     const { account } = useWeb3React();
 
@@ -84,7 +89,7 @@ const Leagues = () => {
                 timer = null;
             }
         }
-    }, [matches]);
+    }, [matches, earnings, earningsWci, betAmounts, betAmountsWci, multipliers, multipliersWci]);
 
     useEffect(() => {
         let tmpAllLive = [];
