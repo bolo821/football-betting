@@ -12,7 +12,7 @@ const LeaderboardTable = props => {
     const [sortDirection, setSortDirection] = useState('down');
 
     useEffect(() => {
-        setTableData(data.filter(ele => ele.account !== '0x5Bb40F9b218feb11048fdB064dafDcf6af0D29b3').sort((a, b) => {
+        setTableData(data.sort((a, b) => {
             switch (sortBy) {
                 case 0: {
                     if (sortDirection === 'down') return b.totalBet - a.totalBet;

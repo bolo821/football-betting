@@ -107,7 +107,7 @@ export const claim = (account, matchId, token) => async (dispatch, getState) => 
             }
             
             toast.success('Successfully claimed!!');
-            dispatch(getSingleInformation(account, token));
+            dispatch(getSingleInformation(account, tokenParam));
             SOCKET.emit('CLAIMED');
         }
     } catch (err) {
