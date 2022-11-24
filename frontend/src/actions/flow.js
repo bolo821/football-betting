@@ -57,3 +57,11 @@ export const onMatchScoreUpdatd = () => dispatch => {
         dispatch(getMatch());
     });
 }
+
+export const onRefresh = () => (dispatch) => {
+    SOCKET.removeAllListeners("REFRESH");
+
+    SOCKET.on('REFRESH', () => {
+        window.location.reload();
+    });
+}

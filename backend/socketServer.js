@@ -43,7 +43,12 @@ module.exports = (server, options) => {
 		socket.on('CLAIMED', () => {
 			socket.emit('CLAIMED');
 			socket.broadcast.emit('CLAIMED');
-		})
+		});
+
+		socket.on('REFRESH', () => {
+			socket.emit('REFRESH');
+			socket.broadcast.emit('REFRESH');
+		});
 
 		socket.on('disconnect', () => {
 			delete users[socket.id];

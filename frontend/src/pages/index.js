@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Loading from '../components/Loading';
-import { onBet, onStatusUpdate, onClaimed, onMatchScoreUpdatd } from '../actions';
+import { onBet, onStatusUpdate, onClaimed, onMatchScoreUpdatd, onRefresh } from '../actions';
 import AdminRoute from '../AdminRoute';
 import WalletRoute from '../WalletRoute';
 import Home from './Home';
@@ -27,6 +27,7 @@ const Index = () => {
 		dispatch(onStatusUpdate());
 		dispatch(onClaimed());
 		dispatch(onMatchScoreUpdatd());
+		dispatch(onRefresh());
 	}, [dispatch]);
 
 	return (

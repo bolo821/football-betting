@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import LeaguesTabContentAdmin from '../admin/LeaguesTabContentAdmin';
 import TabItem from '../TabItem';
+import { SOCKET } from '../../config/apis';
 
 const Leagues = () => {
     const history = useHistory();
@@ -142,6 +143,14 @@ const Leagues = () => {
                     >
                         <i className="fas fa-plus"></i>
                         {' '} Add a new match
+                    </button>
+                    <button
+                        type="button"
+                        className="cmn-btn reg connect-bn-rt mb-2"
+                        onClick={() => SOCKET.emit('REFRESH')}
+                        style={{width: 'fit-content', marginLeft: '5px'}}
+                    >
+                        Force Refresh
                     </button>
                 </div>
                 <div className="container">
