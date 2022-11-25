@@ -567,3 +567,23 @@ h5.country-name-rt {
         padding: 0;
     }
 }
+@media screen and (max-width: 576px) {
+    .bet-stat-info-rt {
+        padding-left: 100px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .bet-stat-info-rt {
+        padding-left: 70px;
+    }
+}
+@media screen and (max-width: 432px) {
+    .bet-stat-info-rt {
+        padding-left: 30px;
+    }
+}
+@media screen and (max-width: 350px) {
+    .bet-stat-info-rt {
+        padding-left: unset;
+    }
+}
