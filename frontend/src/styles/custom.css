@@ -587,3 +587,12 @@ h5.country-name-rt {
         padding-left: unset;
     }
 }
+.th-sortable-header-rt {
+    cursor: pointer;
+}
+.th-sortable-header-rt span {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

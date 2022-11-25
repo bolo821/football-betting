@@ -3,6 +3,7 @@ import { Stack } from '@mui/material';
 import Pagination from '../Pagination';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import config from '../../config';
 
 const LeaderboardTable = props => {
     const { data } = props;
@@ -53,48 +54,60 @@ const LeaderboardTable = props => {
         <div className="container">
             { data.length > 0 ?
                 <div className="table-responsive mb-5">
-                    <table className="table history-table-rt">
-                        <thead>
-                            <tr>
-                                <th scope="col">Account</th>
-                                <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort(0)}>
-                                    Total Bet ETH
-                                    { (sortBy === 0 && sortDirection === 'down') && <ArrowDropDownIcon /> }
-                                    { (sortBy === 0 && sortDirection === 'up') && <ArrowDropUpIcon /> }
-                                    { sortBy !== 0 && <ArrowDropUpIcon style={{ visibility: 'hidden' }} /> }
-                                </th>
-                                <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort(1)}>
-                                    Total Claim ETH
-                                    { (sortBy === 1 && sortDirection === 'down') && <ArrowDropDownIcon /> }
-                                    { (sortBy === 1 && sortDirection === 'up') && <ArrowDropUpIcon /> }
-                                    { sortBy !== 1 && <ArrowDropUpIcon style={{ visibility: 'hidden' }} /> }
-                                </th>
-                                <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort(2)}>
-                                    Total Bet WCI
-                                    { (sortBy === 2 && sortDirection === 'down') && <ArrowDropDownIcon /> }
-                                    { (sortBy === 2 && sortDirection === 'up') && <ArrowDropUpIcon /> }
-                                    { sortBy !== 2 && <ArrowDropUpIcon style={{ visibility: 'hidden' }} /> }
-                                </th>
-                                <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort(3)}>
-                                    Total Claim WCI
-                                    { (sortBy === 3 && sortDirection === 'down') && <ArrowDropDownIcon /> }
-                                    { (sortBy === 3 && sortDirection === 'up') && <ArrowDropUpIcon /> }
-                                    { sortBy !== 3 && <ArrowDropUpIcon style={{ visibility: 'hidden' }} /> }
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            { tableData.map((ele, index) => (
-                                <tr key={index}>
-                                    <td>{ele.account}</td>
-                                    <td>{ele.totalBet}</td>
-                                    <td>{ele.totalClaim}</td>
-                                    <td>{ele.totalBetWci}</td>
-                                    <td>{ele.totalClaimWci}</td>
+                    <div className='overflow-auto mb-3'>
+                        <table className="table history-table-rt">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Account</th>
+                                    <th scope="col" className='th-sortable-header-rt' onClick={() => handleSort(0)}>
+                                        <span>
+                                            Total Bet ETH
+                                            { (sortBy === 0 && sortDirection === 'down') && <ArrowDropDownIcon /> }
+                                            { (sortBy === 0 && sortDirection === 'up') && <ArrowDropUpIcon /> }
+                                            { sortBy !== 0 && <ArrowDropUpIcon style={{ visibility: 'hidden' }} /> }
+                                        </span>
+                                    </th>
+                                    <th scope="col" className='th-sortable-header-rt' onClick={() => handleSort(1)}>
+                                        <span>
+                                            Total Claim ETH
+                                            { (sortBy === 1 && sortDirection === 'down') && <ArrowDropDownIcon /> }
+                                            { (sortBy === 1 && sortDirection === 'up') && <ArrowDropUpIcon /> }
+                                            { sortBy !== 1 && <ArrowDropUpIcon style={{ visibility: 'hidden' }} /> }
+                                        </span>
+                                    </th>
+                                    <th scope="col" className='th-sortable-header-rt' onClick={() => handleSort(2)}>
+                                        <span>
+                                            Total Bet WCI
+                                            { (sortBy === 2 && sortDirection === 'down') && <ArrowDropDownIcon /> }
+                                            { (sortBy === 2 && sortDirection === 'up') && <ArrowDropUpIcon /> }
+                                            { sortBy !== 2 && <ArrowDropUpIcon style={{ visibility: 'hidden' }} /> }
+                                        </span>
+                                    </th>
+                                    <th scope="col" className='th-sortable-header-rt' onClick={() => handleSort(3)}>
+                                        <span>
+                                            Total Claim WCI
+                                            { (sortBy === 3 && sortDirection === 'down') && <ArrowDropDownIcon /> }
+                                            { (sortBy === 3 && sortDirection === 'up') && <ArrowDropUpIcon /> }
+                                            { sortBy !== 3 && <ArrowDropUpIcon style={{ visibility: 'hidden' }} /> }
+                                        </span>
+                                    </th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                { tableData.map((ele, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <a href={`${config.blockExplorer}/address/${ele.account}`} target="_blank" rel="noreferrer noopener">{ele.account}</a>
+                                        </td>
+                                        <td>{ele.totalBet}</td>
+                                        <td>{ele.totalClaim}</td>
+                                        <td>{ele.totalBetWci}</td>
+                                        <td>{ele.totalClaimWci}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                     <Stack direction="row" justifyContent="flex-end">
                         <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalCount={data.length} pageSize={10} />
                     </Stack>
