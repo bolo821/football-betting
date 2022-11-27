@@ -41,6 +41,9 @@ const MatchCard = props => {
         return false;
     }
 
+    console.log('type: ', type);
+    console.log('bet result: ', betResult);
+
     return (
         <MatchCardContainer>
             <MatchCardHeader>
@@ -104,9 +107,9 @@ const MatchCard = props => {
                         <img src={team1Logo} />
                     </MatchScoreLogo>
                     <MatchScoreMark>
-                        <span className={type === 'claiming' && betResult === 0 ? 'win-rt' : type === 'claiming' && betResult === 2 ? 'lose-rt' : ''}>{team1Score}</span>
+                        <span className={type === 'claiming' && team1Score > team2Score ? 'win-rt' : type === 'claiming' && team1Score < team2Score ? 'lose-rt' : ''}>{team1Score}</span>
                         <span>-</span>
-                        <span className={type === 'claiming' && betResult === 2 ? 'win-rt' : type === 'claiming' && betResult === 0 ? 'lose-rt' : ''}>{team2Score}</span>
+                        <span className={type === 'claiming' && team1Score < team2Score ? 'win-rt' : type === 'claiming' && team1Score > team2Score ? 'lose-rt' : ''}>{team2Score}</span>
                     </MatchScoreMark>
                     <MatchScoreLogo>
                         <img src={team2Logo} />

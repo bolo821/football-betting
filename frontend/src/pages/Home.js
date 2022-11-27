@@ -44,7 +44,6 @@ const Home = () => {
             <Header />
             <Section1 />
             <Leagues />
-            <Section3 />
             <Section4 />
         </>
     )

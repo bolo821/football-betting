@@ -102,14 +102,7 @@
     background-color: var(--body-color);
     position: relative;
     overflow-x: initial!important;
-}
-.section4-rt .main-content {
-    background-color: var(--hover-alt-color);
-    padding: 50px!important;
-    top: -200px;
-}
-.counter-section {
-    top: -100px;
+    padding: 50px 0 50px;
 }
 .dashboard-heading-rt {
     background-color: #322a71;
