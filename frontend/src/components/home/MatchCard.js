@@ -41,9 +41,6 @@ const MatchCard = props => {
         return false;
     }
 
-    console.log('type: ', type);
-    console.log('bet result: ', betResult);
-
     return (
         <MatchCardContainer>
             <MatchCardHeader>
