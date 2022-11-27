@@ -53,7 +53,7 @@ const StatusModal = ({ isOpen, setIsOpen, setMatchStatus }) => {
                 </h5>
                 <select ref={selectRef} onChange={handleSelect}>
                     <option value="0">Betting</option>
-                    <option value="1">Reviewing</option>
+                    <option value="1">In Play</option>
                     <option value="2">Claiming</option>
                 </select>
                 <div className="bottom-item mt-5">

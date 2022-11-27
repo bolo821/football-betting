@@ -32,7 +32,7 @@ const LeaguesTabContentAdmin = props => {
                                             Live
                                         </TabItem>
                                         <TabItem className="cmn-btn" id={`${id}-upcoming-tab`} dataTarget={`${id}-upcoming-tab-content`}>
-                                            Reviewing
+                                            In Play
                                         </TabItem>
                                         <TabItem className="cmn-btn" id={`${id}-completed-tab`} dataTarget={`${id}-completed-tab-content`}>
                                             Completed

@@ -69,7 +69,7 @@ const MatchTable = props => {
                                         <tr key={index}>
                                             <th>{ele.team1} / {ele.team2}</th>
                                             <td>{getDateTimeString(ele.time)}</td>
-                                            <td>{betStatus[ele.id] === 0 ? 'Betting' : betStatus[ele.id] === 1 ? 'Reviewing' : 'Claiming'}</td>
+                                            <td>{betStatus[ele.id] === 0 ? 'Betting' : betStatus[ele.id] === 1 ? 'In Play' : 'Claiming'}</td>
                                             { type === 'completed' &&
                                                 <td>{betResult[ele.id] === 0 ? `${ele.team1} won` : betResult[ele.id] === 1 ? 'Drew' : `${ele.team2} won`}</td>
                                             }

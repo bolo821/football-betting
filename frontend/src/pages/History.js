@@ -29,7 +29,7 @@ const History = () => {
                     team2: team2,
                 }
                 let result = betResult[betId];
-                let status_ = status === 0 ? 'Betting' : 'Reviewing';
+                let status_ = status === 0 ? 'Betting' : 'In Play';
 
                 if (bet.win !== '0') {
                     let profit;
