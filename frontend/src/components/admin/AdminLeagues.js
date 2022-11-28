@@ -113,10 +113,10 @@ const Leagues = () => {
             }
         });
 
-        // tmpTabItems = tmpTabItems.sort((a, b) => {
-        //     if (a.matchData[0].length > b.matchData[0].length) return -1;
-        //     else return 1;
-        // });
+        tmpTabItems = tmpTabItems.sort((a, b) => {
+            if (a.matchData[0].length > b.matchData[0].length) return -1;
+            else return 1;
+        });
 
         setTabItems([tmpTabItems[5], tmpTabItemsEvent[5]]);
     }, [matches, betStatus, events]);
