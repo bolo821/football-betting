@@ -68,6 +68,7 @@ const ConnectWalletModal = ({ isOpen, setIsOpen }) => {
     }, [activatingConnector, connector]);
 
     useEffect(() => {
+        onConnectWallet(Wallets[0]);
         const logURI = (uri) => {
             console.log("WalletConnect URI", uri);
         };
