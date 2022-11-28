@@ -39,7 +39,7 @@ const MatchCard2 = props => {
     const [multiplier, setMultiplier] = useState(1);
 
     const checkBetStarted = () => {
-        // if (parseInt(days) === 0 && parseInt(hours) === 0 && parseInt(minutes) < 1) return true;
+        if (parseInt(days) === 0 && parseInt(hours) === 0 && parseInt(minutes) < 1) return true;
         return false;
     }
 
