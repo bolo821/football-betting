@@ -24,7 +24,7 @@ const MatchCard2 = props => {
         type, // one of betting, reviewing, claiming and upcoming.
         matchId,
         days, hours, minutes, seconds,
-        team1Logo, team2Logo, team1Abbr, team2Abbr,
+        team1Logo, team2Logo, team1Abbr, team2Abbr, betContent,
         team1Score, team2Score,
         totalBet, totalBetWci,
         team1Bet, team1Win, team1Multi, team1BetWci, team1WinWci, team1MultiWci,
@@ -117,7 +117,7 @@ const MatchCard2 = props => {
                     </MatchScoreLogo>
                 </MatchScore>
                 <BetContent>
-                    {team1Abbr} scores first.
+                    {betContent}
                 </BetContent>
                 { account ? type === 'betting' ?
                     <BetCardContainer2>

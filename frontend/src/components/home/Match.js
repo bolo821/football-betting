@@ -130,6 +130,7 @@ const Match = props => {
                                             minutes={ele.mins}
                                             seconds={ele.secs}
                                             matchId={ele.id}
+                                            betContent={ele.betContent}
                                             totalBet={getRoundedNumber(ele.totalBet)}
                                             totalBetWci={parseInt(ele.totalBetWci)}
                                             team1Logo={ele.team1Logo}
