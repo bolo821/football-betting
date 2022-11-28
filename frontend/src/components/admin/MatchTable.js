@@ -10,6 +10,7 @@ import { setBetStatus, setBetResult } from '../../actions';
 var team1 = '';
 var team2 = '';
 var matchId = -1;
+var betContent = '';
 
 const MatchTable = props => {
     const { data, type, matchType } = props;
@@ -86,7 +87,10 @@ const MatchTable = props => {
                                 <tbody>
                                     { data.map((ele, index) => (
                                         <tr key={index}>
-                                            <th>{ele.team1} / {ele.team2}</th>
+                                            { matchType === 'match' ?
+                                                <td>{ele.team1} / {ele.team2}</td> :
+                                                <td>{ele.betContent}</td>
+                                            }
                                             <td>{getDateTimeString(ele.time)}</td>
                                             <td>{betStatus[ele.id] === 0 ? 'Betting' : betStatus[ele.id] === 1 ? 'In Play' : 'Claiming'}</td>
                                             { type === 'completed' &&
@@ -113,7 +117,11 @@ const MatchTable = props => {
                                                     <button
                                                         type="button"
                                                         className="cmn-btn reg set-bn-rt"
-                                                        onClick={() => {matchId = ele.id; setShowResultModal2(true); team1=ele.team1; team2=ele.team2}}
+                                                        onClick={() => {
+                                                            matchId = ele.id;
+                                                            betContent = ele.betContent;
+                                                            setShowResultModal2(true);
+                                                        }}
                                                     >
                                                         Set Result
                                                     </button>
@@ -150,8 +158,7 @@ const MatchTable = props => {
                 isOpen={showResultModal2}
                 setIsOpen={setShowResultModal2}
                 setMatchResult={setMatchResult2}
-                team1={team1}
-                team2={team2}
+                betContent={betContent}
             />
         </section>
     )

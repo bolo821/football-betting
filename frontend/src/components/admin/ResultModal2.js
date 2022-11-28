@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-const ResultModal2 = ({ isOpen, setIsOpen, setMatchResult, team1, team2 }) => {
+const ResultModal2 = ({ isOpen, setIsOpen, setMatchResult, betContent }) => {
     const selectRef = useRef(null);
     const [result, setResult] = useState('0');
 
@@ -34,7 +34,7 @@ const ResultModal2 = ({ isOpen, setIsOpen, setMatchResult, team1, team2 }) => {
                     Please select the bet result.
                 </h5>
                 <p style={{color: '#41cd7d', fontSize: '20px'}}>
-                    {team1} scores first.
+                    {betContent}
                 </p>
                 <select ref={selectRef} onChange={handleSelect} className="mb-3">
                     <option value="0">YES</option>

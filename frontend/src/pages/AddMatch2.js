@@ -53,7 +53,7 @@ const AddMatch2 = () => {
                                     <label>Choose Match</label>
                                     <div className="input-area">
                                         <select name="parentMatch" value={formData.matchType} onChange={handleChange}>
-                                            <option value={-1} disabled>Choose a match which will include this event</option>
+                                            <option value={-1}>Choose a match which will include this event</option>
                                             { selectData.map(match => (
                                                 <option value={match.matchId} key={match.matchId}>{match.team1Name} / {match.team2Name}</option>
                                             ))}
