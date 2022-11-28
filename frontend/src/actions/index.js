@@ -7,3 +7,4 @@ export * from './wci';
 export * from './collateral';
 export * from './referral';
 export * from './leaderboard';
+export * from './event';

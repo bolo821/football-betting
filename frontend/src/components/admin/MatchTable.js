@@ -4,6 +4,7 @@ import { useWeb3React } from '@web3-react/core';
 import { getDateTimeString } from '../../utils/helper';
 import StatusModal from './StatusModal';
 import ResultModal from './ResultModal';
+import ResultModal2 from './ResultModal2';
 import { setBetStatus, setBetResult } from '../../actions';
 
 var team1 = '';
@@ -11,7 +12,7 @@ var team2 = '';
 var matchId = -1;
 
 const MatchTable = props => {
-    const { data, type } = props;
+    const { data, type, matchType } = props;
     const dispatch = useDispatch();
     const { account } = useWeb3React();
     const betStatus = useSelector(state => state.transaction.betStatus);
@@ -19,25 +20,43 @@ const MatchTable = props => {
 
     const [showStatusModal, setShowStatusModal] = useState(false);
     const [showResultModal, setShowResultModal] = useState(false);
+    const [showResultModal2, setShowResultModal2] = useState(false);
     const [team1Score, setTeam1Score] = useState(0);
     const [team2Score, setTeam2Score] = useState(0);
 
     const setMatchStatus = status => {
-        dispatch(setBetStatus(account, matchId, status, () => {
+        dispatch(setBetStatus(account, matchId, status, 'match', () => {
             setShowStatusModal(false);
         }));
     }
 
-    const setMatchResult = status => {
+    const setMatchStatus2 = status => {
+        dispatch(setBetStatus(account, matchId, status, 'event', () => {
+            setShowStatusModal(false);
+        }));
+    }
+
+    const setMatchResult = result => {
         dispatch(setBetResult(account, {
             matchId,
-            result: status,
+            result: result,
             team1Score,
             team2Score,
+            isMainMatch: true,
         }, () => {
             setShowResultModal(false);
             setTeam1Score(0);
             setTeam2Score(0);
+        }));
+    }
+
+    const setMatchResult2 = result => {
+        dispatch(setBetResult(account, {
+            matchId,
+            result: result,
+            isMainMatch: false,
+        }, () => {
+            setShowResultModal2(false);
         }));
     }
 
@@ -83,13 +102,23 @@ const MatchTable = props => {
                                                 </button>
                                             </td>
                                             <td>
-                                                <button
-                                                    type="button"
-                                                    className="cmn-btn reg set-bn-rt"
-                                                    onClick={() => {matchId = ele.id; setShowResultModal(true); team1=ele.team1; team2=ele.team2}}
-                                                >
-                                                    Set Result
-                                                </button>
+                                                { matchType === 'match' ?
+                                                    <button
+                                                        type="button"
+                                                        className="cmn-btn reg set-bn-rt"
+                                                        onClick={() => {matchId = ele.id; setShowResultModal(true); team1=ele.team1; team2=ele.team2}}
+                                                    >
+                                                        Set Result
+                                                    </button> :
+                                                    <button
+                                                        type="button"
+                                                        className="cmn-btn reg set-bn-rt"
+                                                        onClick={() => {matchId = ele.id; setShowResultModal2(true); team1=ele.team1; team2=ele.team2}}
+                                                    >
+                                                        Set Result
+                                                    </button>
+                                                }
+                                                
                                             </td>
                                         </tr>
                                     ))}
@@ -102,7 +131,13 @@ const MatchTable = props => {
                     }
                 </div>
             </div>
-            <StatusModal isOpen={showStatusModal} setIsOpen={setShowStatusModal} setMatchStatus={setMatchStatus} />
+            <StatusModal
+                isOpen={showStatusModal}
+                setIsOpen={setShowStatusModal}
+                setMatchStatus={setMatchStatus}
+                setMatchStatus2={setMatchStatus2}
+                matchType={matchType}
+            />
             <ResultModal
                 isOpen={showResultModal}
                 setIsOpen={setShowResultModal}
@@ -110,6 +145,13 @@ const MatchTable = props => {
                 team1={team1} team2={team2}
                 team1Score={team1Score} setTeam1Score={setTeam1Score}
                 team2Score={team2Score} setTeam2Score={setTeam2Score}
+            />
+            <ResultModal2
+                isOpen={showResultModal2}
+                setIsOpen={setShowResultModal2}
+                setMatchResult={setMatchResult2}
+                team1={team1}
+                team2={team2}
             />
         </section>
     )

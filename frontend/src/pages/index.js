@@ -14,6 +14,7 @@ import Collaterals from './Collaterals';
 import Admin from './Admin';
 import History from './History';
 import AddMatch from './AddMatch';
+import AddMatch2 from './AddMatch2';
 import Trade from './Trade';
 import Dashboard from './Dashboard';
 import Leaderboard from './Leaderboard';
@@ -42,6 +43,7 @@ const Index = () => {
 								<Route exact path="/trade" component={Trade} />
 								<AdminRoute exact path="/admin" component={Admin} />
 								<AdminRoute exact path="/addmatch" component={AddMatch} />
+								<AdminRoute exact path="/addmatch2" component={AddMatch2} />
 								<WalletRoute exact path="/history" component={History} />
 								<WalletRoute exact path="/collaterals" component={Collaterals} />
 								<WalletRoute exact path="/dashboard" component={Dashboard} />

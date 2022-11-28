@@ -274,7 +274,7 @@ export const getBetStatsData = () => async dispatch => {
 }
 
 
-export const setBetStatus = (account, matchId, status, callback) => async dispatch => {
+export const setBetStatus = (account, matchId, status, type, callback) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Setting match status...' }));
 
     try {
@@ -288,7 +288,7 @@ export const setBetStatus = (account, matchId, status, callback) => async dispat
         });
     
         if (res) {
-            await api.put(`/match/${matchId}`, { matchStatus: status });
+            await api.put(`/${type}/${matchId}`, { matchStatus: status });
             toast.success('Successfully set the bet status.');
             SOCKET.emit('BET');
         }
@@ -304,7 +304,7 @@ export const setBetResult = (account, data, callback) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Setting match result...' }));
 
     try {
-        const { matchId, result, team1Score, team2Score } = data;
+        const { matchId, result, team1Score, team2Score, isMainMatch } = data;
 
         const gasLimit = await routerContractSigned.methods.setBetResult(matchId, result).estimateGas({ from: account });
         const res = await routerContractSigned.methods.setBetResult(matchId, result)
@@ -316,7 +316,10 @@ export const setBetResult = (account, data, callback) => async dispatch => {
         });
     
         if (res) {
-            await api.put(`/match/${matchId}`, { team1Score, team2Score, matchStatus: 2 });
+            if (isMainMatch)
+                await api.put(`/match/${matchId}`, { team1Score, team2Score, matchStatus: 2 });
+            else
+                await api.put(`/event/${matchId}`, { matchStatus: 2 });
             toast.success('Successfully set the bet result.');
             SOCKET.emit('BET');
         }

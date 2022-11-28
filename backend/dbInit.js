@@ -5,6 +5,7 @@ require('./models/Match');
 require("./models/Token");
 require('./models/Referral');
 require('./models/Leaderboard');
+require('./models/Event');
 
 mongoose.connect(db_string, {
 	useNewUrlParser: true,

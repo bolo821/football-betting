@@ -3,7 +3,7 @@ import Match from './Match';
 import TabItem from '../TabItem';
 
 const LeaguesTabContent = props => {
-    const { id, hiddenBy, show, active, title, matchData } = props;
+    const { id, hiddenBy, show, active, title, matchData, type } = props;
     const [liveData, setLiveData] = useState([]);
     const [compData, setCompData] = useState([]);
 
@@ -51,13 +51,13 @@ const LeaguesTabContent = props => {
                     <div className="bet-this-game bet-this-game-rt">
                         <div className="tab-content">
                             <div className="tab-pane fade show active" id={`${id}-live-tab-content`} role="tabpanel" aria-labelledby={`${id}-live-tab`}>
-                                <Match data={liveData} />
+                                <Match data={liveData} type={type} />
                             </div>
                             <div className="tab-pane fade" id={`${id}-upcoming-tab-content`} role="tabpanel" aria-labelledby={`${id}-live-tab`}>
-                                <Match data={matchData[1]} />
+                                <Match data={matchData[1]} type={type} />
                             </div>
                             <div className="tab-pane fade" id={`${id}-completed-tab-content`} role="tabpanel" aria-labelledby={`${id}-upcoming-tab`}>
-                                <Match data={compData} />
+                                <Match data={compData} type={type} />
                             </div>
                         </div>
                     </div>

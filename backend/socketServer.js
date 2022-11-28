@@ -1,4 +1,5 @@
 const Match = require('mongoose').model('Match');
+const Event = require('mongoose').model('Event');
 const Web3 = require('web3');
 const config = require('./config');
 const web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrl));
@@ -18,7 +19,8 @@ module.exports = (server, options) => {
 			let resEth = await routerContract.methods.getBetSingleInformation(config.adminWalletAddress, 0).call();
 			let resWci = await routerContract.methods.getBetSingleInformation(config.adminWalletAddress, 1).call();
 			let matches = await Match.find({});
-			let matchCount = matches.length;
+			let events = await Event.find({});
+			let matchCount = resEth.length / 4;
 			let totalBet = [];
 			let totalBetWci = [];
 
@@ -28,11 +30,26 @@ module.exports = (server, options) => {
 			}
 
 			for (let i=0; i<matchCount; i++) {
-				if (matches[i].totalBet !== totalBet[i]) {
-					await Match.findOneAndUpdate({ matchId: matches[i].matchId }, { totalBet: totalBet[i] });
+				for (let j=0; j<matches.length; j++) {
+					if (matches[j].matchId === i) {
+						if (matches[j].totalBet !== totalBet[i]) {
+							await Match.findOneAndUpdate({ matchId: matches[j].matchId }, { totalBet: totalBet[i] });
+						}
+						if (matches[j].totalBetWci !== totalBetWci[i]) {
+							await Match.findOneAndUpdate({ matchId: matches[j].matchId }, { totalBetWci: totalBetWci[i] });
+						}
+					}
 				}
-				if (matches[i].totalBetWci !== totalBetWci[i]) {
-					await Match.findOneAndUpdate({ matchId: matches[i].matchId }, { totalBetWci: totalBetWci[i] });
+
+				for (let j=0; j<events.length; j++) {
+					if (events[j].matchId === i) {
+						if (events[j].totalBet !== totalBet[i]) {
+							await Event.findOneAndUpdate({ matchId: events[j].matchId }, { totalBet: totalBet[i] });
+						}
+						if (events[j].totalBetWci !== totalBetWci[i]) {
+							await Event.findOneAndUpdate({ matchId: events[j].matchId }, { totalBetWci: totalBetWci[i] });
+						}
+					}
 				}
 			}
 

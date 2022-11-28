@@ -9,6 +9,7 @@ const MatchSchema = new mongoose.Schema({
   team1Name: {
     type: String,
     required: true,
+    unique: true,
   },
   team1Abbr: {
     type: String,

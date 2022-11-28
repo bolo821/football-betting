@@ -3,6 +3,7 @@ import user from './user';
 import flow from './flow';
 import transaction from './transaction';
 import match from './match';
+import event from './event';
 import wci from './wci';
 import collateral from './collateral';
 import referral from './referral';
@@ -13,6 +14,7 @@ export default combineReducers({
     flow,
     transaction,
     match,
+    event,
     wci,
     collateral,
     referral,

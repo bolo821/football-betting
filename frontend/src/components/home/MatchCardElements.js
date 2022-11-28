@@ -121,8 +121,13 @@ export const MatchScore = styled.div`
 export const MatchScoreLogo = styled.div`
     flex-basis: 30%;
     max-width: 30%;
+    display: flex;
+    flex-direction: column;
     img {
         width: 100%;
+    }
+    p {
+        text-align: center;
     }
 `;
 
@@ -233,5 +238,25 @@ export const BetCard = styled.div`
         div.win-amount-rt {
             display: none;
         }
+    }
+`;
+
+export const BetContent = styled.p`
+    text-align: center;
+    margin: -20px 0 30px;
+    font-size: 24px;
+    color: #41cd7d;
+    line-height: 1.2;
+`;
+
+export const BetCardContainer2 = styled.div`
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0 -5px;
+    & > div {
+        flex-basis: 40%;
+        max-width: 40%;
+        padding: 0 5px;
     }
 `;

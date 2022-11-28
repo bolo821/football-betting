@@ -6,33 +6,60 @@ import LeaguesTabContentAdmin from '../admin/LeaguesTabContentAdmin';
 import TabItem from '../TabItem';
 import { SOCKET } from '../../config/apis';
 
+const tabTitles = {
+    all: 'All',
+    uefa: 'UFEA',
+    uefa_e: 'Europa',
+    english_p: 'EPL',
+    laliga: 'LaLiga',
+    worldcup: 'Matches',
+}
+const tabTitlesEvent = {
+    all: 'All',
+    uefa: 'UFEA',
+    uefa_e: 'Europa',
+    english_p: 'EPL',
+    laliga: 'LaLiga',
+    worldcup: 'Events',
+}
+const tabContentHeaders = {
+    all: 'All Matches',
+    uefa: 'UEFA Champion League',
+    uefa_e: 'UEFA Europa League',
+    english_p: 'English Premier League',
+    laliga: 'La Liga Matches',
+    worldcup: 'Worldcup Bets',
+}
+
 const Leagues = () => {
     const history = useHistory();
     const betStatus = useSelector(state => state.transaction.betStatus);
     const matches = useSelector(state => state.match.matches);
+    const events = useSelector(state => state.event.events);
     const [tabItems, setTabItems] = useState([]);
 
     useEffect(() => {
-        let tmpELive = [];
-        let tmpECompleted = [];
-        let tmpEUpcoming = [];
-        let tmpEELive = [];
-        let tmpEECompleted = [];
-        let tmpEEUpcoming = [];
-        let tmpEnLive = [];
-        let tmpEnCompleted = [];
-        let tmpEnUpcoming = [];
-        let tmpLaLive = [];
-        let tmpLaUpcoming = [];
-        let tmpLaCompleted = [];
-        let tmpWLive = [];
-        let tmpWUpcoming = [];
-        let tmpWCompleted = [];
+        let tmpLeagues = {
+            all: { live: [], inplay: [], completed: [] },
+            uefa: { live: [], inplay: [], completed: [] },
+            uefa_e: { live: [], inplay: [], completed: [] },
+            english_p: { live: [], inplay: [], completed: [] },
+            laliga: { live: [], inplay: [], completed: [] },
+            worldcup: { live: [], inplay: [], completed: [] },
+        }
+        let tmpLeagueEvents = {
+            all: { live: [], inplay: [], completed: [] },
+            uefa: { live: [], inplay: [], completed: [] },
+            uefa_e: { live: [], inplay: [], completed: [] },
+            english_p: { live: [], inplay: [], completed: [] },
+            laliga: { live: [], inplay: [], completed: [] },
+            worldcup: { live: [], inplay: [], completed: [] },
+        }
 
 
         for (let i=0; i<matches.length; i++) {
             let matchId = matches[i].matchId;
-            let status = betStatus[matchId];
+            let status = matches[i].matchStatus;
             let type = matches[i].matchType;
             let item = {
                 ...matches[i],
@@ -42,94 +69,57 @@ const Leagues = () => {
                 time: matches[i].matchTime,
             };
 
-            if (type === 'uefa') {
-                if (status === 2) {
-                    tmpECompleted.push(item);
-                } else if (status === 1) {
-                    tmpEUpcoming.push(item);
-                } else {
-                    tmpELive.push(item);
-                }
-            } else if (type === "uefa_e") {
-                if (status === 2) {
-                    tmpEECompleted.push(item);
-                } else if (status === 1) {
-                    tmpEEUpcoming.push(item);
-                } else {
-                    tmpEELive.push(item);
-                }
-            } else if (type === "english_p") {
-                if (status === 2) {
-                    tmpEnCompleted.push(item);
-                } else if (status === 1) {
-                    tmpEnUpcoming.push(item);
-                } else {
-                    tmpEnLive.push(item);
-                }
-            } else if (type === "laliga") {
-                if (status === 2) {
-                    tmpLaCompleted.push(item);
-                } else if (status === 1) {
-                    tmpLaUpcoming.push(item);
-                } else {
-                    tmpLaLive.push(item);
-                }
-            } else if (type === 'worldcup') {
-                if (status === 2) {
-                    tmpWCompleted.push(item);
-                } else if (status === 1) {
-                    tmpWUpcoming.push(item);
-                } else {
-                    tmpWLive.push(item);
-                }
-            }
+            let statusKey = status === 0 ? 'live' : status === 1 ? 'inplay' : 'completed';
+            tmpLeagues['all'][statusKey].push(item); 
+            tmpLeagues[type][statusKey].push(item);
         }
 
-        let tmpTabItems = [
-            {
-                tabId: "id-uefa-champion-bets-nav-item-admin",
-                contentId: "id-uefa-champion-bets-admin",
-                tabContent: "UEFA",
-                contentTitle: "UEFA Champion League",
-                matchData: [tmpELive, tmpEUpcoming, tmpECompleted]
-            },
-            {
-                tabId: "id-uefa-bets-nav-item-admin",
-                contentId: "id-uefa-bets-admin",
-                tabContent: "Europa",
-                contentTitle: "UEFA Europa League",
-                matchData: [tmpEELive, tmpEEUpcoming, tmpEECompleted]
-            },
-            {
-                tabId: "id-english-bets-nav-item-admin",
-                contentId: "id-english-bets-admin",
-                tabContent: "EPL",
-                contentTitle: "English Premier League",
-                matchData: [tmpEnLive, tmpEnUpcoming, tmpEnCompleted]
-            },
-            {
-                tabId: "id-laliga-nav-item-admin",
-                contentId: "id-laliga-admin",
-                tabContent: "LaLiga",
-                contentTitle: "La Liga Matches",
-                matchData: [tmpLaLive, tmpLaUpcoming, tmpLaCompleted]
-            },
-            {
-                tabId: "id-worldcup-bets-nav-item-admin",
-                contentId: "id-worldcup-bets-admin",
-                tabContent: "Worldcup",
-                contentTitle: "Worldcup Bets",
-                matchData: [tmpWLive, tmpWUpcoming, tmpWCompleted]
-            },
-        ];
+        for (let i=0; i<events.length; i++) {
+            let matchId = events[i].matchId;
+            let status = events[i].matchStatus;
+            let type = events[i].matchType;
+            let item = {
+                ...events[i],
+                id: matchId,
+                team1: events[i].team1Name,
+                team2: events[i].team2Name,
+                time: matches[i].matchTime,
+            };
 
-        tmpTabItems = tmpTabItems.sort((a, b) => {
-            if (a.matchData[0].length > b.matchData[0].length) return -1;
-            else return 1;
-        })
+            let statusKey = status === 0 ? 'live' : status === 1 ? 'inplay' : 'completed';
+            tmpLeagueEvents['all'][statusKey].push(item); 
+            tmpLeagueEvents[type][statusKey].push(item);
+        }
 
-        setTabItems(tmpTabItems);
-    }, [matches, betStatus]);
+        let tmpTabItems = Object.keys(tmpLeagues).map(leagueKey => {
+            return {
+                tabId: `id-${leagueKey}-bets-nav-item`,
+                contentId: `id-${leagueKey}-bets`,
+                tabContent: tabTitles[leagueKey],
+                contentTitle: tabContentHeaders[leagueKey],
+                matchData: [tmpLeagues[leagueKey]['live'], tmpLeagues[leagueKey]['inplay'], tmpLeagues[leagueKey]['completed']],
+                type: 'match',
+            }
+        });
+
+        let tmpTabItemsEvent = Object.keys(tmpLeagueEvents).map(leagueKey => {
+            return {
+                tabId: `id-${leagueKey}-events-bets-nav-item`,
+                contentId: `id-${leagueKey}-events-bets`,
+                tabContent: tabTitlesEvent[leagueKey],
+                contentTitle: tabContentHeaders[leagueKey],
+                matchData: [tmpLeagueEvents[leagueKey]['live'], tmpLeagueEvents[leagueKey]['inplay'], tmpLeagueEvents[leagueKey]['completed']],
+                type: 'event',
+            }
+        });
+
+        // tmpTabItems = tmpTabItems.sort((a, b) => {
+        //     if (a.matchData[0].length > b.matchData[0].length) return -1;
+        //     else return 1;
+        // });
+
+        setTabItems([tmpTabItems[5], tmpTabItemsEvent[5]]);
+    }, [matches, betStatus, events]);
 
     return (
         <section className="dashboard-content section1-rt">
@@ -143,6 +133,15 @@ const Leagues = () => {
                     >
                         <i className="fas fa-plus"></i>
                         {' '} Add a new match
+                    </button>
+                    <button
+                        type="button"
+                        className="cmn-btn reg connect-bn-rt mb-2"
+                        onClick={() => history.push('/addmatch2')}
+                        style={{width: 'fit-content', marginLeft: '5px'}}
+                    >
+                        <i className="fas fa-plus"></i>
+                        {' '} Add a new event
                     </button>
                     {/* <button
                         type="button"
@@ -178,6 +177,7 @@ const Leagues = () => {
                             active={index === 0}
                             title={ele.contentTitle}
                             matchData={ele.matchData}
+                            matchType={ele.type}
                         />
                     ))}
                 </div>
