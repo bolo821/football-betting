@@ -104,7 +104,7 @@ const MatchTable = props => {
                                                 </button>
                                             </td>
                                             <td>
-                                                { matchType === 'match' ?
+                                                { matchType === 'match' || (ele.draw && ele.draw !== '') ?
                                                     <button
                                                         type="button"
                                                         className="cmn-btn reg set-bn-rt"

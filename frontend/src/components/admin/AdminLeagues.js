@@ -102,6 +102,7 @@ const Leagues = () => {
                 id: matchId,
                 team1: generals[i].team1Name,
                 team2: generals[i].team2Name,
+                draw: generals[i].drawName,
             };
 
             let statusKey = status === 0 ? 'live': status === 1 ? 'inplay' : 'completed';
@@ -169,14 +170,14 @@ const Leagues = () => {
                         <i className="fas fa-plus"></i>
                         {' '} Add a new event
                     </button>
-                    <button
+                    {/* <button
                         type="button"
                         className="cmn-btn reg connect-bn-rt mb-2"
                         onClick={() => SOCKET.emit('REFRESH')}
                         style={{width: 'fit-content', marginLeft: '5px'}}
                     >
                         Force Refresh
-                    </button>
+                    </button> */}
                 </div>
                 <div className="container">
                     <div className="row">
