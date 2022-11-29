@@ -51,7 +51,7 @@ const Home = () => {
                             <div className="col-12">
                                 <div className="dashboard-heading-rt dashboard-heading p-5 w-100 mb-5">
                                     <h3 style={{color: 'white', textAlign: 'center', marginBottom: '10px'}}>
-                                        The website is in maintanence mode. 
+                                        The website is in maintenance mode. 
                                         <br />
                                         We are updating the bet smart contract to reduce the tax fee and update the functionalities.
                                     </h3>
