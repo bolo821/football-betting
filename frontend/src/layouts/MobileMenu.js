@@ -33,7 +33,7 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
                             Home
                         </Typography>
                     </ListItem>
-                    <ListItem className="d-flex justify-content-center" >
+                    {/* <ListItem className="d-flex justify-content-center" >
                         <Typography
                             onClick={() => {history.push('/trade'); setIsOpen(false)}}
                             fontSize="20px"
@@ -98,7 +98,7 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
                                 Admin
                             </Typography>
                         </ListItem>
-                    }
+                    } */}
                 </List>
             </Stack>
         </Dialog>
