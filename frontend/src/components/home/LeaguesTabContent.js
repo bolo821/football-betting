@@ -9,11 +9,11 @@ const LeaguesTabContent = props => {
 
     useEffect(() => {
         let tmpLive = matchData[0].sort((a, b) => {
-            if (a.time < b.time) return -1;
+            if (a.id < b.id) return -1;
             else return 1;
         })
         let tmpComp = matchData[2].sort((a, b) => {
-            if (a.time > b.time) return -1;
+            if (a.id > b.id) return -1;
             else return 1;
         });
 
