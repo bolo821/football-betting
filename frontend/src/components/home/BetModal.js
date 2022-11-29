@@ -6,7 +6,7 @@ Modal.setAppElement('#root');
 const BetModal = ({ betAmount, setBetAmount, isOpen, setIsOpen, doBet, token }) => {
     useEffect(() => {
         if (!isOpen) {
-            setBetAmount(0);
+            setBetAmount('');
         }
     }, [isOpen]);
 
@@ -34,7 +34,13 @@ const BetModal = ({ betAmount, setBetAmount, isOpen, setIsOpen, doBet, token }) 
                     
                 </p>
                 <div className="input-area">
-                    <input type="number" placeholder="Input your bet amount" value={betAmount} onChange={e => setBetAmount(e.target.value)} />
+                    <input
+                        placeholder="Input your bet amount"
+                        type="number"
+                        value={betAmount}
+                        onChange={e => {setBetAmount(e.target.value)}}
+                        onKeyDown={e => {setBetAmount(e.target.value)}}
+                    />
                 </div>
                 <div className="bottom-item">
                     <button className="cmn-btn lastTeam" onClick={doBet} >Bet</button>

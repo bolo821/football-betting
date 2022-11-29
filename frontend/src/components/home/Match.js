@@ -46,9 +46,9 @@ const Match = props => {
     const openBetModal = (matchId, _choice, _token, _multiplier) => {
         setCurrentMatch(matchId);
         setChoice(_choice);
-        setModalOpen(true);
         setMultiplier(_multiplier);
         token = _token;
+        setModalOpen(true);
     }
 
     const doBet = () => {
@@ -217,7 +217,8 @@ const Match = props => {
                     setIsOpen={setModalOpen}
                     betAmount={betAmount}
                     setBetAmount={setBetAmount}
-                    doBet={doBet} token={token}
+                    doBet={doBet}
+                    token={token}
                 />
             </section>
         </>
