@@ -5,7 +5,7 @@ Modal.setAppElement('#root');
 
 var timer = null;
 
-const StatusModal = ({ isOpen, setIsOpen, setMatchStatus, setMatchStatus2, matchType }) => {
+const StatusModal = ({ isOpen, setIsOpen, setMatchStatus, matchType }) => {
     const selectRef = useRef(null);
     const [status, setStatus] = useState('0');
 
@@ -57,11 +57,7 @@ const StatusModal = ({ isOpen, setIsOpen, setMatchStatus, setMatchStatus2, match
                     <option value="2">Claiming</option>
                 </select>
                 <div className="bottom-item mt-5">
-                    { matchType === 'match' ?
-                        <button className="cmn-btn lastTeam" onClick={() => setMatchStatus(status)}>Set Status</button> :
-                        <button className="cmn-btn lastTeam" onClick={() => setMatchStatus2(status)}>Set Status</button>
-                    }
-                    
+                    <button className="cmn-btn lastTeam" onClick={() => setMatchStatus(status)}>Set Status</button>
                 </div>
             </div>
         </Modal>

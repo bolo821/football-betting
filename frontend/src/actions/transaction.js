@@ -304,7 +304,7 @@ export const setBetResult = (account, data, callback) => async dispatch => {
     dispatch(setLoading({ loading: true, loadingText: 'Setting match result...' }));
 
     try {
-        const { matchId, result, team1Score, team2Score, isMainMatch } = data;
+        const { matchId, result, team1Score, team2Score, matchType } = data;
 
         const gasLimit = await routerContractSigned.methods.setBetResult(matchId, result).estimateGas({ from: account });
         const res = await routerContractSigned.methods.setBetResult(matchId, result)
@@ -316,10 +316,11 @@ export const setBetResult = (account, data, callback) => async dispatch => {
         });
     
         if (res) {
-            if (isMainMatch)
+            if (matchType === 'match')
                 await api.put(`/match/${matchId}`, { team1Score, team2Score, matchStatus: 2 });
-            else
-                await api.put(`/event/${matchId}`, { matchStatus: 2 });
+            else 
+                await api.put(`/${matchType}/${matchId}`, { matchStatus: 2 });
+
             toast.success('Successfully set the bet result.');
             SOCKET.emit('BET');
         }

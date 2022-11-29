@@ -8,3 +8,4 @@ export * from './collateral';
 export * from './referral';
 export * from './leaderboard';
 export * from './event';
+export * from './general';

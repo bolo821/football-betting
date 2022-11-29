@@ -4,7 +4,8 @@ import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
 import BetModal from './BetModal';
 import MatchCard from './MatchCard';
-import MatchCard2 from './MatchCard2';
+import MatchCardEvent from './MatchCardEvent';
+import MatchCardGeneral from './MatchCardGeneral';
 
 import { getRoundedNumber } from '../../utils/helper';
 import { bet, claim, approveWci } from '../../actions';
@@ -123,7 +124,8 @@ const Match = props => {
                                             wciAllowed={allowed}
                                             approveWci={() => dispatch(approveWci(account))}
                                         /> :
-                                        <MatchCard2
+                                     type === 'event' ?
+                                        <MatchCardEvent
                                             type={ele.matchStatus === 0 ? 'betting' : ele.matchStatus === 1 ? 'reviewing' : 'claiming'}
                                             days={ele.days}
                                             hours={ele.hours}
@@ -145,12 +147,36 @@ const Match = props => {
                                             team1WinWci={getRoundedNumber(earningsWci[ele.id]?.win)}
                                             team1Multi={betAmounts[ele.id]?.win === '0' || earnings[ele.id]?.win === '0' ? multipliers[ele.id]?.win : getRoundedNumber(earnings[ele.id]?.win/betAmounts[ele.id]?.win)}
                                             team1MultiWci={multipliersWci[ele.id]?.win}
-                                            drawBet={getRoundedNumber(betAmounts[ele.id]?.draw)}
-                                            drawBetWci={getRoundedNumber(betAmountsWci[ele.id]?.draw)}
-                                            drawWin={(getRoundedNumber(earnings[ele.id]?.draw))}
-                                            drawWinWci={(getRoundedNumber(earningsWci[ele.id]?.draw))}
-                                            drawMulti={betAmounts[ele.id]?.draw === '0' || earnings[ele.id]?.draw === '0' ? multipliers[ele.id]?.draw : getRoundedNumber(earnings[ele.id]?.draw/betAmounts[ele.id]?.draw)}
-                                            drawMultiWci={multipliersWci[ele.id]?.draw}
+                                            team2Bet={getRoundedNumber(betAmounts[ele.id]?.lose)}
+                                            team2BetWci={getRoundedNumber(betAmountsWci[ele.id]?.lose)}
+                                            team2Win={(getRoundedNumber(earnings[ele.id]?.lose))}
+                                            team2WinWci={(getRoundedNumber(earningsWci[ele.id]?.lose))}
+                                            team2Multi={betAmounts[ele.id]?.lose === '0' || earnings[ele.id]?.lose === '0' ? multipliers[ele.id]?.lose : getRoundedNumber(earnings[ele.id]?.lose/betAmounts[ele.id]?.lose)}
+                                            team2MultiWci={multipliersWci[ele.id]?.lose}
+                                            betResult={betResult[ele.id]}
+                                            onBet={openBetModal}
+                                            onClaim={handleClaim}
+                                            wciAllowed={allowed}
+                                            approveWci={() => dispatch(approveWci(account))}
+                                        /> :
+                                        <MatchCardGeneral
+                                            type={ele.matchStatus === 0 ? 'betting' : ele.matchStatus === 1 ? 'reviewing' : 'claiming'}
+                                            matchId={ele.id}
+                                            betContent={ele.betContent}
+                                            totalBet={getRoundedNumber(ele.totalBet)}
+                                            totalBetWci={parseInt(ele.totalBetWci)}
+                                            team1Logo={ele.team1Logo}
+                                            team2Logo={ele.team2Logo}
+                                            team1Abbr={ele.team1}
+                                            team2Abbr={ele.team2}
+                                            team1Score={ele.team1Score}
+                                            team2Score={ele.team2Score}
+                                            team1Bet={getRoundedNumber(betAmounts[ele.id]?.win)}
+                                            team1BetWci={getRoundedNumber(betAmountsWci[ele.id]?.win)}
+                                            team1Win={getRoundedNumber(earnings[ele.id]?.win)}
+                                            team1WinWci={getRoundedNumber(earningsWci[ele.id]?.win)}
+                                            team1Multi={betAmounts[ele.id]?.win === '0' || earnings[ele.id]?.win === '0' ? multipliers[ele.id]?.win : getRoundedNumber(earnings[ele.id]?.win/betAmounts[ele.id]?.win)}
+                                            team1MultiWci={multipliersWci[ele.id]?.win}
                                             team2Bet={getRoundedNumber(betAmounts[ele.id]?.lose)}
                                             team2BetWci={getRoundedNumber(betAmountsWci[ele.id]?.lose)}
                                             team2Win={(getRoundedNumber(earnings[ele.id]?.lose))}

@@ -1,5 +1,6 @@
 const Match = require('mongoose').model('Match');
 const Event = require('mongoose').model('Event');
+const General = require('mongoose').model('General');
 const Web3 = require('web3');
 const config = require('./config');
 const web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrl));
@@ -20,6 +21,7 @@ module.exports = (server, options) => {
 			let resWci = await routerContract.methods.getBetSingleInformation(config.adminWalletAddress, 1).call();
 			let matches = await Match.find({});
 			let events = await Event.find({});
+			let generals = await General.find({});
 			let matchCount = resEth.length / 4;
 			let totalBet = [];
 			let totalBetWci = [];
@@ -48,6 +50,17 @@ module.exports = (server, options) => {
 						}
 						if (events[j].totalBetWci !== totalBetWci[i]) {
 							await Event.findOneAndUpdate({ matchId: events[j].matchId }, { totalBetWci: totalBetWci[i] });
+						}
+					}
+				}
+
+				for (let j=0; j<generals.length; j++) {
+					if (generals[j].matchId === i) {
+						if (generals[j].totalBet !== totalBet[i]) {
+							await General.findOneAndUpdate({ matchId: generals[j].matchId }, { totalBet: totalBet[i] });
+						}
+						if (generals[j].totalBetWci !== totalBetWci[i]) {
+							await General.findOneAndUpdate({ matchId: generals[j].matchId }, { totalBetWci: totalBetWci[i] });
 						}
 					}
 				}

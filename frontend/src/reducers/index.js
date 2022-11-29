@@ -8,6 +8,7 @@ import wci from './wci';
 import collateral from './collateral';
 import referral from './referral';
 import leaderboard from './leaderboard';
+import general from './general';
 
 export default combineReducers({
     user,
@@ -19,4 +20,5 @@ export default combineReducers({
     collateral,
     referral,
     leaderboard,
+    general,
 });

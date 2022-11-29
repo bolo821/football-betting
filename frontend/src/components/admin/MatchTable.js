@@ -26,13 +26,7 @@ const MatchTable = props => {
     const [team2Score, setTeam2Score] = useState(0);
 
     const setMatchStatus = status => {
-        dispatch(setBetStatus(account, matchId, status, 'match', () => {
-            setShowStatusModal(false);
-        }));
-    }
-
-    const setMatchStatus2 = status => {
-        dispatch(setBetStatus(account, matchId, status, 'event', () => {
+        dispatch(setBetStatus(account, matchId, status, matchType, () => {
             setShowStatusModal(false);
         }));
     }
@@ -40,10 +34,10 @@ const MatchTable = props => {
     const setMatchResult = result => {
         dispatch(setBetResult(account, {
             matchId,
-            result: result,
+            result,
             team1Score,
             team2Score,
-            isMainMatch: true,
+            matchType,
         }, () => {
             setShowResultModal(false);
             setTeam1Score(0);
@@ -54,8 +48,8 @@ const MatchTable = props => {
     const setMatchResult2 = result => {
         dispatch(setBetResult(account, {
             matchId,
-            result: result,
-            isMainMatch: false,
+            result,
+            matchType,
         }, () => {
             setShowResultModal2(false);
         }));
@@ -71,7 +65,9 @@ const MatchTable = props => {
                                 <thead>
                                     <tr>
                                         <th scope="col">Match</th>
-                                        <th scope="col">Time</th>
+                                        { matchType !== 'general' &&
+                                            <th scope="col">Time</th>
+                                        }
                                         <th scope="col">Status</th>
                                         { type === 'completed' &&
                                             <th scope="col">Result</th>
@@ -91,7 +87,9 @@ const MatchTable = props => {
                                                 <td>{ele.team1} / {ele.team2}</td> :
                                                 <td>{ele.betContent}</td>
                                             }
-                                            <td>{getDateTimeString(ele.time)}</td>
+                                            { matchType !== 'general' &&
+                                                <td>{getDateTimeString(ele.time)}</td>
+                                            }
                                             <td>{betStatus[ele.id] === 0 ? 'Betting' : betStatus[ele.id] === 1 ? 'In Play' : 'Claiming'}</td>
                                             { type === 'completed' &&
                                                 <td>{betResult[ele.id] === 0 ? `${ele.team1} won` : betResult[ele.id] === 1 ? 'Drew' : `${ele.team2} won`}</td>
@@ -143,7 +141,6 @@ const MatchTable = props => {
                 isOpen={showStatusModal}
                 setIsOpen={setShowStatusModal}
                 setMatchStatus={setMatchStatus}
-                setMatchStatus2={setMatchStatus2}
                 matchType={matchType}
             />
             <ResultModal

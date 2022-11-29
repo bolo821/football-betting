@@ -11,23 +11,23 @@ import {
     MatchScore,
     MatchScoreLogo,
     MatchScoreMark,
-    BetCardContainer,
     BetCard,
     MatchCardClaimButton,
+    BetContent,
+    BetCardContainer2,
 } from './MatchCardElements';
 import { useWeb3React } from '@web3-react/core';
 
-const MatchCard = props => {
+const MatchCardEvent = props => {
     const {
         type, // one of betting, reviewing, claiming and upcoming.
         matchId,
         days, hours, minutes, seconds,
-        team1Logo, team2Logo, team1Abbr, team2Abbr,
+        team1Logo, team2Logo, team1Abbr, team2Abbr, betContent,
         team1Score, team2Score,
         totalBet, totalBetWci,
         team1Bet, team1Win, team1Multi, team1BetWci, team1WinWci, team1MultiWci,
         team2Bet, team2Win, team2Multi, team2BetWci, team2WinWci, team2MultiWci,
-        drawBet, drawWin, drawMulti, drawBetWci, drawWinWci, drawMultiWci,
         onBet, onClaim,
         betResult,
         wciAllowed, approveWci,
@@ -114,14 +114,17 @@ const MatchCard = props => {
                         <p>{team2Abbr}</p>
                     </MatchScoreLogo>
                 </MatchScore>
+                <BetContent>
+                    {betContent}
+                </BetContent>
                 { account ? type === 'betting' ?
-                    <BetCardContainer>
+                    <BetCardContainer2>
                         <div>
                             <BetCard>
                                 { token === 'ETH' ?
                                     <>
                                         <button onClick={() => onBet(matchId, 0, token, multiplier)} disabled={checkBetStarted() ? true : false}>
-                                            <span>{team1Abbr}</span>
+                                            <span>YES</span>
                                             <span className="score">x{team1Multi}</span>
                                         </button>    
                                         <div>
@@ -136,7 +139,7 @@ const MatchCard = props => {
                                     <>
                                         { wciAllowed ?
                                             <button onClick={() => onBet(matchId, 0, token, 1)} disabled={checkBetStarted() ? true : false}>
-                                                <span>{team1Abbr}</span>
+                                                <span>YES</span>
                                                 <span className="score">x{team1MultiWci}</span>
                                             </button> :
                                             <button onClick={approveWci}>
@@ -160,48 +163,8 @@ const MatchCard = props => {
                             <BetCard>
                                 { token === 'ETH' ?
                                     <>
-                                        <button onClick={() => onBet(matchId, 1, token, multiplier)} disabled={checkBetStarted() ? true : false}>
-                                            <span>Draw</span>
-                                            <span className="score">x{drawMulti}</span>
-                                        </button>   
-                                        <div>
-                                            <span>Bet:</span>
-                                            <span className="score">{drawBet}</span>
-                                        </div>
-                                        <div>
-                                            <span>Win:</span>
-                                            <span className="score">{drawWin}</span>
-                                        </div>
-                                    </> :
-                                    <>
-                                        { wciAllowed ?
-                                            <button onClick={() => onBet(matchId, 1, token, 1)} disabled={checkBetStarted() ? true : false}>
-                                                <span>Draw</span>
-                                                <span className="score">x{drawMultiWci}</span>
-                                            </button> :
-                                            <button onClick={approveWci}>
-                                                <span className="w-100 text-center">Approve</span>
-                                            </button>
-                                        }
-                                    
-                                        <div>
-                                            <span>Bet:</span>
-                                            <span className="score">{drawBetWci}</span>
-                                        </div>
-                                        <div>
-                                            <span>Win:</span>
-                                            <span className="score">{drawWinWci}</span>
-                                        </div>                      
-                                    </>
-                                }
-                            </BetCard>
-                        </div>
-                        <div>
-                            <BetCard>
-                                { token === 'ETH' ?
-                                    <>
                                         <button onClick={() => onBet(matchId, 2, token, multiplier)} disabled={checkBetStarted() ? true : false}>
-                                            <span>{team2Abbr}</span>
+                                            <span>NO</span>
                                             <span className="score">x{team2Multi}</span>
                                         </button>
                                         <div>
@@ -216,7 +179,7 @@ const MatchCard = props => {
                                     <>
                                         { wciAllowed ?
                                             <button onClick={() => onBet(matchId, 2, token, 1)} disabled={checkBetStarted() ? true : false}>
-                                                <span>{team2Abbr}</span>
+                                                <span>NO</span>
                                                 <span className="score">x{team2MultiWci}</span>
                                             </button> :
                                             <button onClick={approveWci}>
@@ -235,14 +198,14 @@ const MatchCard = props => {
                                 }
                             </BetCard>
                         </div>
-                    </BetCardContainer> :
-                    <BetCardContainer>
+                    </BetCardContainer2> :
+                    <BetCardContainer2>
                         <div>
                             <BetCard className={type === 'claiming' && betResult === 0 ? 'success-rt' : type === 'claiming' && betResult !== 0 ? 'fail-rt' : ''}>
                                 { token === 'ETH' ?
                                     <>
                                         <div className="multi-div-rt">
-                                            <span>{team1Abbr}</span>
+                                            <span>YES</span>
                                             <span className="score">x{team1Multi}</span>
                                         </div>
                                         <div>
@@ -256,7 +219,7 @@ const MatchCard = props => {
                                     </> :
                                     <>
                                         <div className="multi-div-rt">
-                                            <span>{team1Abbr}</span>
+                                            <span>YES</span>
                                             <span className="score">x{team1MultiWci}</span>
                                         </div>
                                         <div>
@@ -272,45 +235,11 @@ const MatchCard = props => {
                             </BetCard>
                         </div>
                         <div>
-                            <BetCard className={type === 'claiming' && betResult === 1 ? 'success-rt' : type === 'claiming' && betResult !== 1 ? 'fail-rt' : ''}>
-                                { token === 'ETH' ?
-                                    <>
-                                        <div className="multi-div-rt">
-                                            <span>Draw</span>
-                                            <span className="score">x{drawMulti}</span>
-                                        </div>
-                                        <div>
-                                            <span>Bet:</span>
-                                            <span className="score">{drawBet}</span>
-                                        </div>
-                                        <div className="win-amount-rt">
-                                            <span>Win:</span>
-                                            <span className="score">{drawWin}</span>
-                                        </div>
-                                    </> :
-                                    <>
-                                        <div className="multi-div-rt">
-                                            <span>Draw</span>
-                                            <span className="score">x{drawMultiWci}</span>
-                                        </div>
-                                        <div>
-                                            <span>Bet:</span>
-                                            <span className="score">{drawBetWci}</span>
-                                        </div>
-                                        <div className="win-amount-rt">
-                                            <span>Win:</span>
-                                            <span className="score">{drawWinWci}</span>
-                                        </div>
-                                    </>
-                                }
-                            </BetCard>
-                        </div>
-                        <div>
                             <BetCard className={type === 'claiming' && betResult === 2 ? 'success-rt' : type === 'claiming' && betResult !== 2 ? 'fail-rt' : ''}>
                                 { token === 'ETH' ?
                                     <>
                                         <div className="multi-div-rt">
-                                            <span>{team2Abbr}</span>
+                                            <span>NO</span>
                                             <span className="score">x{team2Multi}</span>
                                         </div>
                                         <div>
@@ -324,7 +253,7 @@ const MatchCard = props => {
                                     </> :
                                     <>
                                         <div className="multi-div-rt">
-                                            <span>{team2Abbr}</span>
+                                            <span>NO</span>
                                             <span className="score">x{team2MultiWci}</span>
                                         </div>
                                         <div>
@@ -339,7 +268,7 @@ const MatchCard = props => {
                                 }
                             </BetCard>
                         </div>
-                    </BetCardContainer> :
+                    </BetCardContainer2> :
                     <></>
                 }
             </MatchCardBody>
@@ -347,4 +276,4 @@ const MatchCard = props => {
     )
 }
 
-export default MatchCard;
+export default MatchCardEvent;

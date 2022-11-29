@@ -1,5 +1,13 @@
 import { SET_LOADING } from "./type";
-import { getTripleInformation, getSingleInformation, getBetStatsData, getMatch, getEvent, getLeaderboard } from "./";
+import {
+    getTripleInformation,
+    getSingleInformation,
+    getBetStatsData,
+    getMatch,
+    getEvent,
+    getGeneral,
+    getLeaderboard
+} from "./";
 import { SOCKET } from "../config/apis";
 
 export const setLoading = data => {
@@ -15,6 +23,7 @@ export const onBet = () => (dispatch, getState) => {
     SOCKET.on('BET', () => {
         dispatch(getMatch());
         dispatch(getEvent());
+        dispatch(getGeneral());
         dispatch(getLeaderboard());
         
         let account = getState().user.wallet;
@@ -57,6 +66,7 @@ export const onMatchScoreUpdatd = () => dispatch => {
     SOCKET.on("UPDATE_SCORE", () => {
         dispatch(getMatch());
         dispatch(getEvent());
+        dispatch(getGeneral());
     });
 }
 

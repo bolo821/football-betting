@@ -4,14 +4,11 @@ import {
     MatchCardHeader,
     TokenSelect,
     MultiplierSelect,
-    NumberCardContainer,
-    NumberCard,
     MatchCardBody,
     MatchCardBodyHeader,
     MatchScore,
     MatchScoreLogo,
     MatchScoreMark,
-    BetCardContainer,
     BetCard,
     MatchCardClaimButton,
     BetContent,
@@ -19,37 +16,30 @@ import {
 } from './MatchCardElements';
 import { useWeb3React } from '@web3-react/core';
 
-const MatchCard2 = props => {
+const MatchCardGeneral = props => {
     const {
         type, // one of betting, reviewing, claiming and upcoming.
         matchId,
-        days, hours, minutes, seconds,
         team1Logo, team2Logo, team1Abbr, team2Abbr, betContent,
         team1Score, team2Score,
         totalBet, totalBetWci,
         team1Bet, team1Win, team1Multi, team1BetWci, team1WinWci, team1MultiWci,
         team2Bet, team2Win, team2Multi, team2BetWci, team2WinWci, team2MultiWci,
-        drawBet, drawWin, drawMulti, drawBetWci, drawWinWci, drawMultiWci,
         onBet, onClaim,
         betResult,
         wciAllowed, approveWci,
     } = props;
     const { account } = useWeb3React();
-    const [token, setToken] = useState('ETH');
+    const [token, setToken] = useState('WCI');
     const [multiplier, setMultiplier] = useState(1);
-
-    const checkBetStarted = () => {
-        if (parseInt(days) === 0 && parseInt(hours) === 0 && parseInt(minutes) < 1) return true;
-        return false;
-    }
 
     return (
         <MatchCardContainer>
             <MatchCardHeader>
                 <div className="d-flex">
                     <TokenSelect onChange={e => setToken(e.target.value)}>
-                        <option value="ETH">ETH</option>
                         <option value="WCI">WCI</option>
+                        <option value="ETH">ETH</option>
                     </TokenSelect>
                     { token === 'ETH' &&
                         <MultiplierSelect onChange={e => setMultiplier(e.target.value)}>
@@ -59,34 +49,6 @@ const MatchCard2 = props => {
                         </MultiplierSelect>
                     }
                 </div>
-                { type === 'betting' &&
-                    <NumberCardContainer>
-                        <NumberCard>
-                            <div>
-                                <span>{days}</span>
-                            </div>
-                            <span>DAYS</span>
-                        </NumberCard>
-                        <NumberCard>
-                            <div>
-                                <span>{hours}</span>
-                            </div>
-                            <span>HRS</span>
-                        </NumberCard>
-                        <NumberCard>
-                            <div>
-                                <span>{minutes}</span>
-                            </div>
-                            <span>MINS</span>
-                        </NumberCard>
-                        <NumberCard>
-                            <div>
-                                <span>{seconds}</span>
-                            </div>
-                            <span>SECS</span>
-                        </NumberCard>
-                    </NumberCardContainer>
-                }
             </MatchCardHeader>
             <MatchCardBody>
                 { type === 'betting' || type === 'reviewing' ?
@@ -125,7 +87,7 @@ const MatchCard2 = props => {
                             <BetCard>
                                 { token === 'ETH' ?
                                     <>
-                                        <button onClick={() => onBet(matchId, 0, token, multiplier)} disabled={checkBetStarted() ? true : false}>
+                                        <button onClick={() => onBet(matchId, 0, token, multiplier)}>
                                             <span>YES</span>
                                             <span className="score">x{team1Multi}</span>
                                         </button>    
@@ -140,7 +102,7 @@ const MatchCard2 = props => {
                                     </> :
                                     <>
                                         { wciAllowed ?
-                                            <button onClick={() => onBet(matchId, 0, token, 1)} disabled={checkBetStarted() ? true : false}>
+                                            <button onClick={() => onBet(matchId, 0, token, 1)}>
                                                 <span>YES</span>
                                                 <span className="score">x{team1MultiWci}</span>
                                             </button> :
@@ -165,7 +127,7 @@ const MatchCard2 = props => {
                             <BetCard>
                                 { token === 'ETH' ?
                                     <>
-                                        <button onClick={() => onBet(matchId, 2, token, multiplier)} disabled={checkBetStarted() ? true : false}>
+                                        <button onClick={() => onBet(matchId, 2, token, multiplier)}>
                                             <span>NO</span>
                                             <span className="score">x{team2Multi}</span>
                                         </button>
@@ -180,7 +142,7 @@ const MatchCard2 = props => {
                                     </> :
                                     <>
                                         { wciAllowed ?
-                                            <button onClick={() => onBet(matchId, 2, token, 1)} disabled={checkBetStarted() ? true : false}>
+                                            <button onClick={() => onBet(matchId, 2, token, 1)}>
                                                 <span>NO</span>
                                                 <span className="score">x{team2MultiWci}</span>
                                             </button> :
@@ -278,4 +240,4 @@ const MatchCard2 = props => {
     )
 }
 
-export default MatchCard2;
+export default MatchCardGeneral;
