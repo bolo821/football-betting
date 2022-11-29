@@ -29,7 +29,7 @@ const GeneralSchema = new mongoose.Schema({
   },
   team1Logo: {
     type: String,
-    required: true,
+    default: '',
   },
   team2Name: {
     type: String,
@@ -37,8 +37,12 @@ const GeneralSchema = new mongoose.Schema({
   },
   team2Logo: {
     type: String,
-    required: true,
+    default: '',
   },
+  drawName: {
+    type: String,
+    default: '',
+  }
 });
 
 autoIncrement.initialize(mongoose.connection);

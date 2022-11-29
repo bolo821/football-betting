@@ -191,6 +191,7 @@ const Leagues = () => {
                 id: matchId,
                 team1: generals[i].team1Name,
                 team2: generals[i].team2Name,
+                draw: generals[i].drawName,
             };
 
             let statusKey = status === 0 ? 'live': status === 1 ? 'inplay' : 'completed';

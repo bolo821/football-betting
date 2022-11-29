@@ -74,6 +74,9 @@ export const NumberCard = styled.div`
 
 export const MatchCardBody = styled.div`
     padding: 20px;
+    height: calc(100% - 70px);
+    display: flex;
+    flex-direction: column;
 `;
 
 export const MatchCardBodyHeader = styled.div`
@@ -244,6 +247,14 @@ export const BetCard = styled.div`
 export const BetContent = styled.p`
     text-align: center;
     margin: -20px 0 30px;
+    font-size: 24px;
+    color: #41cd7d;
+    line-height: 1.2;
+`;
+
+export const BetContent2 = styled.p`
+    text-align: center;
+    margin: 30px 0 auto;
     font-size: 24px;
     color: #41cd7d;
     line-height: 1.2;
