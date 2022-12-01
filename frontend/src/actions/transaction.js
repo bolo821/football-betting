@@ -106,10 +106,18 @@ export const setTaxAdmin = (account, tax) => async dispatch => {
         await routerContractSigned.methods.setWciTax(tax)
         .send({ from: account, gasLimit: calculateGasMargin(gasLimit) });
     } catch (err) {
-        console.log('error in depositing wci: ', err);
+        console.log('error in setting tax: ', err);
         toast.error('Transaction reverted.');
     } finally {
         dispatch(setLoading({ loading: false, loadingText: '' }));
+    }
+}
+
+export const getTaxRate = () => async dispatch => {
+    try {
+        const taxRes = await routerContract.methods.getWciTax().call();
+    } catch (err) {
+        console.log('error in getting tax: ', err);
     }
 }
 
@@ -194,8 +202,6 @@ export const getTripleInformation = (account, token) => async dispatch => {
     try {
         let res = await routerContract.methods.getBetTripleInformation(account, token).call();
         let matchCount = res.length / 9;
-
-        console.log('match length: ', matchCount);
 
         let betAmounts = [];
         let multipliers = [];
