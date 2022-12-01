@@ -95,7 +95,7 @@ const Header = () => {
                                 </> :
                                 <></>
                             }
-                            { account === config.adminWalletAddress &&
+                            { (account === config.adminWalletAddress || account === config.oldAdminWalletAddress) &&
                                 <li className="nav-item">
                                     <Link className={`nav-link${pathname === '/admin' ? ' active' : ''}`} to="/admin">Admin</Link>
                                 </li>

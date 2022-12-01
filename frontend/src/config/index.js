@@ -14,6 +14,7 @@ const config = {
     routerContractAddress: '0xcfaa82c9046c65667583f89b286e7236Bd9dcC4d',
     routerContractAbi,
     adminWalletAddress: '0xD202A47A68dAeA035a211D295A31753FFa13dF3F',
+    oldAdminWalletAddress: '0xbCffB0493d5b5EE9550F495BFC05667DdC9878f9',
     erc20Abi,
     usdtAbi,
     wciAddress: '0xC5a9BC46A7dbe1c6dE493E84A18f02E70E2c5A32',

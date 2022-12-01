@@ -88,7 +88,7 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
                         </> :
                         <></>
                     }
-                    { account === config.adminWalletAddress &&
+                    { (account === config.adminWalletAddress || account === config.oldAdminWalletAddress) &&
                         <ListItem className="d-flex justify-content-center">
                             <Typography
                                 onClick={() => {history.push('/admin'); setIsOpen(false)}}

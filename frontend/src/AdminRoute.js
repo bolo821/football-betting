@@ -6,7 +6,7 @@ import config from './config';
 const AdminRoute = (props) => {
     const { account } = useWeb3React();
 
-    if (account === config.adminWalletAddress) {
+    if (account === config.adminWalletAddress || account === config.oldAdminWalletAddress) {
         return <Route {...props} />
     } else {
         return <Redirect to="/" />
