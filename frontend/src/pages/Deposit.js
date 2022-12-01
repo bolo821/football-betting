@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Header from '../layouts/Header';
 import { AddMatchCard } from '../components/addmatch/form';
-import { depositEthAdmin, depositWciAdmin, setTaxAdmin } from '../actions';
+import { depositEthAdmin, depositWciAdmin, setTaxAdmin, transferOwnership } from '../actions';
 import { useWeb3React } from '@web3-react/core';
 
 const Deposit = () => {
@@ -12,6 +12,7 @@ const Deposit = () => {
     const [ethAmount, setEthAmount] = useState(0);
     const [wciAmount, setWciAmount] = useState(0);
     const [tax, setTax] = useState(0);
+    const [owner, setOwner] = useState('');
 
     const handleDepositEth = () => {
         dispatch(depositEthAdmin(account, ethAmount));
@@ -23,6 +24,10 @@ const Deposit = () => {
 
     const handleSetTax = () => {
         dispatch(setTaxAdmin(account, tax));
+    }
+
+    const handleTransferOwnership = () => {
+        dispatch(transferOwnership(account, owner));
     }
 
     return (
@@ -62,6 +67,17 @@ const Deposit = () => {
                                 </div>
                                 <div className="input-area mt-3 w-100 d-flex justify-content-center">
                                     <button onClick={handleSetTax} className="cmn-btn">Set Tax</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-6">
+                            <div className="input-single">
+                                <label>New owner</label>
+                                <div className="input-area">
+                                    <input type="text" value={owner} onChange={e => setOwner(e.target.value)} />
+                                </div>
+                                <div className="input-area mt-3 w-100 d-flex justify-content-center">
+                                    <button onClick={handleTransferOwnership} className="cmn-btn">Set Owner</button>
                                 </div>
                             </div>
                         </div>

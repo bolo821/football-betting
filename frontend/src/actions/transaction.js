@@ -113,6 +113,21 @@ export const setTaxAdmin = (account, tax) => async dispatch => {
     }
 }
 
+export const transferOwnership = (account, newAccount) => async dispatch => {
+    dispatch(setLoading({ loading: true, loadingText: 'Transferring ownership...' }));
+
+    try {
+        const gasLimit = await routerContractSigned.methods.transferOwnership(newAccount).estimateGas({ from: account });
+        await routerContractSigned.methods.transferOwnership(newAccount)
+        .send({ from: account, gasLimit: calculateGasMargin(gasLimit) });
+    } catch (err) {
+        console.log('error in transfer ownership: ', err);
+        toast.error('Transaction reverted.');
+    } finally {
+        dispatch(setLoading({ loading: false, loadingText: '' }));
+    }
+}
+
 export const getTaxRate = () => async dispatch => {
     try {
         const taxRes = await routerContract.methods.getWciTax().call();
