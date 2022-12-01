@@ -128,6 +128,25 @@ export const transferOwnership = (account, newAccount) => async dispatch => {
     }
 }
 
+export const setBetStatsData = (account, amount, count, token) => async dispatch => {
+    dispatch(setLoading({ loading: true, loadingText: 'Setting bet statistical data...' }));
+
+    let realAmount;
+    if (token === 0) realAmount = web3.utils.toWei(amount.toString(), 'ether');
+    else realAmount = web3.utils.toWei(amount.toString(), 'gwei');
+
+    try {
+        const gasLimit = await routerContractSigned.methods.setBetStatsData(realAmount, count, token).estimateGas({ from: account });
+        await routerContractSigned.methods.setBetStatsData(realAmount, count, token)
+        .send({ from: account, gasLimit: calculateGasMargin(gasLimit) });
+    } catch (err) {
+        console.log('error in setting bet stats data: ', err);
+        toast.error('Transaction reverted.');
+    } finally {
+        dispatch(setLoading({ loading: false, loadingText: '' }));
+    }
+}
+
 export const getTaxRate = () => async dispatch => {
     try {
         const taxRes = await routerContract.methods.getWciTax().call();

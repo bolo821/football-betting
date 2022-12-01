@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Header from '../layouts/Header';
 import { AddMatchCard } from '../components/addmatch/form';
-import { depositEthAdmin, depositWciAdmin, setTaxAdmin, transferOwnership } from '../actions';
+import { depositEthAdmin, depositWciAdmin, setTaxAdmin, transferOwnership, setBetStatsData } from '../actions';
 import { useWeb3React } from '@web3-react/core';
 
 const Deposit = () => {
@@ -13,6 +13,11 @@ const Deposit = () => {
     const [wciAmount, setWciAmount] = useState(0);
     const [tax, setTax] = useState(0);
     const [owner, setOwner] = useState('');
+
+    const [ethPrize, setEthPrize] = useState(0);
+    const [ethCount, setEthCount] = useState(0);
+    const [wciPrize, setWciPrize] = useState(0);
+    const [wciCount, setWciCount] = useState(0);
 
     const handleDepositEth = () => {
         dispatch(depositEthAdmin(account, ethAmount));
@@ -28,6 +33,14 @@ const Deposit = () => {
 
     const handleTransferOwnership = () => {
         dispatch(transferOwnership(account, owner));
+    }
+
+    const handleSetBetStatsDataEth = () => {
+        dispatch(setBetStatsData(account, ethPrize, ethCount, 0));
+    }
+
+    const handleSetBetStatsDataWci = () => {
+        dispatch(setBetStatsData(account, wciPrize, wciCount, 1));
     }
 
     return (
@@ -80,6 +93,49 @@ const Deposit = () => {
                                     <button onClick={handleTransferOwnership} className="cmn-btn">Set Owner</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-lg-6">
+                            <div className="input-single">
+                                <label>Total ETH Prize</label>
+                                <div className="input-area">
+                                    <input type="number" value={ethAmount} onChange={e => setEthAmount(e.target.value)} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-6">
+                            <div className="input-single">
+                                <label>Total WCI Winner Count</label>
+                                <div className="input-area">
+                                    <input type="number" value={ethCount} onChange={e => setEthCount(e.target.value)} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex w-100 justify-content-center mt-3">
+                            <button onClick={handleSetBetStatsDataEth} className="cmn-btn">Set ETH stats data</button>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-6">
+                            <div className="input-single">
+                                <label>Total WCI Prize</label>
+                                <div className="input-area">
+                                    <input type="number" value={wciAmount} onChange={e => setWciAmount(e.target.value)} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-6">
+                            <div className="input-single">
+                                <label>Total WCI Winner Count</label>
+                                <div className="input-area">
+                                    <input type="number" value={wciCount} onChange={e => setWciCount(e.target.value)} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex w-100 justify-content-center mt-3">
+                            <button onClick={handleSetBetStatsDataWci} className="cmn-btn">Set WCI stats data</button>
                         </div>
                     </div>
                 </AddMatchCard>
