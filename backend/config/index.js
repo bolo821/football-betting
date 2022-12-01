@@ -9,7 +9,7 @@ module.exports = {
         symbol: "ETH",
         decimal: 18,
     },
-    routerContractAddress: '0xa36799739dB0Db84B500AfDD1695F6A670c244f0',
+    routerContractAddress: '0xcfaa82c9046c65667583f89b286e7236Bd9dcC4d',
     routerContractAbi,
     adminWalletAddress: '0xbCffB0493d5b5EE9550F495BFC05667DdC9878f9',
 }

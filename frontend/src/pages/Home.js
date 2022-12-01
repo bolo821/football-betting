@@ -43,28 +43,7 @@ const Home = () => {
         <>
             <Header />
             <Section1 />
-            {/* <Leagues /> */}
-            <section className="dashboard-content pt-2">
-                <div className="overlay">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-12">
-                                <div className="dashboard-heading-rt dashboard-heading p-5 w-100 mb-5">
-                                    <h3 style={{color: 'white', textAlign: 'center', marginBottom: '10px'}}>
-                                        The website is in maintenance mode. 
-                                        <br />
-                                        We are updating the bet smart contract to reduce the tax fee and update the functionalities.
-                                    </h3>
-                                    <p style={{color: 'white', textAlign: 'center'}}>
-                                        (Your earnings and bet histories will be stored safely. Thanks for your patience.)
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </section>
+            <Leagues />
             <Section4 />
         </>
     )

@@ -33,7 +33,7 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
                             Home
                         </Typography>
                     </ListItem>
-                    {/* <ListItem className="d-flex justify-content-center" >
+                    <ListItem className="d-flex justify-content-center" >
                         <Typography
                             onClick={() => {history.push('/trade'); setIsOpen(false)}}
                             fontSize="20px"
@@ -58,7 +58,7 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
                                     Dashboard
                                 </Typography>
                             </ListItem>
-                            <ListItem className="d-flex justify-content-center">
+                            {/* <ListItem className="d-flex justify-content-center">
                                 <Typography
                                     onClick={() => {history.push('/collaterals'); setIsOpen(false)}}
                                     fontSize="20px"
@@ -66,7 +66,7 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
                                 >
                                     Collaterals
                                 </Typography>
-                            </ListItem>
+                            </ListItem> */}
                             <ListItem className="d-flex justify-content-center">
                                 <Typography
                                     onClick={() => {history.push('/history'); setIsOpen(false)}}
@@ -98,7 +98,7 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
                                 Admin
                             </Typography>
                         </ListItem>
-                    } */}
+                    }
                 </List>
             </Stack>
         </Dialog>

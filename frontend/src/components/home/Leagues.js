@@ -75,11 +75,11 @@ const Leagues = () => {
             dispatch(getTripleInformation(account, 0));
             dispatch(getSingleInformation(account, 1));
             dispatch(getTripleInformation(account, 1));
-            dispatch(getCollaterals(account));
-            dispatch(getUSDTAllowance(account));
-            dispatch(getUSDCAllowance(account));
-            dispatch(getSHIBAllowance(account));
-            dispatch(getDOGEAllowance(account));
+            // dispatch(getCollaterals(account));
+            // dispatch(getUSDTAllowance(account));
+            // dispatch(getUSDCAllowance(account));
+            // dispatch(getSHIBAllowance(account));
+            // dispatch(getDOGEAllowance(account));
             dispatch(getReferralData(account));
         }
     }, [account]);

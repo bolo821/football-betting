@@ -31,7 +31,6 @@ const Match = props => {
     const [modalOpen, setModalOpen] = useState(false);
     const [currentMatch, setCurrentMatch] = useState(0);
     const [choice, setChoice] = useState(0);
-    const [multiplier, setMultiplier] = useState(1);
 
     const { account } = useWeb3React();
 
@@ -44,10 +43,9 @@ const Match = props => {
         setDisplayMatches(data.slice(0, displayCount));
     }, [data, displayCount]);
 
-    const openBetModal = (matchId, _choice, _token, _multiplier) => {
+    const openBetModal = (matchId, _choice, _token) => {
         setCurrentMatch(matchId);
         setChoice(_choice);
-        setMultiplier(_multiplier);
         token = _token;
         setModalOpen(true);
     }
@@ -62,7 +60,7 @@ const Match = props => {
             return;
         }
 
-        dispatch(bet(account, currentMatch, betAmount, multiplier, choice, token, () => {
+        dispatch(bet(account, currentMatch, betAmount, choice, token, () => {
             setBetAmount(0);
             setModalOpen(false);
         }));

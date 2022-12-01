@@ -70,7 +70,7 @@ const Header = () => {
                             <li className="nav-item">
                                 <Link className={`nav-link${pathname === '/' ? ' active' : ''}`} to="/">Home</Link>
                             </li>
-                            {/* <li className="nav-item">
+                            <li className="nav-item">
                                 <Link className={`nav-link${pathname === '/trade' ? ' active' : ''}`} to="/trade">Trade</Link>
                             </li>
                             <li className="nav-item">
@@ -83,9 +83,9 @@ const Header = () => {
                                     <li className="nav-item">
                                         <Link className={`nav-link${pathname === '/dashboard' ? ' active' : ''}`} to="/dashboard">Dashboard</Link>
                                     </li>
-                                    <li className="nav-item">
+                                    {/* <li className="nav-item">
                                         <Link className={`nav-link${pathname === '/collaterals' ? ' active' : ''}`} to="/collaterals">Collaterals</Link>
-                                    </li>
+                                    </li> */}
                                     <li className="nav-item">
                                         <Link className={`nav-link${pathname === '/history' ? ' active' : ''}`} to="/history">History</Link>
                                     </li>
@@ -99,9 +99,9 @@ const Header = () => {
                                 <li className="nav-item">
                                     <Link className={`nav-link${pathname === '/admin' ? ' active' : ''}`} to="/admin">Admin</Link>
                                 </li>
-                            } */}
+                            }
                         </NavbarItems>
-                        {/* <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center">
                             <button
                                 type="button"
                                 className="cmn-btn reg connect-bn-rt"
@@ -109,14 +109,14 @@ const Header = () => {
                             >
                                 {!account ? 'CONNECT' : getReducedAddressString(account)}
                             </button>
-                        </div> */}
+                        </div>
                         <Hamburger onClick={() => setOpenMobileMenu(true)}>
                             <i className="fas fa-bars"></i>
                         </Hamburger>
                     </div>
                 </nav>
             </div>
-            {/* <ConnectWalletModal isOpen={openModal} setIsOpen={setOpenModal} /> */}
+            <ConnectWalletModal isOpen={openModal} setIsOpen={setOpenModal} />
             <MobileMenu isOpen={openMobileMenu} setIsOpen={setOpenMobileMenu} path={pathname} />
         </header>
     )
