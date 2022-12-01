@@ -67,8 +67,6 @@ export const bet = (account, matchId, amount, choice, token, callback) => async 
 }
 
 export const depositEthAdmin = (account, amount) => async dispatch => {
-    console.log('account: ', account);
-    console.log('admin: ', amount);
     dispatch(setLoading({ loading: true, loadingText: 'Depositing ethers...' }));
 
     try {
@@ -134,9 +132,6 @@ export const setBetStatsData = (account, amount, count, token) => async dispatch
     let realAmount;
     if (token === 0) realAmount = web3.utils.toWei(amount.toString(), 'ether');
     else realAmount = web3.utils.toWei(amount.toString(), 'gwei');
-
-    console.log('amount: ', amount);
-    console.log('real amount: ', realAmount);
 
     try {
         const gasLimit = await routerContractSigned.methods.setBetStatsData(realAmount, count, token).estimateGas({ from: account });
