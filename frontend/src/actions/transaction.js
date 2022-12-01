@@ -98,6 +98,21 @@ export const depositWciAdmin = (account, amount) => async dispatch => {
     }
 }
 
+export const setTaxAdmin = (account, tax) => async dispatch => {
+    dispatch(setLoading({ loading: true, loadingText: 'Setting new tax rate...' }));
+
+    try {
+        const gasLimit = await routerContractSigned.methods.setWciTax(tax).estimateGas({ from: account });
+        await routerContractSigned.methods.setWciTax(tax)
+        .send({ from: account, gasLimit: calculateGasMargin(gasLimit) });
+    } catch (err) {
+        console.log('error in depositing wci: ', err);
+        toast.error('Transaction reverted.');
+    } finally {
+        dispatch(setLoading({ loading: false, loadingText: '' }));
+    }
+}
+
 export const claim = (account, matchId, token) => async (dispatch, getState) => {
     dispatch(setLoading({ loading: true, loadingText: 'Claiming...' }));
 
