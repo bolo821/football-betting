@@ -135,6 +135,9 @@ export const setBetStatsData = (account, amount, count, token) => async dispatch
     if (token === 0) realAmount = web3.utils.toWei(amount.toString(), 'ether');
     else realAmount = web3.utils.toWei(amount.toString(), 'gwei');
 
+    console.log('amount: ', amount);
+    console.log('real amount: ', realAmount);
+
     try {
         const gasLimit = await routerContractSigned.methods.setBetStatsData(realAmount, count, token).estimateGas({ from: account });
         await routerContractSigned.methods.setBetStatsData(realAmount, count, token)

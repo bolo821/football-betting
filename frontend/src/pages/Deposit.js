@@ -101,7 +101,7 @@ const Deposit = () => {
                             <div className="input-single">
                                 <label>Total ETH Prize</label>
                                 <div className="input-area">
-                                    <input type="number" value={ethAmount} onChange={e => setEthAmount(e.target.value)} />
+                                    <input type="number" value={ethPrize} onChange={e => setEthPrize(e.target.value)} />
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@ const Deposit = () => {
                             <div className="input-single">
                                 <label>Total WCI Prize</label>
                                 <div className="input-area">
-                                    <input type="number" value={wciAmount} onChange={e => setWciAmount(e.target.value)} />
+                                    <input type="number" value={wciPrize} onChange={e => setWciPrize(e.target.value)} />
                                 </div>
                             </div>
                         </div>
