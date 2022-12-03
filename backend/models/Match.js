@@ -23,6 +23,10 @@ const MatchSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  team1ScoreOvertime: {
+    type: Number,
+    default: 0,
+  },
   team2Name: {
     type: String,
     required: true,
@@ -39,6 +43,10 @@ const MatchSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  team2ScoreOvertime: {
+    type: Number,
+    default: 0,
+  },
   matchTime: {
     type: String,
     required: true,
@@ -52,14 +60,26 @@ const MatchSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  matchStatusOvertime: {
+    type: Number,
+    default: 0,
+  },
   totalBet: {
+    type: String,
+    default: 0,
+  },
+  totalBetOvertime: {
     type: String,
     default: 0,
   },
   totalBetWci: {
     type: String,
     default: '0',
-  }
+  },
+  totalBetWciOvertime: {
+    type: String,
+    default: '0',
+  },
 });
 
 autoIncrement.initialize(mongoose.connection);

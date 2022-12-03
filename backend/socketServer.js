@@ -40,6 +40,12 @@ module.exports = (server, options) => {
 						if (matches[j].totalBetWci !== totalBetWci[i]) {
 							await Match.findOneAndUpdate({ matchId: matches[j].matchId }, { totalBetWci: totalBetWci[i] });
 						}
+						if (matches[j].totalBetOvertime !== totalBet[i+1]) {
+							await Match.findOneAndUpdate({ matchId: matches[j].matchId }, { totalBetOvertime: totalBet[i+1] });
+						}
+						if (matches[j].totalBetWciOvertime !== totalBetWci[i+1]) {
+							await Match.findOneAndUpdate({ matchId: matches[j].matchId }, { totalBetWciOvertime: totalBetWci[i+1] });
+						}
 					}
 				}
 

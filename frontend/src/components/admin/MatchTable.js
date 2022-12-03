@@ -83,7 +83,7 @@ const MatchTable = props => {
                                 <tbody>
                                     { data.map((ele, index) => (
                                         <tr key={index}>
-                                            { matchType === 'match' ?
+                                            { (matchType === 'match' || matchType === 'overtime') ?
                                                 <td>{ele.team1} / {ele.team2}</td> :
                                                 <td>{ele.betContent}</td>
                                             }
@@ -104,7 +104,7 @@ const MatchTable = props => {
                                                 </button>
                                             </td>
                                             <td>
-                                                { matchType === 'match' || (ele.draw && ele.draw !== '') ?
+                                                { matchType === 'match' || matchType === 'overtime' || (ele.draw && ele.draw !== '') ?
                                                     <button
                                                         type="button"
                                                         className="cmn-btn reg set-bn-rt"

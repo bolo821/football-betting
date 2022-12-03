@@ -36,11 +36,19 @@ const Leagues = () => {
     const betStatus = useSelector(state => state.transaction.betStatus);
     const matches = useSelector(state => state.match.matches);
     const events = useSelector(state => state.event.events);
-    const generals = useSelector(state => state.general.generals);
+    // const generals = useSelector(state => state.general.generals);
     const [tabItems, setTabItems] = useState([]);
 
     useEffect(() => {
         let tmpLeagues = {
+            all: { live: [], inplay: [], completed: [] },
+            uefa: { live: [], inplay: [], completed: [] },
+            uefa_e: { live: [], inplay: [], completed: [] },
+            english_p: { live: [], inplay: [], completed: [] },
+            laliga: { live: [], inplay: [], completed: [] },
+            worldcup: { live: [], inplay: [], completed: [] },
+        }
+        let tmpLeaguesOvertime = {
             all: { live: [], inplay: [], completed: [] },
             uefa: { live: [], inplay: [], completed: [] },
             uefa_e: { live: [], inplay: [], completed: [] },
@@ -56,9 +64,9 @@ const Leagues = () => {
             laliga: { live: [], inplay: [], completed: [] },
             worldcup: { live: [], inplay: [], completed: [] },
         }
-        let tmpGenerals = {
-            live: [], inplay: [], completed: [],
-        }
+        // let tmpGenerals = {
+        //     live: [], inplay: [], completed: [],
+        // }
 
         for (let i=0; i<matches.length; i++) {
             let matchId = matches[i].matchId;
@@ -75,6 +83,24 @@ const Leagues = () => {
             let statusKey = status === 0 ? 'live' : status === 1 ? 'inplay' : 'completed';
             tmpLeagues['all'][statusKey].push(item); 
             tmpLeagues[type][statusKey].push(item);
+        }
+
+        for (let i=0; i<matches.length; i++) {
+            let matchId = matches[i].matchId + 1;
+            let status = matches[i].matchStatusOvertime;
+            let type = matches[i].matchType;
+            let item = {
+                ...matches[i],
+                id: matchId,
+                matchStatus: status,
+                team1: matches[i].team1Name,
+                team2: matches[i].team2Name,
+                time: matches[i].matchTime,
+            };
+
+            let statusKey = status === 0 ? 'live' : status === 1 ? 'inplay' : 'completed';
+            tmpLeaguesOvertime['all'][statusKey].push(item); 
+            tmpLeaguesOvertime[type][statusKey].push(item);
         }
 
         for (let i=0; i<events.length; i++) {
@@ -94,29 +120,40 @@ const Leagues = () => {
             tmpLeagueEvents[type][statusKey].push(item);
         }
 
-        for (let i=0; i<generals.length; i++) {
-            let matchId = generals[i].matchId;
-            let status = generals[i].matchStatus;
-            let item = {
-                ...generals[i],
-                id: matchId,
-                team1: generals[i].team1Name,
-                team2: generals[i].team2Name,
-                draw: generals[i].drawName,
-            };
+        // for (let i=0; i<generals.length; i++) {
+        //     let matchId = generals[i].matchId;
+        //     let status = generals[i].matchStatus;
+        //     let item = {
+        //         ...generals[i],
+        //         id: matchId,
+        //         team1: generals[i].team1Name,
+        //         team2: generals[i].team2Name,
+        //         draw: generals[i].drawName,
+        //     };
 
-            let statusKey = status === 0 ? 'live': status === 1 ? 'inplay' : 'completed';
-            tmpGenerals[statusKey].push(item);
-        }
+        //     let statusKey = status === 0 ? 'live': status === 1 ? 'inplay' : 'completed';
+        //     tmpGenerals[statusKey].push(item);
+        // }
 
         let tmpTabItems = Object.keys(tmpLeagues).map(leagueKey => {
             return {
                 tabId: `id-${leagueKey}-bets-nav-item`,
                 contentId: `id-${leagueKey}-bets`,
-                tabContent: tabTitles[leagueKey],
+                tabContent: "In 90min",
                 contentTitle: tabContentHeaders[leagueKey],
                 matchData: [tmpLeagues[leagueKey]['live'], tmpLeagues[leagueKey]['inplay'], tmpLeagues[leagueKey]['completed']],
                 type: 'match',
+            }
+        });
+
+        let tmpTabItemsOvertime = Object.keys(tmpLeaguesOvertime).map(leagueKey => {
+            return {
+                tabId: `id-${leagueKey}-overtime-bets-nav-item`,
+                contentId: `id-${leagueKey}-overtime-bets`,
+                tabContent: "Overtime",
+                contentTitle: tabContentHeaders[leagueKey],
+                matchData: [tmpLeaguesOvertime[leagueKey]['live'], tmpLeaguesOvertime[leagueKey]['inplay'], tmpLeaguesOvertime[leagueKey]['completed']],
+                type: 'overtime',
             }
         });
 
@@ -131,21 +168,21 @@ const Leagues = () => {
             }
         });
 
-        let tmpTabItemsGeneral = {
-            tabId: 'id-general-bets-nav-item',
-            contentId: 'id-general-bets',
-            tabContent: 'Bitboy',
-            contentTitle: 'Bitboy and SBF',
-            matchData: [tmpGenerals['live'], tmpGenerals['inplay'], tmpGenerals['completed']],
-            type: 'general',
-        }
+        // let tmpTabItemsGeneral = {
+        //     tabId: 'id-general-bets-nav-item',
+        //     contentId: 'id-general-bets',
+        //     tabContent: 'Bitboy',
+        //     contentTitle: 'Bitboy and SBF',
+        //     matchData: [tmpGenerals['live'], tmpGenerals['inplay'], tmpGenerals['completed']],
+        //     type: 'general',
+        // }
 
         // tmpTabItems = tmpTabItems.sort((a, b) => {
         //     if (a.matchData[0].length > b.matchData[0].length) return -1;
         //     else return 1;
         // });
 
-        setTabItems([tmpTabItems[5], tmpTabItemsEvent[5], tmpTabItemsGeneral]);
+        setTabItems([tmpTabItems[5], tmpTabItemsOvertime[5], tmpTabItemsEvent[5]]);
     }, [matches, betStatus, events]);
 
     return (

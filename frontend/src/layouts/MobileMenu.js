@@ -15,7 +15,7 @@ const MobileMenu = ({ isOpen, setIsOpen, path }) => {
             classes={{
                 paper: "mobile-menu-paper-rt"
             }}
-            sx={{'& .mobile-menu-paper-rt': {backgroundColor: '#382590', padding: '30px', width: '100vw', height: '100vh', margin: '0', maxHeight: '100vh'}}}
+            sx={{'& .mobile-menu-paper-rt': {backgroundColor: '#382590', padding: '30px', width: '100vw', maxWidth: '100vw', height: '100vh', margin: '0', maxHeight: '100vh'}}}
         >
             <Stack direction="row" justifyContent="flex-end">
                 <IconButton onClick={() => setIsOpen(false)}>

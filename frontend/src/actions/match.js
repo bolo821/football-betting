@@ -1,12 +1,12 @@
 import { api, SOCKET } from "../config/apis";
 import { toast } from "react-toastify";
 import { SET_MATCH } from "./type";
-import { createMatch } from "./transaction";
+import { createMatch2 } from "./transaction";
 import { setLoading } from "./flow";
 
 export const addMatch = data => async dispatch => {
     try {
-        let createResOnBlockchain = await dispatch(createMatch());
+        let createResOnBlockchain = await dispatch(createMatch2());
 
         if (createResOnBlockchain) {
             const createRes = await api.post('/match', data, {

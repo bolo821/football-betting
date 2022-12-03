@@ -193,6 +193,7 @@ export const claim = (account, matchId, token) => async (dispatch, getState) => 
             
             toast.success('Successfully claimed!!');
             dispatch(getSingleInformation(account, tokenParam));
+            dispatch(getTripleInformation(account, tokenParam));
             SOCKET.emit('CLAIMED');
         }
     } catch (err) {
@@ -213,11 +214,7 @@ export const createMatch = () => async (dispatch, useState) => {
 
         const gasLimit = await routerContractSigned.methods.createOne().estimateGas({ from: account });
         const res = await routerContractSigned.methods.createOne()
-        .send({ from: account, gasLimit: calculateGasMargin(gasLimit) })
-        .catch(err => {
-            console.log('error in create match block: ', err);
-            return false;
-        });
+        .send({ from: account, gasLimit: calculateGasMargin(gasLimit) });
     
         if (res) {
             return true;
@@ -226,6 +223,30 @@ export const createMatch = () => async (dispatch, useState) => {
         }
     } catch (err) {
         toast.error('Transaction reverted.');
+        console.log('error in creating match: ', err);
+        return false;
+    }
+}
+
+export const createMatch2 = () => async (dispatch, useState) => {
+    dispatch(setLoading({ loading: true, loadingText: 'Creating a new match...' }));
+
+    try {
+        const account = useState().user.wallet;
+        if (!account) return false;
+
+        const gasLimit = await routerContractSigned.methods.createMany(2).estimateGas({ from: account });
+        const res = await routerContractSigned.methods.createMany(2)
+        .send({ from: account, gasLimit: calculateGasMargin(gasLimit) });
+            
+        if (res) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        toast.error('Transaction reverted.');
+        console.log('error in creating 2 matches in blockchain: ', err);
         return false;
     }
 }
@@ -373,7 +394,12 @@ export const setBetStatus = (account, matchId, status, type, callback) => async 
         });
     
         if (res) {
-            await api.put(`/${type}/${matchId}`, { matchStatus: status });
+            if (type === 'overtime') {
+                await api.put(`/match/${matchId-1}`, { matchStatusOvertime: status });
+            } else {
+                await api.put(`/${type}/${matchId}`, { matchStatus: status });
+            }
+            
             toast.success('Successfully set the bet status.');
             SOCKET.emit('BET');
         }
@@ -403,7 +429,9 @@ export const setBetResult = (account, data, callback) => async dispatch => {
         if (res) {
             if (matchType === 'match')
                 await api.put(`/match/${matchId}`, { team1Score, team2Score, matchStatus: 2 });
-            else 
+            else if (matchType === 'overtime')
+                await api.put(`/match/${matchId-1}`, { team1ScoreOvertime: team1Score, team2ScoreOvertime: team2Score, matchStatusOvertime: 2 });
+            else
                 await api.put(`/${matchType}/${matchId}`, { matchStatus: 2 });
 
             toast.success('Successfully set the bet result.');
